@@ -1,0 +1,12 @@
+@use "~normalize.css" as *;
+@use "./shared/variables.scss" as *;
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Rubik";
+}
