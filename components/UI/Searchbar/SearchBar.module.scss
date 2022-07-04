@@ -1,0 +1,42 @@
+.searchbar {
+  &_container {
+    display: flex;
+    align-items: center;
+    width: 352.31px;
+    height: 46.34px;
+
+    background: #ffffff;
+    border-radius: 25px;
+
+    & input {
+      width: 100%;
+      height: 100%;
+
+      border-radius: 25px;
+      padding-left: 60px;
+      padding-right: 10px;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+
+      color: rgba(62, 62, 62, 0.7);
+      border: none;
+
+      &::placeholder {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+
+        color: rgba(62, 62, 62, 0.7);
+      }
+    }
+
+    & svg {
+      position: absolute;
+      margin-left: 20px;
+    }
+  }
+}

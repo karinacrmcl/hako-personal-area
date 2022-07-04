@@ -4,8 +4,8 @@ import s from "./Block.module.scss";
 type Props = {
   children: ReactNode;
   title: string;
-  titleAsset: ReactNode;
-  styles: CSSProperties;
+  titleAsset?: ReactNode;
+  styles?: CSSProperties;
 };
 
 export default function Block({ children, title, titleAsset, styles }: Props) {
