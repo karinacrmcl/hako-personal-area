@@ -58,12 +58,12 @@
     transition: all 0.1s;
 
     & svg {
-      fill: #7c6fa9;
+      // fill: #7c6fa9;
       width: 25px;
       height: 25px;
-      & path {
-        fill: #7c6fa9;
-      }
+      // & path {
+      //   fill: #7c6fa9;
+      // }
     }
 
     &:hover {

@@ -1,0 +1,46 @@
+.sorting {
+  &_hint {
+    width: 20px;
+    height: 20px;
+
+    background: #f3f3f3;
+    border-radius: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #192a51;
+
+    cursor: pointer;
+    &_container {
+      display: flex;
+      position: relative;
+    }
+    &_content {
+      position: absolute;
+      width: 250px;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      display: flex;
+      align-items: center;
+
+      color: rgba(62, 62, 62, 0.7);
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 10px;
+      left: 30px;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.section {
+  &_container {
+    display: flex;
+    flex-direction: column;
+
+    grid-gap: 30px;
+  }
+  &_title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 29px;
+    line-height: 34px;
+    display: flex;
+    align-items: center;
+
+    color: #192a51;
+    margin: 0;
+    padding: 0;
+  }
+}
