@@ -38,7 +38,14 @@
     color: #192a51;
     background: #f3f3f3;
     transition: all 0.1s;
-
+    & svg {
+      // fill: #7c6fa9;
+      width: 25px;
+      height: 25px;
+      // & path {
+      //   fill: #7c6fa9;
+      // }
+    }
     &:hover {
       background: darken(#f3f3f3, 3);
       cursor: pointer;

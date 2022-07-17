@@ -1,5 +1,6 @@
 import React from "react";
 import { User } from "../../../@types/entities/User";
+import { btnStyles } from "../../../styles/constants/smallActionBtn";
 import { Button } from "../../UI/Button/Button";
 import { UISvgSelector } from "../../UI/UISvgSelector";
 import s from "./Suggestions.module.scss";
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function SuggestionsItem({
-  user: { id, avatar, fullName, location },
+  user: { avatar, fullName, location },
   onAddUser,
 }: Props) {
   return (
@@ -22,8 +23,8 @@ export default function SuggestionsItem({
         <h5>{fullName}</h5>
         <p>{location}</p>
       </div>
-      <Button onClick={onAddUser} type="unfilled">
-        <UISvgSelector id="user-plus" />
+      <Button onClick={onAddUser} type="unfilled" styles={btnStyles}>
+        <UISvgSelector id="user-add" />
       </Button>
     </div>
   );

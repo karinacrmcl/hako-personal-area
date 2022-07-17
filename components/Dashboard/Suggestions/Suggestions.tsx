@@ -11,7 +11,11 @@ type Props = {
 
 export function Suggestions({ suggestions }: Props) {
   return (
-    <Block title="Suggested for you" titleAsset={<UISvgSelector id="users" />}>
+    <Block
+      title="Suggested for you"
+      titleAsset={<UISvgSelector id="users" />}
+      styles={{ height: "445px" }}
+    >
       <div className={s.suggestions_container}>
         {suggestions.map((item: User) => {
           return (

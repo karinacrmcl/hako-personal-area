@@ -1,0 +1,50 @@
+.suggestions {
+  &_container {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 25px;
+    padding: 30px 0;
+  }
+
+  &_item {
+    display: flex;
+    & button {
+      margin-left: auto;
+    }
+    & img {
+      width: 55px;
+      height: 55px;
+
+      border-radius: 51px;
+      object-fit: cover;
+    }
+    display: flex;
+    align-items: center;
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+
+    & h5 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+
+      color: #323232;
+      margin: 0;
+      padding: 0;
+    }
+    & p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+
+      color: rgba(50, 50, 50, 0.7);
+      margin: 5px 0 0 0;
+      padding: 0;
+    }
+  }
+}
