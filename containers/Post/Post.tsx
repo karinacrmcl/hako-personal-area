@@ -3,6 +3,8 @@ import PostHeader from "../../components/Post/Header/Header";
 import s from "./Post.module.scss";
 import { user } from "../../mocks/user";
 import { PostFooter } from "../../components/Post/Footer/Footer";
+import Heading from "../../components/Post/ContentElements/Heading";
+import Text from "../../components/Post/ContentElements/Text";
 
 type Props = {};
 

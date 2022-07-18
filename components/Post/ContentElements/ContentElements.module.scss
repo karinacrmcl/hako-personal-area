@@ -1,0 +1,35 @@
+.elem {
+  &_title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: #3e3e3e;
+    margin: 0;
+    padding: 0;
+    order: 1;
+  }
+  &_asset {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: rgba(62, 62, 62, 0.7);
+
+    margin: 0;
+    padding: 0;
+
+    order: 1;
+  }
+  &_heading {
+    display: flex;
+    flex-direction: column;
+
+    grid-gap: 6px;
+    &_ontop {
+      order: 0;
+    }
+  }
+}
