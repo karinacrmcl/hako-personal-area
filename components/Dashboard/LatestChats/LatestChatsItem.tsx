@@ -3,6 +3,7 @@ import React from "react";
 import s from "./LatestChats.module.scss";
 import { Chat } from "./LatestChats";
 import { calculateTimeAgo } from "../../../utils/helpers/calculateTimeAgo";
+import { makeSuspensionString } from "../../../utils/common/makeSuspensionString";
 
 type Props = {
   item: Chat;
@@ -18,6 +19,7 @@ export function LatestChatsItem({
   onOpenChat,
 }: Props) {
   const timeSince = calculateTimeAgo(sentAt);
+  const messageContent = makeSuspensionString(content, 35);
 
   return (
     <button onClick={onOpenChat} className={s.chats_item}>
@@ -35,7 +37,7 @@ export function LatestChatsItem({
             [s.chats_message_unread]: messageIsRead,
           })}
         >
-          {content}
+          {messageContent}
         </p>
       </div>
       {messageIsRead && <div className={s.chats_dot} />}

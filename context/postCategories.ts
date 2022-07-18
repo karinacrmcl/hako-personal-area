@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { categoriesSelected } from "../mocks/categoriesSelected";
+import { categoriesSelected } from "../mocks/categories";
 
 export type Categories = Record<string, boolean>;
 

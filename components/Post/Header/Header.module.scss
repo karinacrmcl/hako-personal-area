@@ -1,0 +1,48 @@
+.header {
+  &_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &_postinfo {
+    display: flex;
+    align-items: center;
+    grid-gap: 15px;
+  }
+  &_avatar {
+    & img {
+      width: 55px;
+      height: 55px;
+
+      border-radius: 51px;
+      object-fit: cover;
+    }
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+
+    & h5 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+
+      color: #323232;
+      margin: 0;
+      padding: 0;
+    }
+
+    & p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+
+      color: rgba(50, 50, 50, 0.7);
+      margin: 0;
+      padding: 0;
+      margin-top: 2px;
+    }
+  }
+}

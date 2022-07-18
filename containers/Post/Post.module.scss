@@ -1,0 +1,16 @@
+.post {
+  &_container {
+    height: fit-content;
+    width: 100%;
+
+    padding: 15px 25px;
+
+    display: flex;
+    flex-direction: column;
+    grid-gap: 25px;
+
+    background: #ffffff;
+    border-radius: 25px;
+    margin-top: 26px;
+  }
+}
