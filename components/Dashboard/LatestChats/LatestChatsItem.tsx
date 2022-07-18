@@ -1,49 +1,44 @@
 import classNames from "classnames";
-import React, { useState } from "react";
-import { Categories, useCategories } from "../../../context/postCategories";
+import React from "react";
 import s from "./LatestChats.module.scss";
 import { Chat } from "./LatestChats";
+import { calculateTimeAgo } from "../../../utils/helpers/calculateTimeAgo";
 
 type Props = {
   item: Chat;
-  onAddUser: () => void;
+  onOpenChat: () => void;
 };
 
-// export function LatestChatsItem({ item: { author, message, messageIsRead } }: Props) {
-
-//   const handleSetActive = () => {
-//     setActive(!active);
-//   };
-
-//   return (
-//     <button
-//       className={s.categories_item}
-//       onClick={handleSetActive}
-//     >
-//       <div className={s.categories_icon}>
-//         <CategoriesSvgSelector id={icon} />
-//       </div>
-//       <div className={s.categories_name}>{name}</div>
-//     </button>
-//   );
-// }
-
-export default function LatestChatsItem({
-  item: { avatar, fullName, location },
-  onAddUser,
+export function LatestChatsItem({
+  item: {
+    author: { avatar, fullName },
+    message: { content, sentAt },
+    messageIsRead,
+  },
+  onOpenChat,
 }: Props) {
+  const timeSince = calculateTimeAgo(sentAt);
+
   return (
-    <div className={s.suggestions_item}>
-      <div className={s.suggestions_avatar}>
+    <button onClick={onOpenChat} className={s.chats_item}>
+      <div className={s.chats_avatar}>
         <img src={avatar} alt={`${fullName} avatar`} />
       </div>
-      <div className={s.suggestions_content}>
-        <h5>{fullName}</h5>
-        <p>{location}</p>
+      <div className={s.chats_content}>
+        <div className={s.chats_top}>
+          <h5>{fullName}</h5>
+          <p>{timeSince}</p>
+        </div>
+
+        <p
+          className={classNames(s.chats_message, {
+            [s.chats_message_unread]: messageIsRead,
+          })}
+        >
+          {content}
+        </p>
       </div>
-      <Button onClick={onAddUser} type="unfilled" styles={btnStyles}>
-        <UISvgSelector id="user-add" />
-      </Button>
-    </div>
+      {messageIsRead && <div className={s.chats_dot} />}
+    </button>
   );
 }

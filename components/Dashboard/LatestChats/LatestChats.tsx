@@ -5,10 +5,16 @@ import { UISvgSelector } from "../../UI/UISvgSelector";
 import s from "./LatestChats.module.scss";
 import { LatestChatsItem } from "./LatestChatsItem";
 
+type Message = {
+  content: string;
+  sentAt: Date;
+};
+
 export type Chat = {
   author: User;
-  message: string;
+  message: Message;
   messageIsRead: boolean;
+  id: number;
 };
 
 type Props = { chats: Chat[] };
@@ -23,7 +29,11 @@ export default function LatestChats({ chats }: Props) {
       <div className={s.chats_container}>
         {chats.map((item: Chat) => {
           return (
-            <LatestChatsItem item={item} onOpenChat={() => console.log()} />
+            <LatestChatsItem
+              key={item.id}
+              item={item}
+              onOpenChat={() => console.log()}
+            />
           );
         })}
       </div>

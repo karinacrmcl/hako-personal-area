@@ -19,7 +19,11 @@ export function Suggestions({ suggestions }: Props) {
       <div className={s.suggestions_container}>
         {suggestions.map((item: User) => {
           return (
-            <SuggestionsItem user={item} onAddUser={() => console.log()} />
+            <SuggestionsItem
+              key={item.id}
+              user={item}
+              onAddUser={() => console.log()}
+            />
           );
         })}
       </div>

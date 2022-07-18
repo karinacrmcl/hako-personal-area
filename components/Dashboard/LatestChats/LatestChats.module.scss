@@ -1,0 +1,87 @@
+.chats {
+  &_container {
+    grid-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+  }
+  &_item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  &_avatar {
+    & img {
+      width: 55px;
+      height: 55px;
+      border-radius: 51px;
+      object-fit: cover;
+    }
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    margin-left: 10px;
+  }
+  &_top {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 5px;
+    & h5 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+
+      color: #323232;
+      margin: 0;
+      padding: 0;
+    }
+
+    & p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+
+      color: #7c6fa9;
+      margin: 0;
+      margin-left: 5px;
+      padding: 0;
+    }
+  }
+  &_message {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: rgba(50, 50, 50, 0.7);
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    &_unread {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+
+      color: #323232;
+    }
+  }
+  &_dot {
+    width: 8px;
+    height: 8px;
+
+    background: #192a51;
+    border-radius: 27px;
+    margin-left: auto;
+  }
+}

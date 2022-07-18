@@ -1,4 +1,5 @@
 import React from "react";
+import LatestChats from "../../components/Dashboard/LatestChats/LatestChats";
 import { PostInput } from "../../components/Dashboard/PostInput/PostInput";
 import Sorting from "../../components/Dashboard/Sorting/Sorting";
 import { Suggestions } from "../../components/Dashboard/Suggestions/Suggestions";
@@ -6,6 +7,7 @@ import { SearchBar } from "../../components/UI/Searchbar/SearchBar";
 import { Feed } from "../../containers/Feed/Feed";
 import Header from "../../containers/Header/Header";
 import { Section } from "../../layouts/Section/Section";
+import { chats } from "../../mocks/chats";
 import { suggestions } from "../../mocks/suggestions";
 import { user } from "../../mocks/user";
 import s from "./Dashboard.module.scss";
@@ -23,10 +25,13 @@ export default function Dashboard({}: Props) {
         </div>
         <Section title="Feed">
           <div className={s.dahboard_column}>
-            <PostInput user={user} />
+            <Feed />
           </div>
         </Section>
-        <Suggestions suggestions={suggestions} />
+        <div className={s.dashboard_column}>
+          <Suggestions suggestions={suggestions} />
+          <LatestChats chats={chats} />
+        </div>
       </div>
     </div>
   );
