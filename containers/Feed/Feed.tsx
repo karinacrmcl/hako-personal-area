@@ -9,6 +9,7 @@ export function Feed() {
     <div className={s.feed_container}>
       <PostInput user={user} />
       <Post />
+      <Post />
     </div>
   );
 }

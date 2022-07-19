@@ -2,7 +2,6 @@ import classNames from "classnames";
 import s from "./Footer.module.scss";
 
 export function LikeButton({ isActive }: { isActive: boolean }) {
-  console.log(isActive);
   return (
     <svg
       width="31"
