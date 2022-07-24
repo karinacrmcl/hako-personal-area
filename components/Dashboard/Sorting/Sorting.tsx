@@ -11,11 +11,11 @@ type Props = {
 export default function Sorting({ expanded }: Props) {
   return (
     <Block
-      title="Sorting categories"
-      titleAsset={<Hint />}
+      title={expanded ? "Sorting categories" : "Sort"}
+      titleAsset={expanded && <Hint />}
       styles={{ width: expanded ? "350px" : "85px" }}
     >
-      <Categories categories={postCategories} />
+      <Categories categories={postCategories} expanded={expanded} />
     </Block>
   );
 }

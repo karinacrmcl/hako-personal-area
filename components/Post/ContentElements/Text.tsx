@@ -5,6 +5,6 @@ type Props = {
   content: string;
 };
 
-export default function Text({ content }: Props) {
+export default function PostText({ content }: Props) {
   return <div className={s.elem_text}>{content}</div>;
 }

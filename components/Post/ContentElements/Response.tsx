@@ -3,6 +3,6 @@ import s from "./ContentElements.module.scss";
 
 type Props = {};
 
-export default function Response({}: Props) {
+export default function PostResponse({}: Props) {
   return <div>Response</div>;
 }

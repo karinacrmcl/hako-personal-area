@@ -5,7 +5,7 @@ import { user } from "../../mocks/user";
 import { PostFooter } from "../../components/Post/Footer/Footer";
 import Heading from "../../components/Post/ContentElements/Heading";
 import Text from "../../components/Post/ContentElements/Text";
-import Gallery from "../../components/Post/ContentElements/Gallery";
+import Gallery from "../../components/Post/ContentElements/PhotoGallery";
 
 type Props = {};
 

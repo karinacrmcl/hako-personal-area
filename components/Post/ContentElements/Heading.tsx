@@ -8,7 +8,7 @@ type Props = {
   onTop: "title" | "asset";
 };
 
-export default function Heading({ title, asset, onTop }: Props) {
+export default function PostHeading({ title, asset, onTop }: Props) {
   return (
     <div className={s.elem_heading}>
       {title && (

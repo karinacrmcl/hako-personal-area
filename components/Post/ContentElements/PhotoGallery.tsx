@@ -52,14 +52,6 @@ function Picture({
         style={{ height, width }}
         onClick={() => setIsLightboxOpen(!isLightboxOpen)}
       />
-      {/* <Image
-      width={width}
-         height={height}
-         objectFit="cover"
-        className={s.elem_gallery_previewpicture}
-        src={count === 0 ? previewSrc || originalSrc : originalSrc}
-     /> */}
-
       {isLastVisible && !isExpanded && (
         <button className={s.elem_gallery_morebtn} onClick={showAllPictures}>
           <p>+ {remainingPics}</p>
@@ -69,7 +61,7 @@ function Picture({
   );
 }
 
-export default function Gallery({ items }: Props) {
+export default function PostPhotoGallery({ items }: Props) {
   const imagesCount = items.length;
   const size = getImageSize(imagesCount);
 
