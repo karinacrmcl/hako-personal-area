@@ -7,9 +7,10 @@ import { Category } from "./types";
 
 type Props = {
   item: Category;
+  expanded: boolean;
 };
 
-export function CategoryItem({ item: { name, icon, value } }: Props) {
+export function CategoryItem({ item: { name, icon, value }, expanded }: Props) {
   const { activeCategories, setActiveCategories } = useCategories();
   const [active, setActive] = useState(
     activeCategories[value as keyof typeof activeCategories]
@@ -25,11 +26,20 @@ export function CategoryItem({ item: { name, icon, value } }: Props) {
         [s.categories_item_open]: active,
       })}
       onClick={handleSetActive}
+      style={{
+        width: expanded ? "315px" : "55px",
+        padding: expanded ? "6px" : "none",
+        marginLeft: expanded ? "0" : "-5px",
+      }}
     >
-      <div className={s.categories_icon}>
+      <div
+        className={classNames(s.categories_icon, {
+          [s.categories_icon_open]: active,
+        })}
+      >
         <CategoriesSvgSelector id={icon} />
       </div>
-      <div className={s.categories_name}>{name}</div>
+      {expanded && <div className={s.categories_name}>{name}</div>}
     </button>
   );
 }

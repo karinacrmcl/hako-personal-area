@@ -33,14 +33,18 @@
   &_icon {
     width: 40px;
     height: 40px;
+    background: #5c6a8b;
 
-    background: #192a51;
     border-radius: 45px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
 
+    &_open {
+      background: #192a51;
+    }
     & svg {
       width: 25px;
       height: 25px;
