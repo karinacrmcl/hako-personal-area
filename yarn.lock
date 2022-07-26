@@ -1716,6 +1716,11 @@
     "linkify-it" "^2.2.0"
     "prop-types" "^15.7.2"
 
+"react-hook-form@^7.33.1":
+  "integrity" "sha512-ydTfTxEJdvgjCZBj5DDXRc58oTEfnFupEwwTAQ9FSKzykEJkX+3CiAkGtAMiZG7IPWHuzgT6AOBfogiKhUvKgg=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.33.1.tgz"
+  "version" "7.33.1"
+
 "react-images-viewer@^1.7.1":
   "integrity" "sha512-ZSdIObEO/DJrdOAUaGbWdugQmMEtv69RyaHyiUv8iWyB45bqynBU7ny4ghQkec+3yR/0DgQ4UYX+8LeduNFcpQ=="
   "resolved" "https://registry.npmjs.org/react-images-viewer/-/react-images-viewer-1.7.1.tgz"

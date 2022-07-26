@@ -1,0 +1,42 @@
+.input {
+  &_container {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+  }
+  &_label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #3e3e3e;
+  }
+  & input {
+    width: 400px;
+    height: 45px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: rgba(50, 50, 50, 1);
+
+    border: 1px solid rgba(50, 50, 50, 0.25);
+    border-radius: 10px;
+    background-color: none;
+    transition: all 0.2s;
+    &:focus {
+      border: 1px solid rgba(50, 50, 50, 0.4);
+    }
+    &::placeholder {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+
+      color: rgba(50, 50, 50, 0.6);
+    }
+  }
+}
