@@ -1,0 +1,22 @@
+.service {
+  &_container {
+    width: 400px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid rgba(50, 50, 50, 0.25);
+    border-radius: 10px;
+
+    background-color: none;
+  }
+  &_text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #3e3e3e;
+  }
+}

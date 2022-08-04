@@ -1,0 +1,51 @@
+.form {
+  &_container {
+    display: flex;
+    flex-direction: column;
+  }
+  &_title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 47px;
+
+    color: #192a51;
+  }
+  &_description {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+
+    color: rgba(50, 50, 50, 0.6);
+  }
+  &_actions {
+    display: flex;
+    align-items: center;
+  }
+  &_checkbox {
+  }
+  &_bottomtext {
+    & p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+
+      color: rgba(50, 50, 50, 0.6);
+    }
+  }
+  &_actionbtn {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: #7c6fa9;
+    transition: all 0.2s;
+    &:hover {
+      color: #675b94;
+      cursor: pointer;
+    }
+  }
+}

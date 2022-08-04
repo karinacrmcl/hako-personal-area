@@ -5,8 +5,9 @@ import { Profile } from "./profile/Profile";
 const Home: NextPage = () => {
   return (
     <div>
-      <Profile />
+      {/* <Profile /> */}
       {/* <Dashboard /> */}
+      
     </div>
   );
 };
