@@ -1,5 +1,6 @@
 .form {
   &_container {
+    max-width: 400px;
     display: flex;
     flex-direction: column;
   }
@@ -10,6 +11,9 @@
     line-height: 47px;
 
     color: #192a51;
+    margin: 0;
+
+    padding: 0;
   }
   &_description {
     font-style: normal;
@@ -18,12 +22,37 @@
     line-height: 19px;
 
     color: rgba(50, 50, 50, 0.6);
+    margin: 0;
+    margin-top: 15px;
+    padding: 0;
   }
   &_actions {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin: 15px 0 0 0;
   }
   &_checkbox {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+
+    & p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      display: flex;
+      align-items: center;
+
+      color: #3e3e3e;
+    }
+  }
+  &_inputs {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 15px;
+    margin-top: 30px;
   }
   &_bottomtext {
     & p {
@@ -35,6 +64,13 @@
       color: rgba(50, 50, 50, 0.6);
     }
   }
+  &_buttons {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+  }
   &_actionbtn {
     font-style: normal;
     font-weight: 500;
@@ -43,9 +79,29 @@
 
     color: #7c6fa9;
     transition: all 0.2s;
+
+    border: none;
+    background: none;
+    margin-top: 10px;
     &:hover {
       color: #675b94;
       cursor: pointer;
+    }
+  }
+  &_bottomtext {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    grid-gap: 5px;
+    margin-top: 20px;
+    & p {
+      margin: 0;
+      padding: 0;
+    }
+    & button {
+      margin: 0;
+      padding: 0;
     }
   }
 }

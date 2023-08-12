@@ -20,12 +20,12 @@ function StageForm({ stage }: { stage: string }) {
 }
 
 export function AuthPage({}: Props) {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <div className={s.auth_container}>
       <div className={s.auth_formside}>
-        <StageForm stage={router.pathname} />
+        <StageForm stage="signup" />
       </div>
       <div className={s.auth_logo}>
         <div className={s.auth_logoelem}>

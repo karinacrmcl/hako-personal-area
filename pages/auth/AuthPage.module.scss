@@ -1,0 +1,25 @@
+.auth {
+  &_container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &_formside {
+    background: white;
+    width: 60%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &_logo {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

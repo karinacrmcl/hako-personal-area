@@ -32,6 +32,10 @@
       padding: 15px;
       border: none;
     }
+
+    &_expanded {
+      position: absolute;
+    }
   }
 
   &_buttons {
@@ -42,5 +46,7 @@
     position: absolute;
     right: 15px;
     top: 10px;
+  }
+  &_expanded {
   }
 }
