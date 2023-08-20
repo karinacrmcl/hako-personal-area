@@ -7,12 +7,39 @@ import s from "./Forms.module.scss";
 import { SignUpDto } from "../../../@types/dto/SignUpDto";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./signup-validation";
+import useAppNavigation from "../../../context/navigation/NavigatonContext";
+import { register } from "../../../api/auth";
+import { toast } from "react-toastify";
+import { postUserData } from "../../../api/user";
+import uuid from "react-uuid";
+import { getAuthError } from "../../../utils/validation/getAuthError";
+import { FirebaseError } from "../../../@types/api/firebase";
 
 export default function SignUp() {
-  const signUpHandler = () => {};
+  const { goToHome } = useAppNavigation();
+
+  const signUpHandler = async (data: SignUpDto) => {
+    try {
+      let res = await register(data.email, data.password);
+      postUserData({
+        // @ts-ignore
+        userID: res.user.uid,
+        email: data.email,
+        username: data.username,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
+      goToHome();
+      2;
+      // @ts-ignore
+    } catch (err: FirebaseError) {
+      toast.error(getAuthError(err.message));
+    }
+  };
   const values = useForm<SignUpDto>({
     resolver: yupResolver(schema),
   });
+  const { goToSignIn } = useAppNavigation();
 
   return (
     <FormProvider {...values}>
@@ -21,7 +48,21 @@ export default function SignUp() {
         <h4 className={s.form_description}>
           Welcome! Please create an account.
         </h4>
-        <div className={s.form_inputs}>
+
+        <form
+          className={s.form_inputs}
+          onSubmit={values.handleSubmit(signUpHandler)}
+        >
+          <Input
+            label="First name"
+            name="firstName"
+            placeholder="Enter your first name"
+          />
+          <Input
+            label="Last name"
+            name="lastName"
+            placeholder="Enter your last name"
+          />
           <Input
             label="Username"
             name="username"
@@ -33,17 +74,19 @@ export default function SignUp() {
             name="password"
             placeholder="•••••••••••••••"
           />
-        </div>
+        </form>
 
         <div className={s.form_buttons}>
-          <Button type="filled" onClick={signUpHandler}>
+          <Button type="filled" onClick={values.handleSubmit(signUpHandler)}>
             Sign up
           </Button>
-          <ServiceButton name="google">Sign up with Google</ServiceButton>
+          <ServiceButton onClick={() => null} name="google">
+            Sign up with Google
+          </ServiceButton>
         </div>
         <div className={s.form_bottomtext}>
           <p className={s.form_bottomtext}>Already have an account?</p>
-          <button className={s.form_actionbtn} onClick={() => null}>
+          <button className={s.form_actionbtn} onClick={goToSignIn}>
             Sign in
           </button>
         </div>

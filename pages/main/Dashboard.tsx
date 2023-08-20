@@ -17,7 +17,7 @@ type Props = {};
 export default function Dashboard({}: Props) {
   return (
     <div className={s.dashboard_container}>
-      <Header user={user} />
+      <Header />
       <div className={s.dashboard_content}>
         <div className={s.dashboard_column}>
           <SearchBar />

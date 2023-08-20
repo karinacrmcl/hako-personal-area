@@ -1,15 +1,16 @@
 import type { NextPage } from "next";
-import { AuthPage } from "./auth/AuthPage";
+import { AuthPage } from "../layouts/Auth/ui/AuthPage";
 import Dashboard from "./main/Dashboard";
 import { Profile } from "./profile/Profile";
+import { PrivateLayout } from "../layouts/Auth/PrivateLayout";
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <PrivateLayout>
       {/* <Profile /> */}
       <Dashboard />
       {/* <AuthPage /> */}
-    </div>
+    </PrivateLayout>
   );
 };
 

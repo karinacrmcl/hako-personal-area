@@ -8,14 +8,14 @@ import { ServiceButton } from "../../UI/ServiceButton/ServiceButton";
 import s from "./Forms.module.scss";
 import schema from "./signin-validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useAppNavigation from "../../../context/navigation/NavigatonContext";
 
 type Props = {};
 
 export default function SignIn({}: Props) {
-  const router = useRouter();
   const signInHandler = () => {};
   const goToForgotPassword = () => {};
-  const goToSignUp = () => {};
+  const { goToSignUp } = useAppNavigation();
 
   const values = useForm<SignInDto>({
     resolver: yupResolver(schema),
@@ -50,7 +50,9 @@ export default function SignIn({}: Props) {
           <Button type="filled" onClick={signInHandler}>
             Sign up
           </Button>
-          <ServiceButton name="google">Sign up with Google</ServiceButton>
+          <ServiceButton onClick={() => null} name="google">
+            Sign up with Google
+          </ServiceButton>
         </div>
         <div className={s.form_bottomtext}>
           <p>Don’t have an account?</p>

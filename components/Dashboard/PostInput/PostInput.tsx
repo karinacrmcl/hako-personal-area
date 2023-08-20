@@ -17,8 +17,6 @@ export function PostInput({ user: { avatar } }: Props) {
     }
   };
 
-  const {} = 
-
   return (
     <div
       className={classNames(s.postinput_container, {
