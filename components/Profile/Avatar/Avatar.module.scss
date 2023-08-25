@@ -1,0 +1,25 @@
+.avatar {
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+
+  & img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.fallback {
+  background: #7c6fa9;
+  border-radius: 82px;
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

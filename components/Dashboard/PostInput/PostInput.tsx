@@ -4,6 +4,7 @@ import { PublicationSvgSelector } from "../../Publication/PublicationSvgSelector
 import { Button } from "../../UI/Button/Button";
 import s from "./PostInput.module.scss";
 import classNames from "classnames";
+import { useAnimation } from "../../../context/animation/AnimationContext";
 
 type Props = {
   user: User;
@@ -11,10 +12,13 @@ type Props = {
 
 export function PostInput({ user: { avatar } }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const { setActiveAnimation } = useAnimation();
+
   const expandInputField = () => {
     if (!expanded) {
       setExpanded(true);
     }
+    setActiveAnimation("postinput");
   };
 
   return (

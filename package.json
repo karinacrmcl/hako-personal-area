@@ -32,6 +32,9 @@
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",
     "scss": "^0.2.4",
+    "slate": "^0.94.1",
+    "slate-history": "^0.93.0",
+    "slate-react": "^0.98.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

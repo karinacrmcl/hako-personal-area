@@ -15,3 +15,51 @@
     grid-gap: 25px;
   }
 }
+
+.postinput {
+  opacity: 0.2;
+  z-index: -10;
+  animation: fadeOut 0.5s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
+.hide {
+  z-index: -10;
+  opacity: 0;
+  animation: fadeOutFull 0.5s;
+}
+
+@keyframes fadeOutFull {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.show {
+  position: fixed;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5vh;
+  animation: foldIn 0.3s;
+}
+
+@keyframes foldIn {
+  from {
+    transform: translateY(1000px) translateX(-50%);
+  }
+  to {
+    transform: translateY(0px) translateX(-50%);
+  }
+}

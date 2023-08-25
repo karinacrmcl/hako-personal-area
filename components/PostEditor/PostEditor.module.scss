@@ -1,0 +1,40 @@
+.container {
+  background: white;
+  width: 1020px;
+  height: 85vh;
+
+  margin: 0 auto;
+  border-radius: 25px;
+
+  padding: 35px;
+}
+
+.area {
+  height: 60vh;
+
+  & h2 {
+    color: rgba(50, 50, 50, 0.9);
+    font-family: Rubik;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  & p {
+    color: rgba(50, 50, 50, 0.7);
+    font-family: Rubik;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.label {
+  color: #3e3e3e;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

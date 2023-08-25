@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from "../context/user/UserProvider";
+import { AnimationProvider } from "../context/animation/AnimationProvider";
 
 const DynamicNavigationProvider = dynamic(
   () => import("../context/navigation/NavigationProvider"),
@@ -16,8 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DynamicNavigationProvider>
       <UserProvider>
-        <Component {...pageProps} />;
-        <ToastContainer />
+        <AnimationProvider>
+          <Component {...pageProps} />;
+          <ToastContainer />
+        </AnimationProvider>
       </UserProvider>
     </DynamicNavigationProvider>
   );

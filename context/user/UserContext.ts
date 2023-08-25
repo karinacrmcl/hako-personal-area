@@ -1,16 +1,9 @@
-import React, {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { auth } from "../../firebase/config";
+import React, { createContext, useContext } from "react";
 import { User } from "../../@types/entities/User";
-import { collection, doc, getDoc, getFirestore } from "firebase/firestore";
+import { DocumentData } from "firebase/firestore";
 
 type UserContextType = {
-  user: User | null;
+  user: DocumentData | User | null;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(
