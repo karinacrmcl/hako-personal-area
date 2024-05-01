@@ -15,6 +15,7 @@ export function Suggestions({ suggestions }: Props) {
       title="Suggested for you"
       titleAsset={<UISvgSelector id="users" />}
       styles={{ height: "445px" }}
+      className={s.wrapper}
     >
       <div className={s.suggestions_container}>
         {suggestions.map((item: User) => {

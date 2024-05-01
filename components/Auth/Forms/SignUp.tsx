@@ -8,7 +8,7 @@ import { SignUpDto } from "../../../@types/dto/SignUpDto";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schema from "./signup-validation";
 import useAppNavigation from "../../../context/navigation/NavigatonContext";
-import { register } from "../../../api/auth";
+import { googlesignin, register } from "../../../api/auth";
 import { toast } from "react-toastify";
 import { postUserData } from "../../../api/user";
 import uuid from "react-uuid";
@@ -30,9 +30,9 @@ export default function SignUp() {
         lastName: data.lastName,
       });
       goToHome();
-      2;
       // @ts-ignore
     } catch (err: FirebaseError) {
+      console.log(err);
       toast.error(getAuthError(err.message));
     }
   };
@@ -73,6 +73,7 @@ export default function SignUp() {
             label="Password"
             name="password"
             placeholder="•••••••••••••••"
+            type="password"
           />
         </form>
 
@@ -80,7 +81,7 @@ export default function SignUp() {
           <Button type="filled" onClick={values.handleSubmit(signUpHandler)}>
             Sign up
           </Button>
-          <ServiceButton onClick={() => null} name="google">
+          <ServiceButton onClick={googlesignin} name="google">
             Sign up with Google
           </ServiceButton>
         </div>

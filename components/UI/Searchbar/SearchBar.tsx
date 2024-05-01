@@ -1,12 +1,15 @@
 import React from "react";
 import { UISvgSelector } from "../UISvgSelector";
 import s from "./SearchBar.module.scss";
+import classNames from "classnames";
 
-type Props = {};
-
-export function SearchBar({}: Props) {
+export function SearchBar() {
   return (
-    <div className={s.searchbar_container}>
+    <div
+      className={classNames(s.searchbar_container, {
+        /*       [s.searchbar_expanded]: expanded, */
+      })}
+    >
       <UISvgSelector id="search" />
       <input placeholder="Search" />
     </div>
