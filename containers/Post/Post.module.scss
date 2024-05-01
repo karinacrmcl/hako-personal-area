@@ -1,7 +1,7 @@
 .post {
   &_container {
     height: fit-content;
-    width: 641.49px;
+    width: 100%;
 
     padding: 15px 25px;
 
@@ -12,5 +12,9 @@
     background: #ffffff;
     border-radius: 25px;
     margin-top: 26px;
+
+    @media screen and (min-width: 700px) {
+      width: 641.49px;
+    }
   }
 }

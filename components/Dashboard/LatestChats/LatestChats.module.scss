@@ -85,3 +85,10 @@
     margin-left: auto;
   }
 }
+
+.wrapper {
+  display: none;
+  @media screen and (min-width: 1150px) {
+    display: block;
+  }
+}

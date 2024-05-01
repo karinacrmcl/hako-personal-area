@@ -9,6 +9,7 @@ import s from "./Forms.module.scss";
 import schema from "./signin-validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useAppNavigation from "../../../context/navigation/NavigatonContext";
+import { googlesignin } from "../../../api/auth";
 
 type Props = {};
 
@@ -24,9 +25,9 @@ export default function SignIn({}: Props) {
   return (
     <FormProvider {...values}>
       <div className={s.form_container}>
-        <h2 className={s.form_title}>Welcome</h2>
+        <h2 className={s.form_title}>Welcome back</h2>
         <h4 className={s.form_description}>
-          Welcome! Please create an account.
+          Welcome back! Please enter your details.
         </h4>
 
         <div className={s.form_inputs}>
@@ -48,10 +49,10 @@ export default function SignIn({}: Props) {
         </div>
         <div className={s.form_buttons}>
           <Button type="filled" onClick={signInHandler}>
-            Sign up
+            Sign in
           </Button>
-          <ServiceButton onClick={() => null} name="google">
-            Sign up with Google
+          <ServiceButton onClick={googlesignin} name="google">
+            Sign in with Google
           </ServiceButton>
         </div>
         <div className={s.form_bottomtext}>

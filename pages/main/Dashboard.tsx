@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 import LatestChats from "../../components/Dashboard/LatestChats/LatestChats";
-import { PostInput } from "../../components/Dashboard/PostInput/PostInput";
 import Sorting from "../../components/Dashboard/Sorting/Sorting";
 import { Suggestions } from "../../components/Dashboard/Suggestions/Suggestions";
 import { SearchBar } from "../../components/UI/Searchbar/SearchBar";
@@ -13,11 +12,11 @@ import { suggestions } from "../../mocks/suggestions";
 import s from "./Dashboard.module.scss";
 import { useAnimation } from "../../context/animation/AnimationContext";
 import { PostEditor } from "../../components/PostEditor/PostEditor";
+import { useMediaQuery } from "react-responsive";
 
-type Props = {};
-
-export default function Dashboard({}: Props) {
+export default function Dashboard() {
   const { activeAnimation } = useAnimation();
+  const isLaptop = useMediaQuery({ maxWidth: "1500px" });
 
   return (
     <div className={s.dashboard_container}>
@@ -28,8 +27,8 @@ export default function Dashboard({}: Props) {
         })}
       >
         <div className={s.dashboard_column}>
-          <SearchBar />
-          <Sorting expanded={true} />
+          {!isLaptop && <SearchBar />}
+          <Sorting expanded={!isLaptop} />
         </div>
         <div
           className={classNames({
@@ -47,7 +46,7 @@ export default function Dashboard({}: Props) {
           <LatestChats chats={chats} />
         </div>
       </div>
-      <div
+      {/*  <div
         className={classNames({
           [s.show]: activeAnimation === "postinput",
         })}
@@ -55,7 +54,7 @@ export default function Dashboard({}: Props) {
         <Section title="Publication">
           <PostEditor />
         </Section>
-      </div>
+      </div> */}
     </div>
   );
 }

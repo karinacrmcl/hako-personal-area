@@ -12,18 +12,22 @@ import Avatar from "../../Profile/Avatar/Avatar";
 import Dropdown from "../../UI/Dropdown/Dropdown";
 import { UISvgSelector } from "../../UI/UISvgSelector";
 import { useOutsideCheck } from "../../../hooks/useOutsideClick";
+import { useRouter } from "next/router";
+import { Path } from "../../../constants/routes";
 
 export default function UserPreview() {
   const { user } = useUser();
   const { goToSignUp } = useAppNavigation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const router = useRouter();
 
   function onChats() {
     setIsDropdownOpen(false);
   }
 
   function onMyProfile() {
+    router.push(Path.PROFILE);
     setIsDropdownOpen(false);
   }
 

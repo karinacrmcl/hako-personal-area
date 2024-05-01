@@ -25,6 +25,7 @@ export default function LatestChats({ chats }: Props) {
       title="Latest chats"
       titleAsset={<UISvgSelector id="message" />}
       styles={{ height: "260px" }}
+      className={s.wrapper}
     >
       <div className={s.chats_container}>
         {chats.map((item: Chat) => {
