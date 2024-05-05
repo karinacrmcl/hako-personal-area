@@ -1,0 +1,20 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: -16px;
+  margin-bottom: 8px;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.line {
+  width: 2px;
+  height: 16px;
+  background: #a7a7a7;
+  border-radius: 100px;
+}

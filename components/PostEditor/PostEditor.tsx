@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import s from "./PostEditor.module.scss";
 import { Slate, Editable, withReact } from "slate-react";
 import {
@@ -12,11 +12,35 @@ import {
 } from "slate";
 import { withHistory } from "slate-history";
 import { ParagraphElement, TitleElement } from "./custom-types";
+import { Toolbar } from "./Toolbar/Toolbar";
+import MarkButton from "./MarkButton/MarkButton";
+import { Value } from "slate";
+import { Button } from "../UI/Button/Button";
+
+const Leaf = ({ attributes, children, leaf }) => {
+  if (leaf.bold) {
+    children = <strong>{children}</strong>;
+  }
+
+  if (leaf.code) {
+    children = <code>{children}</code>;
+  }
+
+  if (leaf.italic) {
+    children = <em>{children}</em>;
+  }
+
+  if (leaf.underline) {
+    children = <u>{children}</u>;
+  }
+
+  return <span {...attributes}>{children}</span>;
+};
 
 const withLayout = (editor) => {
   const { normalizeNode } = editor;
 
-  editor.normalizeNode = ([node, path]) => {
+  /*   editor.normalizeNode = ([node, path]) => {
     if (path.length === 0) {
       if (editor.children.length <= 1 && Editor.string(editor, [0, 0]) === "") {
         const title: TitleElement = {
@@ -51,7 +75,7 @@ const withLayout = (editor) => {
 
         switch (slateIndex) {
           case 0:
-            type = "title";
+            type = "heading-one";
             enforceType(type);
             break;
           case 1:
@@ -64,7 +88,7 @@ const withLayout = (editor) => {
     }
 
     return normalizeNode([node, path]);
-  };
+  }; */
 
   return editor;
 };
@@ -75,43 +99,131 @@ export const PostEditor = () => {
     () => withLayout(withHistory(withReact(createEditor()))),
     []
   );
+  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
+  const [value, setValue] = useState(initialValue);
+
   return (
     <div className={s.container}>
-      <Slate editor={editor} initialValue={initialValue}>
+      <Slate
+        editor={editor}
+        initialValue={initialValue}
+        onChange={(value) => {
+          setValue(value);
+        }}
+      >
+        <Toolbar>
+          <MarkButton format="bold" icon="format_bold" />
+          <MarkButton format="italic" icon="format_italic" />
+          <MarkButton format="underline" icon="format_underlined" />
+          {/*  <MarkButton format="code" icon="code" />
+          <BlockButton format="heading-one" icon="looks_one" />
+          <BlockButton format="heading-two" icon="looks_two" />
+          <BlockButton format="block-quote" icon="format_quote" />
+          <BlockButton format="numbered-list" icon="format_list_numbered" />
+          <BlockButton format="bulleted-list" icon="format_list_bulleted" />
+          <BlockButton format="left" icon="format_align_left" />
+          <BlockButton format="center" icon="format_align_center" />
+          <BlockButton format="right" icon="format_align_right" />
+          <BlockButton format="justify" icon="format_align_justify" /> */}
+        </Toolbar>
         <Editable
+          style={{ outline: "none" }}
           renderElement={renderElement}
+          renderLeaf={renderLeaf}
           className={s.area}
-          placeholder="Enter a title…"
-          spellCheck
+          //  spellCheck
           autoFocus
         />
       </Slate>
+      <Button onClick={() => console.log(value)} type="filled">
+        Post
+      </Button>
     </div>
   );
 };
 
-const Element = ({ attributes, children, element }) => {
+/* const Element = ({ attributes, children, element }) => {
   switch (element.type) {
     case "title":
       return (
         <>
-          <label className={s.label}>Title</label>
+          <label
+            style={{ userSelect: "none" }}
+            contentEditable={false}
+            className={s.label}
+          >
+            Title
+          </label>
           <h2 {...attributes}>{children}</h2>
         </>
       );
     case "paragraph":
       return (
         <>
-          <label className={s.label}>Content</label>
+          <label
+            style={{ userSelect: "none" }}
+            contentEditable={false}
+            className={s.label}
+          >
+            Content
+          </label>
           <p {...attributes}>{children}</p>
         </>
+      );
+  }
+}; */
+
+const Element = ({ attributes, children, element }) => {
+  const style = { textAlign: element.align };
+  switch (element.type) {
+    case "block-quote":
+      return (
+        <blockquote style={style} {...attributes}>
+          {children}
+        </blockquote>
+      );
+    case "bulleted-list":
+      return (
+        <ul style={style} {...attributes}>
+          {children}
+        </ul>
+      );
+    case "heading-one":
+      return (
+        <p style={{ ...style, fontSize: 24, fontWeight: 700 }} {...attributes}>
+          {children}
+        </p>
+      );
+    case "heading-two":
+      return (
+        <h2 style={style} {...attributes}>
+          {children}
+        </h2>
+      );
+    case "list-item":
+      return (
+        <li style={style} {...attributes}>
+          {children}
+        </li>
+      );
+    case "numbered-list":
+      return (
+        <ol style={style} {...attributes}>
+          {children}
+        </ol>
+      );
+    default:
+      return (
+        <p style={style} {...attributes}>
+          {children}
+        </p>
       );
   }
 };
 
 const initialValue: Descendant[] = [
   {
-    type: "title",
+    type: "heading-one",
     children: [{ text: "Name your article..." }],
   },
   {

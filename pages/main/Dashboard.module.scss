@@ -28,7 +28,7 @@
 }
 
 .postinput {
-  opacity: 0.2;
+  opacity: 0.1;
   z-index: -10;
   animation: fadeOut 0.5s;
 }
@@ -57,7 +57,8 @@
   }
 }
 
-.show {
+.post_show {
+  width: 100%;
   position: fixed;
   margin: 0 auto;
   left: 50%;
@@ -73,4 +74,13 @@
   to {
     transform: translateY(0px) translateX(-50%);
   }
+}
+
+.post_editor {
+  transform: translateY(-5000px);
+}
+
+.post_section {
+  width: 100%;
+  padding: 20px 20px;
 }
