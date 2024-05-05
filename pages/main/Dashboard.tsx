@@ -18,6 +18,8 @@ export default function Dashboard() {
   const { activeAnimation } = useAnimation();
   const isLaptop = useMediaQuery({ maxWidth: "1500px" });
 
+  console.log(activeAnimation);
+
   return (
     <div className={s.dashboard_container}>
       <Header />
@@ -46,15 +48,16 @@ export default function Dashboard() {
           <LatestChats chats={chats} />
         </div>
       </div>
-      {/*  <div
+      <div
         className={classNames({
-          [s.show]: activeAnimation === "postinput",
+          [s.post_show]: activeAnimation === "postinput",
+          [s.post_editor]: activeAnimation !== "postinput",
         })}
       >
-        <Section title="Publication">
+        <Section title="Publication" className={s.post_section}>
           <PostEditor />
         </Section>
-      </div> */}
+      </div>
     </div>
   );
 }

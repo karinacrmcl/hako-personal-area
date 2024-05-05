@@ -1,5 +1,6 @@
 import React, { CSSProperties, ReactNode } from "react";
 import s from "./Button.module.scss";
+import classNames from "classnames";
 
 type Props = {
   type: "filled" | "unfilled" | "small";
@@ -7,6 +8,7 @@ type Props = {
   styles?: CSSProperties;
   HTMLType?: "button" | "submit" | "reset";
   onClick: () => void;
+  className?: string;
 };
 
 export function Button({
@@ -15,12 +17,13 @@ export function Button({
   styles = {},
   HTMLType = "button",
   onClick,
+  className,
 }: Props) {
   return (
     <button
       style={{ ...styles }}
       type={HTMLType}
-      className={s[`button_${type}`]}
+      className={classNames(s[`button_${type}`], className)}
       onClick={onClick}
     >
       {children}
