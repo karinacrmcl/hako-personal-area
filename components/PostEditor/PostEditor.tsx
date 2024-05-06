@@ -16,6 +16,9 @@ import { Toolbar } from "./Toolbar/Toolbar";
 import MarkButton from "./MarkButton/MarkButton";
 import { Value } from "slate";
 import { Button } from "../UI/Button/Button";
+import MediaBar from "./MediaBar/MediaBar";
+import { usePostContext } from "../../context/post-editor/PostEditorContext";
+import Whiteboard from "./Whiteboard/Whiteboard";
 
 const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
@@ -102,20 +105,23 @@ export const PostEditor = () => {
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const [value, setValue] = useState(initialValue);
 
+  const { postEditorState } = usePostContext();
+
   return (
     <div className={s.container}>
-      <Slate
-        editor={editor}
-        initialValue={initialValue}
-        onChange={(value) => {
-          setValue(value);
-        }}
-      >
-        <Toolbar>
-          <MarkButton format="bold" icon="format_bold" />
-          <MarkButton format="italic" icon="format_italic" />
-          <MarkButton format="underline" icon="format_underlined" />
-          {/*  <MarkButton format="code" icon="code" />
+      {postEditorState === "initial" && (
+        <Slate
+          editor={editor}
+          initialValue={initialValue}
+          onChange={(value) => {
+            setValue(value);
+          }}
+        >
+          <Toolbar>
+            <MarkButton format="bold" icon="format_bold" />
+            <MarkButton format="italic" icon="format_italic" />
+            <MarkButton format="underline" icon="format_underlined" />0
+            {/*  <MarkButton format="code" icon="code" />
           <BlockButton format="heading-one" icon="looks_one" />
           <BlockButton format="heading-two" icon="looks_two" />
           <BlockButton format="block-quote" icon="format_quote" />
@@ -125,19 +131,23 @@ export const PostEditor = () => {
           <BlockButton format="center" icon="format_align_center" />
           <BlockButton format="right" icon="format_align_right" />
           <BlockButton format="justify" icon="format_align_justify" /> */}
-        </Toolbar>
-        <Editable
-          style={{ outline: "none" }}
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          className={s.area}
-          //  spellCheck
-          autoFocus
-        />
-      </Slate>
-      <Button onClick={() => console.log(value)} type="filled">
-        Post
-      </Button>
+          </Toolbar>
+
+          <Editable
+            style={{ outline: "none" }}
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            className={s.area}
+            //  spellCheck
+            autoFocus
+          />
+          <Button onClick={() => console.log(value)} type="filled">
+            Post
+          </Button>
+        </Slate>
+      )}
+      {postEditorState === "whiteboard" && <Whiteboard />}
+      <MediaBar />
     </div>
   );
 };
