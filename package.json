@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@excalidraw/excalidraw": "^0.17.6",
     "@hookform/resolvers": "^2.9.7",
     "@reduxjs/toolkit": "^1.9.5",
     "classnames": "^2.3.1",

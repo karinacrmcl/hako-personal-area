@@ -13,6 +13,7 @@ import s from "./Dashboard.module.scss";
 import { useAnimation } from "../../context/animation/AnimationContext";
 import { PostEditor } from "../../components/PostEditor/PostEditor";
 import { useMediaQuery } from "react-responsive";
+import { PostEditorProvider } from "../../context/post-editor/PostEditorProvider";
 
 export default function Dashboard() {
   const { activeAnimation } = useAnimation();
@@ -48,16 +49,18 @@ export default function Dashboard() {
           <LatestChats chats={chats} />
         </div>
       </div>
-      <div
-        className={classNames({
-          [s.post_show]: activeAnimation === "postinput",
-          [s.post_editor]: activeAnimation !== "postinput",
-        })}
-      >
-        <Section title="Publication" className={s.post_section}>
-          <PostEditor />
-        </Section>
-      </div>
+      <PostEditorProvider>
+        <div
+          className={classNames({
+            [s.post_show]: activeAnimation === "postinput",
+            [s.post_editor]: activeAnimation !== "postinput",
+          })}
+        >
+          <Section title="Publication" className={s.post_section}>
+            <PostEditor />
+          </Section>
+        </div>
+      </PostEditorProvider>
     </div>
   );
 }
