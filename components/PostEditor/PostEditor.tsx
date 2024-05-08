@@ -1,5 +1,11 @@
 // @ts-nocheck
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import s from "./PostEditor.module.scss";
 import { Slate, Editable, withReact } from "slate-react";
 import {
@@ -19,6 +25,7 @@ import { Button } from "../UI/Button/Button";
 import MediaBar from "./MediaBar/MediaBar";
 import { usePostContext } from "../../context/post-editor/PostEditorContext";
 import Whiteboard from "./Whiteboard/Whiteboard";
+import Drawing from "./Drawing/Drawing";
 
 const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
@@ -120,17 +127,7 @@ export const PostEditor = () => {
           <Toolbar>
             <MarkButton format="bold" icon="format_bold" />
             <MarkButton format="italic" icon="format_italic" />
-            <MarkButton format="underline" icon="format_underlined" />0
-            {/*  <MarkButton format="code" icon="code" />
-          <BlockButton format="heading-one" icon="looks_one" />
-          <BlockButton format="heading-two" icon="looks_two" />
-          <BlockButton format="block-quote" icon="format_quote" />
-          <BlockButton format="numbered-list" icon="format_list_numbered" />
-          <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-          <BlockButton format="left" icon="format_align_left" />
-          <BlockButton format="center" icon="format_align_center" />
-          <BlockButton format="right" icon="format_align_right" />
-          <BlockButton format="justify" icon="format_align_justify" /> */}
+            <MarkButton format="underline" icon="format_underlined" />
           </Toolbar>
 
           <Editable
@@ -138,10 +135,14 @@ export const PostEditor = () => {
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             className={s.area}
-            //  spellCheck
             autoFocus
           />
-          <Button onClick={() => console.log(value)} type="filled">
+          <Drawing />
+          <Button
+            onClick={() => console.log(value)}
+            type="filled"
+            className={s.button}
+          >
             Post
           </Button>
         </Slate>

@@ -3,6 +3,8 @@ import React, { createContext, useContext } from "react";
 export type PostContextType = {
   postEditorState: "initial" | "whiteboard";
   setPostEditorState: (st: "initial" | "whiteboard") => void;
+  setDrawingSvg: (svg: SVGSVGElement) => void;
+  svgDrawing: SVGSVGElement | null;
 };
 
 export const PostContext = createContext<PostContextType | undefined>(
