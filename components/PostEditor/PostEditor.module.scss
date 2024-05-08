@@ -15,11 +15,10 @@
 }
 
 .area {
-  height: 60vh;
+  height: 40vh;
 
   & h2 {
     color: rgba(50, 50, 50, 0.9);
-    font-family: Rubik;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -28,7 +27,6 @@
 
   & p {
     color: rgba(50, 50, 50, 0.7);
-    font-family: Rubik;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -42,4 +40,21 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.drawing {
+  border: 1px solid #c0bfbf;
+  border-radius: 25px;
+  padding: 20px;
+  & svg {
+    height: 100%;
+    width: 100%;
+    max-height: 25vh;
+  }
 }
