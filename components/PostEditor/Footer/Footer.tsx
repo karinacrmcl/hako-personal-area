@@ -5,14 +5,21 @@ import s from "./Footer.module.scss";
 import React from "react";
 import { Button } from "../../UI/Button/Button";
 import { Descendant } from "slate";
+import { addUserPost } from "../../../api/user";
 
 type Props = {
   value: Descendant[];
   maxLength: number;
   characters: number;
+  handlePost: () => void;
 };
 
-export default function Footer({ value, maxLength, characters }: Props) {
+export default function Footer({
+  value,
+  maxLength,
+  characters,
+  handlePost,
+}: Props) {
   const getCharCount = (arr: Descendant[]) => {
     return arr?.reduce((total, obj) => {
       return (
@@ -45,11 +52,7 @@ export default function Footer({ value, maxLength, characters }: Props) {
           >
             Cancel
           </Button>
-          <Button
-            onClick={() => console.log(value)}
-            type="filled"
-            className={s.button}
-          >
+          <Button onClick={handlePost} type="filled" className={s.button}>
             Post
           </Button>
         </div>

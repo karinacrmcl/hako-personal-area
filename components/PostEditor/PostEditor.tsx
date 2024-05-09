@@ -30,6 +30,8 @@ import { Element } from "./Slate/Element";
 import { Leaf } from "./Slate/Leaf";
 import Footer from "./Footer/Footer";
 import useInitialData from "./useInitialData";
+import { addUserPost } from "../../api/user";
+import { useUser } from "../../context/user/UserContext";
 
 const MAX_LENGTH = 1500;
 
@@ -49,8 +51,9 @@ export const PostEditor = () => {
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const [value, setValue] = useState(initialData);
   const [characters, setCharacters] = useState(0);
+  const { user } = useUser();
 
-  const { postEditorState } = usePostContext();
+  const { postEditorState, drawing, postCategory } = usePostContext();
 
   const getCharCount = (arr: Record<string, string>[]) => {
     return arr?.reduce((total, obj) => {
@@ -77,12 +80,26 @@ export const PostEditor = () => {
     return editor.children;
   }, [editor, initialData]);
 
+  const handlePost = () => {
+    const postObject = {
+      userID: user?.userID || "",
+      content: JSON.stringify(value),
+      drawing: {
+        rawData: JSON.stringify(drawing?.data),
+        svg: drawing.svg?.outerHTML,
+      },
+      postCategory,
+    };
+
+    addUserPost(postObject);
+  };
+
   return (
     <div className={s.container}>
       {postEditorState === "initial" && (
         <Slate
           editor={editor}
-          value={slateValue} // now normalized
+          value={slateValue}
           initialValue={slateValue}
           onChange={(value) => {
             setValue(value);
@@ -116,6 +133,7 @@ export const PostEditor = () => {
             characters={characters}
             maxLength={MAX_LENGTH}
             value={value}
+            handlePost={handlePost}
           />
           <MediaBar />
         </Slate>
