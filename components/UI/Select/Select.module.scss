@@ -1,6 +1,6 @@
 .container {
   width: fit-content;
-  min-width: 200px;
+  min-width: 250px;
   max-height: 50px;
 
   display: flex;
@@ -79,6 +79,7 @@
 
 .button {
   cursor: pointer;
+  margin-right: 5px;
 
   transform: rotate(0deg);
   &_open {

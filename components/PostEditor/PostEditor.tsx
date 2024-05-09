@@ -8,7 +8,12 @@ import React, {
 } from "react";
 import s from "./PostEditor.module.scss";
 import { Slate, Editable, withReact } from "slate-react";
-import { createEditor, Element as SlateElement, Descendant } from "slate";
+import {
+  createEditor,
+  Element as SlateElement,
+  Descendant,
+  Editor,
+} from "slate";
 import { withHistory } from "slate-history";
 import { ParagraphElement, TitleElement } from "./custom-types";
 import { Toolbar } from "./Toolbar/Toolbar";
@@ -21,28 +26,12 @@ import Whiteboard from "./Whiteboard/Whiteboard";
 import Drawing from "./Uploaded/Drawing/Drawing";
 import CategorySelect from "./CategorySelect/CategorySelect";
 import classNames from "classnames";
+import { Element } from "./Slate/Element";
+import { Leaf } from "./Slate/Leaf";
+import Footer from "./Footer/Footer";
+import useInitialData from "./useInitialData";
 
 const MAX_LENGTH = 1500;
-
-const Leaf = ({ attributes, children, leaf }) => {
-  if (leaf.bold) {
-    children = <strong>{children}</strong>;
-  }
-
-  if (leaf.code) {
-    children = <code>{children}</code>;
-  }
-
-  if (leaf.italic) {
-    children = <em>{children}</em>;
-  }
-
-  if (leaf.underline) {
-    children = <u>{children}</u>;
-  }
-
-  return <span {...attributes}>{children}</span>;
-};
 
 const withLayout = (editor) => {
   const { normalizeNode } = editor;
@@ -55,8 +44,10 @@ export const PostEditor = () => {
     () => withLayout(withHistory(withReact(createEditor()))),
     []
   );
+  const { initialData } = useInitialData();
+
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initialData);
   const [characters, setCharacters] = useState(0);
 
   const { postEditorState } = usePostContext();
@@ -80,12 +71,19 @@ export const PostEditor = () => {
     }
   }, [value]);
 
+  const slateValue = useMemo(() => {
+    editor.children = initialData;
+    Editor.normalize(editor, { force: true });
+    return editor.children;
+  }, [editor, initialData]);
+
   return (
     <div className={s.container}>
       {postEditorState === "initial" && (
         <Slate
           editor={editor}
-          initialValue={initialValue}
+          value={slateValue} // now normalized
+          initialValue={slateValue}
           onChange={(value) => {
             setValue(value);
           }}
@@ -114,34 +112,11 @@ export const PostEditor = () => {
           />
           <Drawing />
 
-          <div className={s.footer}>
-            <CategorySelect />
-            <div className={s.footer_data}>
-              <p
-                className={classNames(s.limit, {
-                  [s.limit_reached]: getCharCount(value) >= MAX_LENGTH,
-                })}
-              >
-                {characters} / {MAX_LENGTH}
-              </p>
-              <div className={s.footer_buttons}>
-                <Button
-                  onClick={() => console.log(value)}
-                  type="unfilled"
-                  className={s.button_secondary}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  onClick={() => console.log(value)}
-                  type="filled"
-                  className={s.button}
-                >
-                  Post
-                </Button>
-              </div>
-            </div>
-          </div>
+          <Footer
+            characters={characters}
+            maxLength={MAX_LENGTH}
+            value={value}
+          />
           <MediaBar />
         </Slate>
       )}
@@ -149,66 +124,3 @@ export const PostEditor = () => {
     </div>
   );
 };
-
-const Element = ({ attributes, children, element }) => {
-  const style = { textAlign: element.align };
-  switch (element.type) {
-    case "block-quote":
-      return (
-        <blockquote style={style} {...attributes}>
-          {children}
-        </blockquote>
-      );
-    case "bulleted-list":
-      return (
-        <ul style={style} {...attributes}>
-          {children}
-        </ul>
-      );
-    case "heading-one":
-      return (
-        <p style={{ ...style, fontSize: 24, fontWeight: 700 }} {...attributes}>
-          {children}
-        </p>
-      );
-    case "heading-two":
-      return (
-        <h2 style={style} {...attributes}>
-          {children}
-        </h2>
-      );
-    case "list-item":
-      return (
-        <li style={style} {...attributes}>
-          {children}
-        </li>
-      );
-    case "numbered-list":
-      return (
-        <ol style={style} {...attributes}>
-          {children}
-        </ol>
-      );
-    default:
-      return (
-        <p style={style} {...attributes}>
-          {children}
-        </p>
-      );
-  }
-};
-
-const initialValue: Descendant[] = [
-  {
-    type: "heading-one",
-    children: [{ text: "Name your article..." }],
-  },
-  {
-    type: "paragraph",
-    children: [
-      {
-        text: "What would you like to post?",
-      },
-    ],
-  },
-];
