@@ -1,8 +1,8 @@
 import React from "react";
 import { useSlate } from "slate-react";
-import { Button } from "../../UI/Button/Button";
+import { Button } from "../../../UI/Button/Button";
 import { Editor } from "slate";
-import { UISvgSelector } from "../../UI/UISvgSelector";
+import { UISvgSelector } from "../../../UI/UISvgSelector";
 import s from "./MarkButton.module.scss";
 
 type Props = {
