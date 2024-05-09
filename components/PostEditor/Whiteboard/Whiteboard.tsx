@@ -12,7 +12,7 @@ const Excalidraw = dynamic(
   }
 );
 
-let exportToSvg;
+let exportToSvg: any;
 
 (async () => {
   const excalidrawModule = await import("@excalidraw/excalidraw");
@@ -23,31 +23,34 @@ const options = {
   welcomeScreen: false,
 };
 
-const initialData: ImportedDataState = {
-  elements: [],
-  appState: { viewBackgroundColor: "#ffffff", currentItemFontFamily: 1 },
-  scrollToContent: true,
-};
-
 export default function Whiteboard() {
-  const { setDrawingSvg, setPostEditorState } = usePostContext();
+  const { setDrawingSvg, setPostEditorState, drawing } = usePostContext();
   const [excalidrawAPI, setExcalidrawAPI] =
     useState<ExcalidrawImperativeAPI | null>(null);
 
+  const initialData: ImportedDataState = {
+    elements: drawing?.data,
+    appState: { viewBackgroundColor: "#ffffff", currentItemFontFamily: 1 },
+    scrollToContent: true,
+  };
+
   const handleSaveThePicture = async () => {
     const svg = await exportToSvg({
-      elements: excalidrawAPI.getSceneElements(),
+      elements: excalidrawAPI?.getSceneElements(),
       appState: {
         ...initialData.appState,
       },
     });
-    console.log(svg);
-    setDrawingSvg(svg);
+    setDrawingSvg({ svg, data: excalidrawAPI?.getSceneElements() });
+    setPostEditorState("initial");
+  };
+
+  const handleGoBack = () => {
     setPostEditorState("initial");
   };
 
   return (
-    <div style={{ width: "100%", height: "100%" }} className={s.container}>
+    <div className={s.container}>
       <Excalidraw
         excalidrawAPI={(api) => {
           setExcalidrawAPI(api);
@@ -55,6 +58,13 @@ export default function Whiteboard() {
         UIOptions={options}
         initialData={initialData}
       />
+      <Button
+        type="unfilled"
+        className={s.button_secondary}
+        onClick={handleGoBack}
+      >
+        Go Back
+      </Button>
       <Button type="filled" className={s.button} onClick={handleSaveThePicture}>
         Save the drawing
       </Button>

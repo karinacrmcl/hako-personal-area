@@ -8,24 +8,21 @@ import React, {
 } from "react";
 import s from "./PostEditor.module.scss";
 import { Slate, Editable, withReact } from "slate-react";
-import {
-  Transforms,
-  createEditor,
-  Node,
-  Element as SlateElement,
-  Descendant,
-  Editor,
-} from "slate";
+import { createEditor, Element as SlateElement, Descendant } from "slate";
 import { withHistory } from "slate-history";
 import { ParagraphElement, TitleElement } from "./custom-types";
 import { Toolbar } from "./Toolbar/Toolbar";
-import MarkButton from "./MarkButton/MarkButton";
+import MarkButton from "./Toolbar/MarkButton/MarkButton";
 import { Value } from "slate";
 import { Button } from "../UI/Button/Button";
 import MediaBar from "./MediaBar/MediaBar";
 import { usePostContext } from "../../context/post-editor/PostEditorContext";
 import Whiteboard from "./Whiteboard/Whiteboard";
-import Drawing from "./Drawing/Drawing";
+import Drawing from "./Uploaded/Drawing/Drawing";
+import CategorySelect from "./CategorySelect/CategorySelect";
+import classNames from "classnames";
+
+const MAX_LENGTH = 1500;
 
 const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
@@ -49,57 +46,6 @@ const Leaf = ({ attributes, children, leaf }) => {
 
 const withLayout = (editor) => {
   const { normalizeNode } = editor;
-
-  /*   editor.normalizeNode = ([node, path]) => {
-    if (path.length === 0) {
-      if (editor.children.length <= 1 && Editor.string(editor, [0, 0]) === "") {
-        const title: TitleElement = {
-          type: "title",
-          children: [{ text: "Untitled" }],
-        };
-        Transforms.insertNodes(editor, title, {
-          at: path.concat(0),
-          select: true,
-        });
-      }
-
-      if (editor.children.length < 2) {
-        const paragraph: ParagraphElement = {
-          type: "paragraph",
-          children: [{ text: "" }],
-        };
-        Transforms.insertNodes(editor, paragraph, { at: path.concat(1) });
-      }
-
-      for (const [child, childPath] of Node.children(editor, path)) {
-        let type: string;
-        const slateIndex = childPath[0];
-        const enforceType = (type) => {
-          if (SlateElement.isElement(child) && child.type !== type) {
-            const newProperties: Partial<SlateElement> = { type };
-            Transforms.setNodes<SlateElement>(editor, newProperties, {
-              at: childPath,
-            });
-          }
-        };
-
-        switch (slateIndex) {
-          case 0:
-            type = "heading-one";
-            enforceType(type);
-            break;
-          case 1:
-            type = "paragraph";
-            enforceType(type);
-          default:
-            break;
-        }
-      }
-    }
-
-    return normalizeNode([node, path]);
-  }; */
-
   return editor;
 };
 
@@ -111,8 +57,28 @@ export const PostEditor = () => {
   );
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const [value, setValue] = useState(initialValue);
+  const [characters, setCharacters] = useState(0);
 
   const { postEditorState } = usePostContext();
+
+  const getCharCount = (arr: Record<string, string>[]) => {
+    return arr?.reduce((total, obj) => {
+      return (
+        total +
+        (obj?.children
+          ? obj?.children?.reduce((acc, child) => {
+              return acc + (child.text ? child.text.length : 0);
+            }, 0)
+          : 0)
+      );
+    }, 0);
+  };
+
+  useEffect(() => {
+    if (value) {
+      setCharacters(getCharCount(value));
+    }
+  }, [value]);
 
   return (
     <div className={s.container}>
@@ -136,53 +102,53 @@ export const PostEditor = () => {
             renderLeaf={renderLeaf}
             className={s.area}
             autoFocus
+            onKeyDown={(event) => {
+              if (
+                getCharCount(value) >= MAX_LENGTH &&
+                event?.key !== "Backspace"
+              ) {
+                event?.preventDefault();
+                return false;
+              }
+            }}
           />
           <Drawing />
-          <Button
-            onClick={() => console.log(value)}
-            type="filled"
-            className={s.button}
-          >
-            Post
-          </Button>
+
+          <div className={s.footer}>
+            <CategorySelect />
+            <div className={s.footer_data}>
+              <p
+                className={classNames(s.limit, {
+                  [s.limit_reached]: getCharCount(value) >= MAX_LENGTH,
+                })}
+              >
+                {characters} / {MAX_LENGTH}
+              </p>
+              <div className={s.footer_buttons}>
+                <Button
+                  onClick={() => console.log(value)}
+                  type="unfilled"
+                  className={s.button_secondary}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => console.log(value)}
+                  type="filled"
+                  className={s.button}
+                >
+                  Post
+                </Button>
+              </div>
+            </div>
+          </div>
+          <MediaBar />
         </Slate>
       )}
       {postEditorState === "whiteboard" && <Whiteboard />}
-      <MediaBar />
     </div>
   );
 };
-
-/* const Element = ({ attributes, children, element }) => {
-  switch (element.type) {
-    case "title":
-      return (
-        <>
-          <label
-            style={{ userSelect: "none" }}
-            contentEditable={false}
-            className={s.label}
-          >
-            Title
-          </label>
-          <h2 {...attributes}>{children}</h2>
-        </>
-      );
-    case "paragraph":
-      return (
-        <>
-          <label
-            style={{ userSelect: "none" }}
-            contentEditable={false}
-            className={s.label}
-          >
-            Content
-          </label>
-          <p {...attributes}>{children}</p>
-        </>
-      );
-  }
-}; */
 
 const Element = ({ attributes, children, element }) => {
   const style = { textAlign: element.align };

@@ -1,10 +1,14 @@
 import React, { createContext, useContext } from "react";
 
+export type Category = "article" | "news" | "book" | "discussion" | "photo";
+
 export type PostContextType = {
   postEditorState: "initial" | "whiteboard";
+  postCategory: Category;
+  setPostCategory: (category: Category) => void;
   setPostEditorState: (st: "initial" | "whiteboard") => void;
-  setDrawingSvg: (svg: SVGSVGElement) => void;
-  svgDrawing: SVGSVGElement | null;
+  setDrawingSvg: (s: { svg: SVGSVGElement | null; data: any } | null) => void;
+  drawing: { svg: SVGSVGElement | null; data: any } | null;
 };
 
 export const PostContext = createContext<PostContextType | undefined>(
