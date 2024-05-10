@@ -3,9 +3,10 @@ import React, { createContext, useContext } from "react";
 export type Category = "article" | "news" | "book" | "discussion" | "photo";
 export type PostEditorState = "initial" | "whiteboard" | "photos";
 
-export type PhotoObject = {
+export type MediaObject = {
   name: string;
   path: string;
+  size: number;
 };
 
 export type PostContextType = {
@@ -15,8 +16,10 @@ export type PostContextType = {
   setPostEditorState: (st: PostEditorState) => void;
   setDrawingSvg: (s: { svg: SVGSVGElement | null; data: any } | null) => void;
   drawing: { svg: SVGSVGElement | null; data: any } | null;
-  photos: PhotoObject[];
-  setPhotos: (ph: PhotoObject[]) => void;
+  photos: MediaObject[];
+  setPhotos: (ph: MediaObject[]) => void;
+  files: MediaObject[];
+  setFiles: (ph: MediaObject[]) => void;
 };
 
 export const PostContext = createContext<PostContextType | undefined>(

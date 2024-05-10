@@ -1,27 +1,14 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import s from "./Photo.module.scss";
 import { UISvgSelector } from "../../../UI/UISvgSelector";
 import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import { Button } from "../../../UI/Button/Button";
+import useMedia from "../useMedia";
 
-type Props = {};
 
-export default function PhotosUpload({}: Props) {
-  const { photos, setPhotos, setPostEditorState } = usePostContext();
-
-  const handleAddPhoto = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e) {
-      const photoObj = {
-        path: URL.createObjectURL(e?.target?.files?.[0]),
-        name: e.target.value,
-      };
-      setPhotos([...photos, photoObj]);
-    }
-  };
-
-  const handleRemovePhoto = (n: string) => {
-    setPhotos(photos.filter((p) => p.name !== n));
-  };
+export default function PhotosUpload() {
+  const { photos, setPostEditorState } = usePostContext();
+  const { handleRemovePhoto, handleAddPhoto } = useMedia();
 
   return (
     <div className={s.container}>

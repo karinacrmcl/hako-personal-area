@@ -1,25 +1,36 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import s from "./PhotoPreview.module.scss";
 import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
+import { Button } from "../../../UI/Button/Button";
+import { UISvgSelector } from "../../../UI/UISvgSelector";
+import useMedia from "../useMedia";
 
-type Props = {};
+export default function PhotoPreview() {
+  const { photos } = usePostContext();
+  const { handleRemovePhoto, handleAddPhoto } = useMedia();
 
-export default function PhotoPreview({}: Props) {
-  const { photos, setPhotos } = usePostContext();
+  if (!photos.length) return null;
 
-  const handleAddPhoto = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e) {
-      const photoObj = {
-        path: URL.createObjectURL(e?.target?.files?.[0]),
-        name: e.target.value,
-      };
-      setPhotos([...photos, photoObj]);
-    }
-  };
-
-  const handleRemovePhoto = (n: string) => {
-    setPhotos(photos.filter((p) => p.name !== n));
-  };
-
-  return <div className={s.container}> </div>;
+  return (
+    <div className={s.container}>
+      {photos.map((ph, i) => {
+        return (
+          <div className={s.item} key={`${ph.name}${i}`}>
+            <Button
+              type="small"
+              onClick={() => handleRemovePhoto(ph.name)}
+              className={s.remove}
+            >
+              <UISvgSelector id="close" />
+            </Button>
+            <img src={ph.path} alt={ph.name} />
+          </div>
+        );
+      })}
+      <Button className={s.add} type="small" onClick={() => null}>
+        <input type="file" onChange={handleAddPhoto} />
+        <p>+</p>
+      </Button>
+    </div>
+  );
 }

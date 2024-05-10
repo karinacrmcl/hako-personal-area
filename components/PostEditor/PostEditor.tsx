@@ -33,6 +33,9 @@ import useInitialData from "./useInitialData";
 import { addUserPost } from "../../api/user";
 import { useUser } from "../../context/user/UserContext";
 import PhotosUpload from "./Uploaded/Photo/Photo";
+import PhotoPreview from "./Uploaded/Photo/PhotoPreview";
+import DragAndDropArea from "./Uploaded/Photo/DragAndDropArea";
+import FilesPreview from "./Uploaded/Files/FilesPreview";
 
 const MAX_LENGTH = 1500;
 
@@ -114,7 +117,7 @@ export const PostEditor = () => {
           </Toolbar>
 
           <Editable
-            style={{ outline: "none" }}
+            style={{ outline: "none", zIndex: 10 }}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             className={s.area}
@@ -130,6 +133,8 @@ export const PostEditor = () => {
             }}
           />
           <Drawing />
+          <PhotoPreview />
+          <FilesPreview />
 
           <Footer
             characters={characters}
@@ -138,6 +143,7 @@ export const PostEditor = () => {
             handlePost={handlePost}
           />
           <MediaBar />
+          <DragAndDropArea />
         </Slate>
       )}
       {postEditorState === "whiteboard" && <Whiteboard />}

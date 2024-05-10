@@ -1,0 +1,8 @@
+.button {
+  position: relative;
+  cursor: pointer;
+  z-index: 11;
+  & svg {
+    cursor: pointer;
+  }
+}

@@ -1,18 +1,16 @@
 .container {
   display: flex;
   align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
-  grid-gap: 6px;
-  margin-top: 10px;
   position: relative;
-  z-index: 10;
 }
 
 .add {
   position: relative;
 
   width: 90px;
-  height: 90px;
+  height: 60px;
 
   background: #f9f8ff;
   transition: all 0.1s;
@@ -45,35 +43,56 @@
   }
 }
 
-.remove {
-  position: absolute;
+.item {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  grid-gap: 6px;
 
-  width: 24px;
-  height: 24px;
-
-  border-radius: 100px;
-
-  top: 4px;
-  right: 4px;
-
+  border-radius: 10px;
   background: #f9f8ff;
 
+  padding: 8px;
+  position: relative;
+
   & svg {
-    & path {
-      fill: #192a51;
-    }
+    width: 40px;
+    height: 40px;
   }
 }
 
-.item {
-  position: relative;
-  border: 1px solid #f1eeff;
-  border-radius: 10px;
+.content {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 4px;
 
-  & img {
-    border-radius: 10px;
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
+  & p {
+    margin: 0;
+  }
+
+  & span {
+    color: #9c97ad;
+  }
+}
+
+.remove {
+  position: absolute;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 100px;
+
+  bottom: 5px;
+  right: 5px;
+
+  background: #f9f8ff;
+  cursor: pointer;
+  z-index: 10;
+
+  & svg {
+    & path {
+      fill: #7c6fa9;
+    }
   }
 }

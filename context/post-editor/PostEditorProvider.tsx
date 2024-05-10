@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import {
   Category,
-  PhotoObject,
+  MediaObject,
   PostContext,
   PostContextType,
   PostEditorState,
@@ -19,7 +19,8 @@ export const PostEditorProvider = ({ children }: PropsProvider) => {
     svg: SVGSVGElement | null;
     data: any;
   } | null>(null);
-  const [photos, setPhotosArr] = useState<PhotoObject[]>([]);
+  const [photos, setPhotosArr] = useState<MediaObject[]>([]);
+  const [files, setFilesArr] = useState<MediaObject[]>([]);
 
   const value: PostContextType = {
     postEditorState,
@@ -30,7 +31,9 @@ export const PostEditorProvider = ({ children }: PropsProvider) => {
     postCategory: category,
     setPostCategory: (c: Category) => setCategory(c),
     photos,
-    setPhotos: (ph: PhotoObject[]) => setPhotosArr(ph),
+    setPhotos: (ph: MediaObject[]) => setPhotosArr(ph),
+    files,
+    setFiles: (ph: MediaObject[]) => setFilesArr(ph),
   };
 
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;
