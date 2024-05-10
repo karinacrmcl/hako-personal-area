@@ -38,12 +38,17 @@ const items = [
   },
 ];
 
-export default function Post({}: Props) {
+// TODO: add actual publication type
+export default function Post({ photos }: any) {
+  // const binaryData = Buffer.from(photos?.[0].data || "", "base64");
+  // const imageUrl = URL.createObjectURL(new Blob([binaryData]));
+  console.log(photos);
+
   return (
     <div className={s.post_container}>
       <PostHeader user={user} postedAt={new Date()} type="Article" />
       <Heading title="Something very unimportant" onTop="title" />
-      <Text content="A giant rocket will loft a capsule with no astronauts aboard around the moon and back, perhaps before the end of summer. A parade of robotic landers will drop off experiments on the moon to collect reams of scientific data, especially about water ice locked up in the polar regions. A few years from now, astronauts are to return there, more than half a century since the last Apollo moon landing." />
+      {/* <Text content="A giant rocket will loft a capsule with no astronauts aboard around the moon and back, perhaps before the end of summer. A parade of robotic landers will drop off experiments on the moon to collect reams of scientific data, especially about water ice locked up in the polar regions. A few years from now, astronauts are to return there, more than half a century since the last Apollo moon landing." />
       <Gallery items={items} />
       <PostFooter
         likesCount={0}
@@ -51,7 +56,7 @@ export default function Post({}: Props) {
         onLikePost={() => console.log()}
         onCommentPost={() => console.log()}
         onPinPost={() => console.log()}
-      />
+      /> */}
     </div>
   );
 }

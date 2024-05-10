@@ -7,6 +7,7 @@ export type MediaObject = {
   name: string;
   path: string;
   size: number;
+  file: File;
 };
 
 export type PostContextType = {

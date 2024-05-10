@@ -15,6 +15,7 @@
     "classnames": "^2.3.1",
     "draft-js": "^0.11.7",
     "firebase": "^10.11.1",
+    "fs": "^0.0.1-security",
     "moment": "^2.29.4",
     "next": "12.1.6",
     "next-redux-wrapper": "^8.1.0",

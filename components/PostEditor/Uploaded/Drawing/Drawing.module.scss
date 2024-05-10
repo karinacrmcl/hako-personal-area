@@ -2,6 +2,7 @@
   border: 1px solid #c0bfbf;
   border-radius: 25px;
   padding: 20px;
+  z-index: 10;
 
   & svg {
     height: 100%;
@@ -28,6 +29,7 @@
   right: -10px;
 
   background: white;
+  z-index: 10;
 
   & svg {
     & path {
@@ -49,6 +51,8 @@
 
   color: #7c6fa9;
   padding: 8px 16px;
+
+  z-index: 10;
 
   &:hover {
   }

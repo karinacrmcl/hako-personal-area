@@ -1,11 +1,5 @@
 // @ts-nocheck
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import s from "./PostEditor.module.scss";
 import { Slate, Editable, withReact } from "slate-react";
 import {
@@ -15,17 +9,12 @@ import {
   Editor,
 } from "slate";
 import { withHistory } from "slate-history";
-import { ParagraphElement, TitleElement } from "./custom-types";
 import { Toolbar } from "./Toolbar/Toolbar";
 import MarkButton from "./Toolbar/MarkButton/MarkButton";
-import { Value } from "slate";
-import { Button } from "../UI/Button/Button";
 import MediaBar from "./MediaBar/MediaBar";
 import { usePostContext } from "../../context/post-editor/PostEditorContext";
 import Whiteboard from "./Whiteboard/Whiteboard";
 import Drawing from "./Uploaded/Drawing/Drawing";
-import CategorySelect from "./CategorySelect/CategorySelect";
-import classNames from "classnames";
 import { Element } from "./Slate/Element";
 import { Leaf } from "./Slate/Leaf";
 import Footer from "./Footer/Footer";
@@ -36,6 +25,7 @@ import PhotosUpload from "./Uploaded/Photo/Photo";
 import PhotoPreview from "./Uploaded/Photo/PhotoPreview";
 import DragAndDropArea from "./Uploaded/Photo/DragAndDropArea";
 import FilesPreview from "./Uploaded/Files/FilesPreview";
+import { uploadImageToFirestoreStorage } from "../../api/storage";
 
 const MAX_LENGTH = 1500;
 
@@ -58,7 +48,7 @@ export const PostEditor = () => {
   const [characters, setCharacters] = useState(0);
   const { user } = useUser();
 
-  const { postEditorState, drawing, postCategory } = usePostContext();
+  const { postEditorState, drawing, postCategory, photos } = usePostContext();
 
   const getCharCount = (arr: Record<string, string>[]) => {
     return arr?.reduce((total, obj) => {
@@ -85,18 +75,45 @@ export const PostEditor = () => {
     return editor.children;
   }, [editor, initialData]);
 
-  const handlePost = () => {
+  const handlePost = async () => {
+    // Upload each photo and get their download URLs
+    const uploadedPhotoURLs = await Promise.all(
+      photos.map(async (photo) => {
+        const fileName = `${Date.now()}_${Math.random()
+          .toString(36)
+          .substring(2)}`;
+        try {
+          const downloadURL = await uploadImageToFirestoreStorage(
+            photo.file,
+            `photos/${fileName}`
+          );
+          console.log(downloadURL, "downloadurl");
+          return downloadURL;
+        } catch (error) {
+          console.error("Error uploading photo:", error);
+          return null;
+        }
+      })
+    );
+
+    // Add the download URLs to the postObject
+    const photosArr = uploadedPhotoURLs.filter((url) => url !== null);
+
+    // Assuming value, drawing, user, and postCategory are defined elsewhere
     const postObject = {
       userID: user?.userID || "",
       content: JSON.stringify(value),
-      drawing: {
-        rawData: JSON.stringify(drawing?.data),
-        svg: drawing.svg?.outerHTML,
-      },
+      drawing: drawing
+        ? {
+            rawData: JSON.stringify(drawing?.data),
+            svg: drawing?.svg?.outerHTML,
+          }
+        : {},
+      photos: photosArr,
       postCategory,
     };
-
-    addUserPost(postObject);
+    // Add the postObject to Firestore
+    await addUserPost(postObject);
   };
 
   return (

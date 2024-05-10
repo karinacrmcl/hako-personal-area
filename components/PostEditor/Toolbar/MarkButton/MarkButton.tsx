@@ -13,7 +13,7 @@ export default function MarkButton({ format }: Props) {
   const editor = useSlate();
 
   const isMarkActive = (editor: any, format: string) => {
-    const marks = Editor.marks(editor);
+    const marks = Editor?.marks(editor);
     // @ts-ignore
     return marks ? marks[format] === true : false;
   };

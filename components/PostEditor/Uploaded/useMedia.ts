@@ -32,6 +32,7 @@ export default function useMedia() {
       path: URL.createObjectURL(file),
       name: e.target.value,
       size: file.size,
+      file,
     };
     setPhotos([...photos, photoObj]);
   };
@@ -67,6 +68,7 @@ export default function useMedia() {
       path: URL.createObjectURL(file),
       name: file.name,
       size: file.size,
+      file,
     };
     setFiles([...files, fileObj]);
   };
