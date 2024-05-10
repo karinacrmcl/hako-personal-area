@@ -6,7 +6,7 @@ import { usePostContext } from "../../../context/post-editor/PostEditorContext";
 export default function MediaBar() {
   const { setPostEditorState } = usePostContext();
 
-  const handleAddPhoto = () => {};
+  const handleAddPhoto = () => setPostEditorState("photos");
   const handleAddVideo = () => {};
   const handleAddFile = () => {};
   const handleAddCanvas = () => {

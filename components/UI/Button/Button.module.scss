@@ -39,14 +39,14 @@
     justify-content: center;
 
     color: #192a51;
-    background: #f3f3f3;
+    background: #f9f8ff;
     transition: all 0.1s;
     & svg {
       width: 25px;
       height: 25px;
     }
     &:hover {
-      background: darken(#f3f3f3, 3);
+      background: darken(#f4f2fc, 3);
       cursor: pointer;
     }
   }

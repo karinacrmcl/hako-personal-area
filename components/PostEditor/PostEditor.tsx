@@ -32,6 +32,7 @@ import Footer from "./Footer/Footer";
 import useInitialData from "./useInitialData";
 import { addUserPost } from "../../api/user";
 import { useUser } from "../../context/user/UserContext";
+import PhotosUpload from "./Uploaded/Photo/Photo";
 
 const MAX_LENGTH = 1500;
 
@@ -50,6 +51,7 @@ export const PostEditor = () => {
 
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const [value, setValue] = useState(initialData);
+
   const [characters, setCharacters] = useState(0);
   const { user } = useUser();
 
@@ -139,6 +141,7 @@ export const PostEditor = () => {
         </Slate>
       )}
       {postEditorState === "whiteboard" && <Whiteboard />}
+      {postEditorState === "photos" && <PhotosUpload />}
     </div>
   );
 };

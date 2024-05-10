@@ -1,28 +1,36 @@
 import React, { ReactNode, useState } from "react";
-import { Category, PostContext, PostContextType } from "./PostEditorContext";
+import {
+  Category,
+  PhotoObject,
+  PostContext,
+  PostContextType,
+  PostEditorState,
+} from "./PostEditorContext";
 
 type PropsProvider = {
   children: ReactNode;
 };
 
 export const PostEditorProvider = ({ children }: PropsProvider) => {
-  const [postEditorState, setEditorState] = useState<"initial" | "whiteboard">(
-    "initial"
-  );
+  const [postEditorState, setEditorState] =
+    useState<PostEditorState>("initial");
   const [category, setCategory] = useState<Category>("article");
   const [svg, setSvg] = useState<{
     svg: SVGSVGElement | null;
     data: any;
   } | null>(null);
+  const [photos, setPhotosArr] = useState<PhotoObject[]>([]);
 
   const value: PostContextType = {
     postEditorState,
-    setPostEditorState: (st: "initial" | "whiteboard") => setEditorState(st),
+    setPostEditorState: (st: PostEditorState) => setEditorState(st),
     setDrawingSvg: (sv: { svg: SVGSVGElement | null; data: any } | null) =>
       setSvg(sv),
     drawing: svg,
     postCategory: category,
     setPostCategory: (c: Category) => setCategory(c),
+    photos,
+    setPhotos: (ph: PhotoObject[]) => setPhotosArr(ph),
   };
 
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;
