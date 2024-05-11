@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import { Button } from "../../../UI/Button/Button";
-import { UISvgSelector } from "../../../UI/UISvgSelector";
+import { Button } from "../../../../UI/Button/Button";
+import { UISvgSelector } from "../../../../UI/UISvgSelector";
 import s from "./MediaButton.module.scss";
 
 type Props = {

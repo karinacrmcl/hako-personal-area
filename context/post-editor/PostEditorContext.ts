@@ -13,6 +13,8 @@ export type MediaObject = {
 export type PostContextType = {
   postEditorState: PostEditorState;
   postCategory: Category;
+  postEditorValue: any;
+  setPostEditorValue: (v: any) => void;
   setPostCategory: (category: Category) => void;
   setPostEditorState: (st: PostEditorState) => void;
   setDrawingSvg: (s: { svg: SVGSVGElement | null; data: any } | null) => void;

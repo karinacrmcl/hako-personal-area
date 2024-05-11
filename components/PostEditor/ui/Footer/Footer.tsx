@@ -3,35 +3,18 @@ import CategorySelect from "../CategorySelect/CategorySelect";
 import s from "./Footer.module.scss";
 
 import React from "react";
-import { Button } from "../../UI/Button/Button";
-import { Descendant } from "slate";
-import { addUserPost } from "../../../api/user";
+import useAddPublication from "../../hooks/useAddPublication";
+import { getCharCount } from "../../utils/getCharCount";
+import { Button } from "../../../UI/Button/Button";
 
 type Props = {
-  value: Descendant[];
+  value: { type: string; children: { text: string }[] }[];
   maxLength: number;
   characters: number;
-  handlePost: () => void;
 };
 
-export default function Footer({
-  value,
-  maxLength,
-  characters,
-  handlePost,
-}: Props) {
-  const getCharCount = (arr: Descendant[]) => {
-    return arr?.reduce((total, obj) => {
-      return (
-        total +
-        (obj?.children
-          ? obj?.children?.reduce((acc, child) => {
-              return acc + (child.text ? child.text.length : 0);
-            }, 0)
-          : 0)
-      );
-    }, 0);
-  };
+export default function Footer({ value, maxLength, characters }: Props) {
+  const { handlePost } = useAddPublication();
 
   return (
     <div className={s.footer}>

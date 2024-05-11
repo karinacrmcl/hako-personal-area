@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./MediaBar.module.scss";
 import MediaButton from "./MediaButton/MediaButton";
-import { usePostContext } from "../../../context/post-editor/PostEditorContext";
+import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import useMedia from "../Uploaded/useMedia";
 
 export default function MediaBar() {

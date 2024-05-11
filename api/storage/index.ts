@@ -2,7 +2,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const storage = getStorage();
 
-export async function uploadImageToFirestoreStorage(
+export async function uploadFileToFirestoreStorage(
   imageFile: File,
   storagePath: string
 ): Promise<string> {
@@ -14,7 +14,7 @@ export async function uploadImageToFirestoreStorage(
     const snapshot = await uploadBytes(storageRef, imageFile);
 
     // Log success message
-    console.log("Image uploaded successfully:", snapshot);
+    console.log("Uploaded successfully:", snapshot);
 
     // Get the download URL of the uploaded image
     const downloadURL = await getDownloadURL(storageRef);
@@ -23,7 +23,7 @@ export async function uploadImageToFirestoreStorage(
     return downloadURL;
   } catch (error) {
     // Handle any errors
-    console.error("Error uploading image:", error);
+    console.error("Error uploading file:", error);
     throw error;
   }
 }

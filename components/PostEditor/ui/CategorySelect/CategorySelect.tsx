@@ -2,9 +2,8 @@ import React, { useRef, useState } from "react";
 import {
   Category,
   usePostContext,
-} from "../../../context/post-editor/PostEditorContext";
-import s from "./CategorySelect.module.scss";
-import Select from "../../UI/Select/Select";
+} from "../../../../context/post-editor/PostEditorContext";
+import Select from "../../../UI/Select/Select";
 
 type Props = {};
 

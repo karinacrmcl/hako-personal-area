@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import s from "./Drawing.module.scss";
-import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
-import { Button } from "../../../UI/Button/Button";
-import { UISvgSelector } from "../../../UI/UISvgSelector";
+import { usePostContext } from "../../../../../context/post-editor/PostEditorContext";
+import { Button } from "../../../../UI/Button/Button";
+import { UISvgSelector } from "../../../../UI/UISvgSelector";
 
 export default function Drawing() {
   const svg = useRef<null | SVGSVGElement>(null);

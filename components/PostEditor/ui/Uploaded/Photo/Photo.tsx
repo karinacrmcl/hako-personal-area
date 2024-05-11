@@ -1,10 +1,9 @@
 import React from "react";
 import s from "./Photo.module.scss";
-import { UISvgSelector } from "../../../UI/UISvgSelector";
-import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
-import { Button } from "../../../UI/Button/Button";
+import { UISvgSelector } from "../../../../UI/UISvgSelector";
+import { usePostContext } from "../../../../../context/post-editor/PostEditorContext";
+import { Button } from "../../../../UI/Button/Button";
 import useMedia from "../useMedia";
-
 
 export default function PhotosUpload() {
   const { photos, setPostEditorState } = usePostContext();

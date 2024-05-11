@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { usePostContext } from "../../context/post-editor/PostEditorContext";
+import { usePostContext } from "../../../context/post-editor/PostEditorContext";
 
 export default function useInitialData() {
   const { postCategory } = usePostContext();

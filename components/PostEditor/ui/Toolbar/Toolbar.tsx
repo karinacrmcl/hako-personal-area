@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, Ref } from "react";
 import s from "./Toolbar.module.scss";
-import { Button } from "../../UI/Button/Button";
-import { UISvgSelector } from "../../UI/UISvgSelector";
-import { useEditor, useSlate } from "slate-react";
+import { useSlate } from "slate-react";
 import { Editor } from "slate";
+import { Button } from "../../../UI/Button/Button";
+import { UISvgSelector } from "../../../UI/UISvgSelector";
 
 interface BaseProps {
   className: string;

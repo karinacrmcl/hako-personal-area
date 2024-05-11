@@ -1,8 +1,8 @@
 import React from "react";
 import s from "./PhotoPreview.module.scss";
-import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
-import { Button } from "../../../UI/Button/Button";
-import { UISvgSelector } from "../../../UI/UISvgSelector";
+import { usePostContext } from "../../../../../context/post-editor/PostEditorContext";
+import { Button } from "../../../../UI/Button/Button";
+import { UISvgSelector } from "../../../../UI/UISvgSelector";
 import useMedia from "../useMedia";
 
 export default function PhotoPreview() {

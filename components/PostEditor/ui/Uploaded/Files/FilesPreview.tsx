@@ -1,8 +1,8 @@
 import React from "react";
-import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
-import { formatFileSize } from "../../../../utils/helpers/formatFileSize";
-import { Button } from "../../../UI/Button/Button";
-import { UISvgSelector } from "../../../UI/UISvgSelector";
+import { usePostContext } from "../../../../../context/post-editor/PostEditorContext";
+import { formatFileSize } from "../../../../../utils/helpers/formatFileSize";
+import { Button } from "../../../../UI/Button/Button";
+import { UISvgSelector } from "../../../../UI/UISvgSelector";
 import useMedia from "../useMedia";
 import s from "./FilesPreview.module.scss";
 

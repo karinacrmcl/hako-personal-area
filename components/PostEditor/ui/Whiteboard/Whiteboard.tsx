@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import s from "./Whiteboard.module.scss";
 import dynamic from "next/dynamic";
-import { Button } from "../../UI/Button/Button";
+import { Button } from "../../../UI/Button/Button";
 import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
-import { usePostContext } from "../../../context/post-editor/PostEditorContext";
+import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import { ImportedDataState } from "@excalidraw/excalidraw/types/data/types";
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,

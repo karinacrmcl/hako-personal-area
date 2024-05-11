@@ -21,6 +21,7 @@ export const PostEditorProvider = ({ children }: PropsProvider) => {
   } | null>(null);
   const [photos, setPhotosArr] = useState<MediaObject[]>([]);
   const [files, setFilesArr] = useState<MediaObject[]>([]);
+  const [postEditorValue, setPostEditorValueF] = useState(null);
 
   const value: PostContextType = {
     postEditorState,
@@ -34,6 +35,8 @@ export const PostEditorProvider = ({ children }: PropsProvider) => {
     setPhotos: (ph: MediaObject[]) => setPhotosArr(ph),
     files,
     setFiles: (ph: MediaObject[]) => setFilesArr(ph),
+    postEditorValue,
+    setPostEditorValue: (v: any) => setPostEditorValueF(v),
   };
 
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;

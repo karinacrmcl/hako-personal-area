@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { toast } from "react-toastify";
-import { usePostContext } from "../../../context/post-editor/PostEditorContext";
+import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 
 const UPLOAD_LIMIT_PHOTO = 10;
 const UPLOAD_LIMIT_FILE = 5;
