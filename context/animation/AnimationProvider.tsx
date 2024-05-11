@@ -15,21 +15,17 @@ export const AnimationProvider = ({ children }: PropsProvider) => {
     null
   );
 
-  //   const animationSelector = (s: string) => {
-  //     switch (s) {
-  //       case "openpost":
-  //         setActiveAnimation("openpost");
-
-  //       default:
-  //         break;
-  //     }
-  //   };
-
   const value: AnimationContextType = {
     activeAnimation: activeAnimation,
     inactiveAnimation: inactiveAnimation,
-    setActiveAnimation: (s: string) => setActiveAnimation(s),
-    setInactiveAnimation: (s: string) => setInactiveAnimation(s),
+    setActiveAnimation: (s: string) => {
+      setActiveAnimation(s);
+      setInactiveAnimation(null);
+    },
+    setInactiveAnimation: (s: string) => {
+      setInactiveAnimation(s);
+      setActiveAnimation(null);
+    },
   };
 
   return (

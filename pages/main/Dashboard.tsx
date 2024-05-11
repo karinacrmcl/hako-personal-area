@@ -13,13 +13,14 @@ import s from "./Dashboard.module.scss";
 import { useAnimation } from "../../context/animation/AnimationContext";
 import { PostEditor } from "../../components/PostEditor/PostEditor";
 import { useMediaQuery } from "react-responsive";
-import { PostEditorProvider } from "../../context/post-editor/PostEditorProvider";
+import { usePostContext } from "../../context/post-editor/PostEditorContext";
 
 export default function Dashboard() {
-  const { activeAnimation } = useAnimation();
+  const { activeAnimation, inactiveAnimation } = useAnimation();
+  const { open } = usePostContext();
   const isLaptop = useMediaQuery({ maxWidth: "1500px" });
 
-  console.log(activeAnimation);
+  console.log(activeAnimation, "editorOpen", open);
 
   return (
     <div className={s.dashboard_container}>
@@ -49,18 +50,18 @@ export default function Dashboard() {
           <LatestChats chats={chats} />
         </div>
       </div>
-      <PostEditorProvider>
-        <div
-          className={classNames({
-            [s.post_show]: activeAnimation === "postinput",
-            [s.post_editor]: activeAnimation !== "postinput",
-          })}
-        >
-          <Section title="Publication" className={s.post_section}>
-            <PostEditor />
-          </Section>
-        </div>
-      </PostEditorProvider>
+      <div
+        className={classNames(s.post_editor, {
+          [s.post_anim_show]: activeAnimation === "postinput",
+          [s.post_anim_hide]: inactiveAnimation === "postinput",
+          [s.post_hide]: !open,
+          [s.post_show]: open,
+        })}
+      >
+        <Section title="Publication" className={s.post_section}>
+          <PostEditor />
+        </Section>
+      </div>
     </div>
   );
 }

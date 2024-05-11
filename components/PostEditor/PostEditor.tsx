@@ -59,23 +59,22 @@ export const PostEditor = () => {
   }, [postEditorValue]);
 
   const slateValue = useMemo(() => {
-    // @ts-expect-error Library types
-    editor.children = initialData;
-    Editor.normalize(editor, { force: true });
+    if (!editor || !Editor) return [];
+    editor.children = postEditorValue;
+    Editor?.normalize(editor, { force: true });
     return editor.children;
-  }, [editor, initialData]);
+  }, [editor, initialData, postEditorValue]);
 
-  console.log(postEditorValue);
+  console.log(postEditorValue?.[0]?.children?.[0]?.text);
 
   return (
     <div className={s.container}>
       {postEditorState === "initial" && (
         <Slate
           editor={editor}
-          // @ts-expect-error Library types
-          value={slateValue}
           initialValue={slateValue}
           onChange={(value) => {
+            console.log(value, "value");
             setPostEditorValue(value);
           }}
         >

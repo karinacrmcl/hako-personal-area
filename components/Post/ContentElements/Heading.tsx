@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import s from "./ContentElements.module.scss";
 
 type Props = {
-  title?: string;
+  title?: string | ReactNode;
   asset?: string;
   onTop: "title" | "asset";
 };
@@ -12,13 +12,13 @@ export default function PostHeading({ title, asset, onTop }: Props) {
   return (
     <div className={s.elem_heading}>
       {title && (
-        <p
+        <div
           className={classNames(s.elem_title, {
             [s.elem_heading_ontop]: onTop === "title",
           })}
         >
           {title}
-        </p>
+        </div>
       )}
       {asset && (
         <p

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import s from "./ContentElements.module.scss";
 
 type Props = {
-  content: string;
+  content: string | ReactNode;
 };
 
 export default function PostText({ content }: Props) {

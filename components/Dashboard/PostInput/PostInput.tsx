@@ -5,6 +5,7 @@ import { Button } from "../../UI/Button/Button";
 import s from "./PostInput.module.scss";
 import classNames from "classnames";
 import { useAnimation } from "../../../context/animation/AnimationContext";
+import { usePostContext } from "../../../context/post-editor/PostEditorContext";
 
 type Props = {
   user: User;
@@ -13,12 +14,14 @@ type Props = {
 export function PostInput({ user: { avatar } }: Props) {
   const [expanded, setExpanded] = useState(false);
   const { setActiveAnimation } = useAnimation();
+  const { setPostEditorState, setOpen } = usePostContext();
 
   const expandInputField = () => {
     if (!expanded) {
       setExpanded(true);
     }
     setActiveAnimation("postinput");
+    setOpen(true);
   };
 
   return (
@@ -38,10 +41,22 @@ export function PostInput({ user: { avatar } }: Props) {
       >
         <input placeholder="What would you like to post?" />
         <div className={s.postinput_buttons}>
-          <Button type="small" onClick={expandInputField}>
+          <Button
+            type="small"
+            onClick={() => {
+              expandInputField();
+              setPostEditorState("photos");
+            }}
+          >
             <PublicationSvgSelector id="video" />
           </Button>
-          <Button type="small" onClick={expandInputField}>
+          <Button
+            type="small"
+            onClick={() => {
+              expandInputField();
+              setPostEditorState("photos");
+            }}
+          >
             <PublicationSvgSelector id="picture" />
           </Button>
         </div>

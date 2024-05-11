@@ -13,20 +13,25 @@ export default function MarkButton({ format }: Props) {
   const editor = useSlate();
 
   const isMarkActive = (editor: any, format: string) => {
-    const marks = Editor?.marks(editor);
-    // @ts-ignore
-    return marks ? marks[format] === true : false;
+    try {
+      const marks = Editor?.marks(editor);
+      // @ts-ignore
+      return marks ? marks[format] === true : false;
+    } catch (e) {
+      console.log(e);
+    }
   };
-  const isActive = isMarkActive(editor, format);
-  console.log(isActive);
+  const isActive = editor ? isMarkActive(editor, format) : false;
 
   const toggleMark = (editor: any, format: string) => {
-    console.log("click", editor, format);
-
-    if (isActive) {
-      Editor.removeMark(editor, format);
-    } else {
-      Editor.addMark(editor, format, true);
+    try {
+      if (isActive) {
+        Editor?.removeMark(editor, format);
+      } else {
+        Editor?.addMark(editor, format, true);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
   return (

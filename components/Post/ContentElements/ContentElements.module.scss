@@ -2,13 +2,23 @@
   &_title {
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 22px !important;
     line-height: 21px;
 
     color: #3e3e3e;
     margin: 0;
     padding: 0;
     order: 1;
+
+    & h1 {
+      font-size: 22px !important;
+      font-weight: 500 !important;
+      margin: 0 !important;
+
+      & strong {
+        font-size: 600 !important;
+      }
+    }
   }
   &_asset {
     font-style: normal;

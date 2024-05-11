@@ -6,15 +6,25 @@ import React from "react";
 import useAddPublication from "../../hooks/useAddPublication";
 import { getCharCount } from "../../utils/getCharCount";
 import { Button } from "../../../UI/Button/Button";
+import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
+import { useAnimation } from "../../../../context/animation/AnimationContext";
+import { Descendant } from "slate";
 
 type Props = {
-  value: { type: string; children: { text: string }[] }[];
+  value: Descendant[];
   maxLength: number;
   characters: number;
 };
 
 export default function Footer({ value, maxLength, characters }: Props) {
   const { handlePost } = useAddPublication();
+  const { setOpen } = usePostContext();
+  const { setInactiveAnimation } = useAnimation();
+
+  const handleClose = () => {
+    setOpen(false);
+    setInactiveAnimation("postinput");
+  };
 
   return (
     <div className={s.footer}>
@@ -29,7 +39,7 @@ export default function Footer({ value, maxLength, characters }: Props) {
         </p>
         <div className={s.footer_buttons}>
           <Button
-            onClick={() => console.log(value)}
+            onClick={handleClose}
             type="unfilled"
             className={s.button_secondary}
           >

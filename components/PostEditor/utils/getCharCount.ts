@@ -1,4 +1,6 @@
-export const getCharCount = (arr: { children?: { text?: string }[] }[]) => {
+import { Descendant } from "slate";
+
+export const getCharCount = (arr: Descendant[]) => {
   return arr?.reduce((total, obj) => {
     return (
       total +

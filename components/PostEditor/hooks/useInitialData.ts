@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { EditorValueType } from "../../../@types/common/PostEditor";
 import { usePostContext } from "../../../context/post-editor/PostEditorContext";
 
 export default function useInitialData() {
   const { postCategory } = usePostContext();
 
-  const [initialData, setInitialData] = useState([
+  const [initialData, setInitialData] = useState<EditorValueType>([
     {
       type: "heading-one",
       children: [{ text: "Name your article..." }],
@@ -97,8 +98,6 @@ export default function useInitialData() {
         ];
     }
   };
-
-  console.log(initialData);
 
   return { initialData };
 }

@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from "../context/user/UserProvider";
 import { AnimationProvider } from "../context/animation/AnimationProvider";
+import { PostEditorProvider } from "../context/post-editor/PostEditorProvider";
 
 const DynamicNavigationProvider = dynamic(
   () => import("../context/navigation/NavigationProvider"),
@@ -17,10 +18,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DynamicNavigationProvider>
       <UserProvider>
-        <AnimationProvider>
-          <Component {...pageProps} />;
-          <ToastContainer />
-        </AnimationProvider>
+        <PostEditorProvider>
+          <AnimationProvider>
+            <Component {...pageProps} />;
+            <ToastContainer />
+          </AnimationProvider>
+        </PostEditorProvider>
       </UserProvider>
     </DynamicNavigationProvider>
   );

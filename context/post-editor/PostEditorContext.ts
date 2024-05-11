@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from "react";
+import { Descendant } from "slate";
 
 export type Category = "article" | "news" | "book" | "discussion" | "photo";
 export type PostEditorState = "initial" | "whiteboard" | "photos";
@@ -11,10 +12,12 @@ export type MediaObject = {
 };
 
 export type PostContextType = {
+  open: boolean;
+  setOpen: (b: boolean) => void;
   postEditorState: PostEditorState;
   postCategory: Category;
-  postEditorValue: any;
-  setPostEditorValue: (v: any) => void;
+  postEditorValue: Descendant[];
+  setPostEditorValue: (v: Descendant[]) => void;
   setPostCategory: (category: Category) => void;
   setPostEditorState: (st: PostEditorState) => void;
   setDrawingSvg: (s: { svg: SVGSVGElement | null; data: any } | null) => void;

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getPublications } from "../../api/feed";
+import React from "react";
 import { PostInput } from "../../components/Dashboard/PostInput/PostInput";
 import usePublications from "../../hooks/api/usePublications";
 import { user } from "../../mocks/user";

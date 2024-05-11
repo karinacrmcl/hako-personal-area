@@ -33,6 +33,7 @@ export const addUserPost = async (post: any) => {
   console.log(post);
   await addDoc(collection(firestore, "publications"), post);
 };
+
 // export const users = async () => {
 //   const querySnapshot = await getDocs(userRef);
 
