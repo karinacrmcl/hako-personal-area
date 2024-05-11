@@ -18,12 +18,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <DynamicNavigationProvider>
       <UserProvider>
-        <PostEditorProvider>
-          <AnimationProvider>
+        <AnimationProvider>
+          <PostEditorProvider>
             <Component {...pageProps} />;
             <ToastContainer />
-          </AnimationProvider>
-        </PostEditorProvider>
+          </PostEditorProvider>
+        </AnimationProvider>
       </UserProvider>
     </DynamicNavigationProvider>
   );

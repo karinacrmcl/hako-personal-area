@@ -1,13 +1,22 @@
+import moment from "moment";
 import React from "react";
+import { toast } from "react-toastify";
 import { uploadFileToFirestoreStorage } from "../../../api/storage";
 import { addUserPost } from "../../../api/user";
+import { useAnimation } from "../../../context/animation/AnimationContext";
 import { usePostContext } from "../../../context/post-editor/PostEditorContext";
 import { useUser } from "../../../context/user/UserContext";
 
 export default function useAddPublication() {
-  const { postCategory, photos, files, drawing, postEditorValue } =
+  const { setInactiveAnimation } = useAnimation();
+  const { postCategory, photos, files, drawing, postEditorValue, setOpen } =
     usePostContext();
   const { user } = useUser();
+
+  const handleClose = () => {
+    setOpen(false);
+    setInactiveAnimation("postinput");
+  };
 
   const handlePost = async () => {
     // Upload each photo and get their download URLs
@@ -65,10 +74,21 @@ export default function useAddPublication() {
         : {},
       photos: photosArr,
       files: filesArr,
+      dateCreated: moment.now(),
       postCategory,
     };
     // Add the postObject to Firestore
-    await addUserPost(postObject);
+    try {
+      await addUserPost(postObject);
+    } catch (e) {
+      toast.error(
+        "An error occured while trying to post your publication. Please try again."
+      );
+      return;
+    }
+
+    toast.success("Your publication was successfully posted.");
+    handleClose();
   };
 
   return { handlePost };

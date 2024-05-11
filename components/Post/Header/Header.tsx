@@ -17,7 +17,7 @@ export default function PostHeader({
   postedAt,
   type,
 }: Props) {
-  const datePosted = moment(postedAt).format("MMMM Do, h:MMA");
+  const datePosted = postedAt || moment().format("MMMM Do, h:MMA");
 
   return (
     <div className={s.header_container}>

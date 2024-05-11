@@ -65,8 +65,6 @@ export const PostEditor = () => {
     return editor.children;
   }, [editor, initialData, postEditorValue]);
 
-  console.log(postEditorValue?.[0]?.children?.[0]?.text);
-
   return (
     <div className={s.container}>
       {postEditorState === "initial" && (
