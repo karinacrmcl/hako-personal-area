@@ -12,11 +12,21 @@ type Props = {
 export default function MarkButton({ format }: Props) {
   const editor = useSlate();
 
+  function isEditorEmpty() {
+    return (
+      editor.children.length === 0 ||
+      (editor.children.length === 1 && Node.string(editor.children[0]) === "")
+    );
+  }
+
+  if (isEditorEmpty()) return null;
+
   const isMarkActive = (editor: any, format: string) => {
     try {
       const marks = Editor?.marks(editor);
-      // @ts-ignore
-      return marks ? marks[format] === true : false;
+      // return marks.length > ? marks?.[format || ''] === true : false;
+      // @ts-expect-error Library types
+      return !!marks?.[format];
     } catch (e) {
       console.log(e);
     }

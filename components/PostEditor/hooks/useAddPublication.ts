@@ -1,6 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { toast } from "react-toastify";
+import { PostObject } from "../../../@types/common/PostContent";
 import { uploadFileToFirestoreStorage } from "../../../api/storage";
 import { addUserPost } from "../../../api/user";
 import { useAnimation } from "../../../context/animation/AnimationContext";
@@ -62,8 +63,12 @@ export default function useAddPublication() {
     const photosArr = uploadedPhotoURLs.filter((url) => url !== null);
     const filesArr = uploadedFileURLs.filter((url) => url !== null);
 
+    const book: { rated: { userId: string; rating: 1 | 2 | 3 | 4 | 5 }[] } = {
+      rated: [],
+    };
+
     // Assuming value, drawing, user, and postCategory are defined elsewhere
-    const postObject = {
+    let postObject: PostObject = {
       userID: user?.userID || "",
       content: JSON.stringify(postEditorValue),
       drawing: drawing
@@ -71,12 +76,20 @@ export default function useAddPublication() {
             rawData: JSON.stringify(drawing?.data),
             svg: drawing?.svg?.outerHTML,
           }
-        : {},
+        : undefined,
       photos: photosArr,
       files: filesArr,
-      dateCreated: moment.now(),
+      dateCreated: moment().format("DD MMM, HH:mm A"),
+      updated: moment().format("HH:mm A z"),
       postCategory,
+      liked: [],
+      commented: [],
     };
+
+    if (postCategory === "book") {
+      postObject["book"] = book;
+    }
+
     // Add the postObject to Firestore
     try {
       await addUserPost(postObject);

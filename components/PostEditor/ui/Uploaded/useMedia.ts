@@ -1,12 +1,15 @@
 import React, { ChangeEvent } from "react";
 import { toast } from "react-toastify";
 import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
+import { mediaUploadLimits } from "./constants";
 
-const UPLOAD_LIMIT_PHOTO = 10;
 const UPLOAD_LIMIT_FILE = 5;
 
 export default function useMedia() {
-  const { photos, setPhotos, files, setFiles } = usePostContext();
+  const { photos, setPhotos, files, setFiles, postCategory } = usePostContext();
+  const photoUploadLimit = mediaUploadLimits[postCategory];
+
+  const addPhotoAvailable = mediaUploadLimits[postCategory] > photos.length;
 
   const handleAddPhoto = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files?.[0];
@@ -18,7 +21,7 @@ export default function useMedia() {
       return;
     }
 
-    if (photos.length >= UPLOAD_LIMIT_PHOTO) {
+    if (photos.length > photoUploadLimit) {
       toast.error("Maximum upload limit is reached.");
       return;
     }
@@ -77,5 +80,11 @@ export default function useMedia() {
     setFiles(files.filter((p) => p.name !== n));
   };
 
-  return { handleAddPhoto, handleRemovePhoto, handleAddFile, handleRemoveFile };
+  return {
+    handleAddPhoto,
+    handleRemovePhoto,
+    handleAddFile,
+    handleRemoveFile,
+    addPhotoAvailable,
+  };
 }

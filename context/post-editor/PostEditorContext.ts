@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { Descendant } from "slate";
+import { Category } from "../../@types/common/PostContent";
 
-export type Category = "article" | "news" | "book" | "discussion" | "photo";
 export type PostEditorState = "initial" | "whiteboard" | "photos";
 
 export type MediaObject = {

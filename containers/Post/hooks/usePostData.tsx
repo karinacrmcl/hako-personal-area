@@ -116,7 +116,8 @@ export default function usePostData(post: any) {
     ? renderSvg(post.drawing.rawData, post.drawing.svg)
     : null;
 
-  const date = post.dateCreated?.format("MMM DD, TTTT");
+  const date = post.dateCreated;
+  const updated = `Updated ${post.updated}`;
 
-  return { category, components, gallery, drawing, date };
+  return { category, components, gallery, drawing, date, updated };
 }

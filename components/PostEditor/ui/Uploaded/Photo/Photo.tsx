@@ -7,7 +7,7 @@ import useMedia from "../useMedia";
 
 export default function PhotosUpload() {
   const { photos, setPostEditorState } = usePostContext();
-  const { handleRemovePhoto, handleAddPhoto } = useMedia();
+  const { handleRemovePhoto, handleAddPhoto, addPhotoAvailable } = useMedia();
 
   return (
     <div className={s.container}>
@@ -18,11 +18,13 @@ export default function PhotosUpload() {
       >
         <UISvgSelector id="back" /> Back
       </Button>
-      <div className={s.upload_button}>
-        <input type="file" className={s.input} onChange={handleAddPhoto} />
-        <UISvgSelector id="photo-upload" />
-        <p>Click or drag and drop here</p>
-      </div>
+      {addPhotoAvailable && (
+        <div className={s.upload_button}>
+          <input type="file" className={s.input} onChange={handleAddPhoto} />
+          <UISvgSelector id="photo-upload" />
+          <p>Click or drag and drop here</p>
+        </div>
+      )}
 
       <div className={s.list}>
         {photos.map((photo, i) => {

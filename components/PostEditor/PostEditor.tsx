@@ -13,7 +13,6 @@ import MediaBar from "./ui/MediaBar/MediaBar";
 import { usePostContext } from "../../context/post-editor/PostEditorContext";
 import Whiteboard from "./ui/Whiteboard/Whiteboard";
 import Drawing from "./ui/Uploaded/Drawing/Drawing";
-import useInitialData from "./hooks/useInitialData";
 import PhotosUpload from "./ui/Uploaded/Photo/Photo";
 import PhotoPreview from "./ui/Uploaded/Photo/PhotoPreview";
 import DragAndDropArea from "./ui/Uploaded/Photo/DragAndDropArea";
@@ -41,7 +40,6 @@ export const PostEditor = () => {
     () => withLayout(withHistory(withReact(createEditor()))),
     []
   );
-  const { initialData } = useInitialData();
 
   const renderLeaf = useCallback(
     (props: RenderLeafProps) => <Leaf {...props} />,
@@ -63,7 +61,7 @@ export const PostEditor = () => {
     editor.children = postEditorValue;
     Editor?.normalize(editor, { force: true });
     return editor.children;
-  }, [editor, initialData, postEditorValue]);
+  }, [editor, postEditorValue]);
 
   return (
     <div className={s.container}>

@@ -8,11 +8,13 @@ import s from "./Feed.module.scss";
 export function Feed() {
   const { publications } = usePublications();
 
+  console.log(publications);
+
   return (
     <div className={s.feed_container}>
       <PostInput user={user} />
       {publications.map((pb) => (
-        <Post {...pb} />
+        <Post key={pb?.id} {...pb} />
       ))}
     </div>
   );

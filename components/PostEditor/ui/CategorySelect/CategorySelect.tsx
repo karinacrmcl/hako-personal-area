@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import { Editor } from "slate";
+import { useSlate } from "slate-react";
 import {
   Category,
   usePostContext,
@@ -30,18 +32,29 @@ const dropdownCategories: { label: string; name: Category }[] = [
   },
 ];
 
+const formats = ["bold", "underline", "italic"];
+
 export default function CategorySelect({}: Props) {
-  const { setPostCategory, postCategory } = usePostContext();
+  const { setPostCategory, postCategory, setPhotos } = usePostContext();
+  const editor = useSlate();
 
   const currentCategory = dropdownCategories.find(
     (meow) => meow.name === postCategory
   );
 
+  const clearText = () => {
+    formats.map((f) => Editor.removeMark(editor, f));
+  };
+
   return (
     <Select
       options={dropdownCategories}
       activeValue={currentCategory?.label || ""}
-      setActiveValue={(category) => setPostCategory(category as Category)}
+      setActiveValue={(category) => {
+        clearText();
+        setPostCategory(category as Category);
+        setPhotos([]);
+      }}
       className=""
     />
   );

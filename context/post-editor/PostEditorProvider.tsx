@@ -1,9 +1,7 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Descendant } from "slate";
-import { EditorValueType } from "../../@types/common/PostEditor";
-import useInitialData from "../../components/PostEditor/hooks/useInitialData";
+import { Category } from "../../@types/common/PostContent";
 import {
-  Category,
   MediaObject,
   PostContext,
   PostContextType,
@@ -104,6 +102,12 @@ export const PostEditorProvider = ({ children }: PropsProvider) => {
   const [postEditorValue, setPostEditorValueF] =
     useState<Descendant[]>(initialData);
   const [openF, setOpenF] = useState(false);
+
+  useEffect(() => {
+    if (category) {
+      setPostEditorValueF(initialData);
+    }
+  }, [category]);
 
   const value: PostContextType = {
     open: openF,

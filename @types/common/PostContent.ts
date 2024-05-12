@@ -10,4 +10,46 @@ export type PostContent = {
   responses?: any;
   question?: any;
 };
-//! Type all of that shit above
+
+export type Category = "article" | "news" | "book" | "discussion" | "photo";
+
+export type BookData = {
+  rated: { userId: string; rating: 1 | 2 | 3 | 4 | 5 }[];
+};
+
+export type DiscussionData = {
+  responses: {
+    userId: string;
+    upvotes: string[];
+    downvotes: string[];
+    content: string;
+  }[];
+};
+
+type CommentObject = {
+  userId: string;
+  content: string;
+  liked: string[];
+  responses: {
+    userId: string;
+    content: string;
+    liked: string;
+  };
+};
+
+export type PostObject = {
+  userID: string;
+  content: string;
+  drawing?: {
+    rawData: string;
+    svg: string | undefined;
+  };
+  photos: (string | null)[];
+  files: (string | null)[];
+  dateCreated: string;
+  updated: string;
+  postCategory: Category;
+  book?: BookData;
+  liked: string[];
+  commented: CommentObject[];
+};
