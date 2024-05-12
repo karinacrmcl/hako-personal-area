@@ -26,7 +26,8 @@ export type DiscussionData = {
   }[];
 };
 
-type CommentObject = {
+export type CommentObject = {
+  postId: string;
   userId: string;
   content: string;
   liked: string[];
@@ -38,6 +39,7 @@ type CommentObject = {
 };
 
 export type PostObject = {
+  id: string;
   userID: string;
   content: string;
   drawing?: {
@@ -51,5 +53,6 @@ export type PostObject = {
   postCategory: Category;
   book?: BookData;
   liked: string[];
+  pinned: string[];
   commented: CommentObject[];
 };

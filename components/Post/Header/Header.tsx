@@ -8,7 +8,7 @@ import moment from "moment";
 
 type Props = {
   user: User;
-  postedAt: Date;
+  postedAt: string;
   type: string;
 };
 

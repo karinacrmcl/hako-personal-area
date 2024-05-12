@@ -75,7 +75,7 @@
 
 @keyframes foldIn {
   from {
-    transform: translateY(1000px) translateX(-50%);
+    transform: translateY(4000px) translateX(-50%);
   }
   to {
     transform: translateY(0px) translateX(-50%);
@@ -95,7 +95,7 @@
     transform: translateY(0px) translateX(-50%);
   }
   to {
-    transform: translateY(1000px) translateX(-50%);
+    transform: translateY(4000px) translateX(-50%);
   }
 }
 
@@ -109,10 +109,10 @@
 }
 
 .post_anim_show {
-  animation: foldIn 0.3s;
+  animation: foldIn 0.5s;
 }
 .post_anim_hide {
-  animation: foldOut 0.3s;
+  animation: foldOut 0.5s;
 }
 
 .post_editor {
@@ -129,5 +129,5 @@
 }
 
 .post_hide {
-  transform: translateY(1000px) translateX(-50%);
+  transform: translateY(4000px) translateX(-50%);
 }

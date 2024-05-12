@@ -9,42 +9,58 @@ import Gallery from "../../components/Post/ContentElements/PhotoGallery";
 import usePostData from "./hooks/usePostData";
 import Drawing from "../../components/Post/ContentElements/Drawing";
 import { PostObject } from "../../@types/common/PostContent";
+import usePostFunctions from "../../hooks/api/usePostFunctions";
 
 // TODO: add actual publication type
 export default function Post(post: PostObject) {
   // const binaryData = Buffer.from(photos?.[0].data || "", "base64");
   // const imageUrl = URL.createObjectURL(new Blob([binaryData]));
-  const { category, components, gallery, drawing, date, updated } =
-    usePostData(post);
+  const {
+    category,
+    components,
+    gallery,
+    drawing,
+    date,
+    updated,
+    isLiked,
+    isPinned,
+  } = usePostData(post);
+  const { handleCommentPost, handleLikePost, handlePinPost } =
+    usePostFunctions();
 
-  let content;
+  console.log(isLiked);
 
-  switch (post.postCategory) {
-    case "article":
-      content = (
-        <>
-          <Heading title={components.heading} onTop="title" />
-          <Text content={components.paragraph} />
-        </>
-      );
-    case "news":
-      content = (
-        <>
-          <Heading title={components.heading} onTop="asset" asset={updated} />
-          <Text content={components.paragraph} />
-        </>
-      );
-    case "book":
-      content = (
-        <>
-          <Heading title={components.heading} onTop="asset" asset={updated} />
-          <Text content={components.paragraph} />
-        </>
-      );
+  console.log(post.postCategory);
+  const getContentByCategory = () => {
+    switch (post.postCategory) {
+      case "article":
+        return (
+          <>
+            <Heading title={components.heading} onTop="title" />
+            <Text content={components.paragraph} />
+          </>
+        );
+      case "news":
+        return (
+          <>
+            <Heading title={components.heading} onTop="asset" asset={updated} />
+            <Text content={components.paragraph} />
+          </>
+        );
+      case "book":
+        return (
+          <>
+            <Heading title={components.heading} onTop="asset" asset={updated} />
+            <Text content={components.paragraph} />
+          </>
+        );
 
-    default:
-      break;
-  }
+      default:
+        break;
+    }
+  };
+
+  const content = getContentByCategory();
 
   return (
     <div className={s.post_container}>
@@ -53,11 +69,14 @@ export default function Post(post: PostObject) {
       {!!gallery.length && <Gallery items={gallery} />}
       {drawing && <Drawing element={drawing} />}
       <PostFooter
-        likesCount={0}
+        id={post.id}
+        likesCount={post.liked.length}
         commentsCount={0}
-        onLikePost={() => console.log()}
-        onCommentPost={() => console.log()}
-        onPinPost={() => console.log()}
+        onLikePost={handleLikePost}
+        onCommentPost={handleCommentPost}
+        onPinPost={handlePinPost}
+        isLiked={isLiked}
+        isPinned={isPinned}
       />
     </div>
   );

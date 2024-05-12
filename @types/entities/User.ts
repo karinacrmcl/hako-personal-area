@@ -1,3 +1,4 @@
+import { CommentObject } from "../common/PostContent";
 import { Post } from "./Post";
 
 export type User = {
@@ -10,6 +11,8 @@ export type User = {
   location: string;
   following: string[] | null;
   followers: string[] | null;
-  posts: Post[] | null;
-  pinned: Post[] | null;
+  posts: string[];
+  pinned: string[];
+  liked: string[];
+  commented: CommentObject[];
 };

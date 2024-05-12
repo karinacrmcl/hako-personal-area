@@ -1,6 +1,8 @@
 // @ts-nocheck
 import React from "react";
 import { Category } from "../../../context/post-editor/PostEditorContext";
+import { PostObject } from "../../../@types/common/PostContent";
+import { useUser } from "../../../context/user/UserContext";
 
 type Photo = {
   previewSrc?: string;
@@ -103,7 +105,8 @@ const renderSvg = (rawData, svg) => {
 };
 
 // TODO: fix type
-export default function usePostData(post: any) {
+export default function usePostData(post: PostObject) {
+  const { user } = useUser();
   const category = getCategory(post.postCategory);
   const components = transformStringToReactComponents(post.content);
   const gallery: Photo[] = post.photos.map((p, i) => ({
@@ -119,5 +122,17 @@ export default function usePostData(post: any) {
   const date = post.dateCreated;
   const updated = `Updated ${post.updated}`;
 
-  return { category, components, gallery, drawing, date, updated };
+  const isLiked = post.liked?.includes(user?.userID);
+  const isPinned = post.pinned?.includes(user?.userID);
+
+  return {
+    category,
+    components,
+    gallery,
+    drawing,
+    date,
+    updated,
+    isLiked,
+    isPinned,
+  };
 }

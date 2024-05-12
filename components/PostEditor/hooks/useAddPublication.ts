@@ -69,6 +69,7 @@ export default function useAddPublication() {
 
     // Assuming value, drawing, user, and postCategory are defined elsewhere
     let postObject: PostObject = {
+      id: "",
       userID: user?.userID || "",
       content: JSON.stringify(postEditorValue),
       drawing: drawing
