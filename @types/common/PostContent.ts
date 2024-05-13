@@ -27,6 +27,7 @@ export type DiscussionData = {
 };
 
 export type CommentObject = {
+  id: string;
   postId: string;
   userId: string;
   content: string;
@@ -54,5 +55,5 @@ export type PostObject = {
   book?: BookData;
   liked: string[];
   pinned: string[];
-  commented: CommentObject[];
+  comments: string[];
 };

@@ -38,7 +38,7 @@ export const postUserData = async (object: Partial<User>) => {
 };
 
 // TODO: change type
-export const addUserPost = async (post: PostContent) => {
+export const addUserPost = async (post: PostObject) => {
   const docRef = await addDoc(publicationsRef, post);
 
   const referenceNumber = docRef.id;

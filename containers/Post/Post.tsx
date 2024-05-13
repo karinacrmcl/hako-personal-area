@@ -10,6 +10,7 @@ import usePostData from "./hooks/usePostData";
 import Drawing from "../../components/Post/ContentElements/Drawing";
 import { PostObject } from "../../@types/common/PostContent";
 import usePostFunctions from "../../hooks/api/usePostFunctions";
+import CommentSection from "../../components/Post/ContentElements/CommentSection/CommentSection";
 
 // TODO: add actual publication type
 export default function Post(post: PostObject) {
@@ -28,9 +29,6 @@ export default function Post(post: PostObject) {
   const { handleCommentPost, handleLikePost, handlePinPost } =
     usePostFunctions();
 
-  console.log(isLiked);
-
-  console.log(post.postCategory);
   const getContentByCategory = () => {
     switch (post.postCategory) {
       case "article":
@@ -78,6 +76,7 @@ export default function Post(post: PostObject) {
         isLiked={isLiked}
         isPinned={isPinned}
       />
+      <CommentSection comments={[]} />
     </div>
   );
 }

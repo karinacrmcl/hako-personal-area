@@ -32,14 +32,14 @@ export default function usePostFunctions() {
 
     if (!post) return;
 
-    if (!pinned.includes(userId)) {
+    if (!pinned?.includes(userId)) {
       // @ts-ignore
-      updatePost({ ...post, pinned: [...post.pinned, userId] });
+      updatePost({ ...post, pinned: [...(post?.pinned || []), userId] });
     } else {
       // @ts-ignore
       updatePost({
         ...post,
-        pinned: post.pinned.filter((id: string) => id !== userId),
+        pinned: post?.pinned?.filter((id: string) => id !== userId),
       });
     }
   };

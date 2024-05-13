@@ -1,13 +1,28 @@
-// @ts-nocheck
-import React from "react";
-import { Category } from "../../../context/post-editor/PostEditorContext";
-import { PostObject } from "../../../@types/common/PostContent";
+import React, { ReactNode, useState } from "react";
+import { Category, PostObject } from "../../../@types/common/PostContent";
 import { useUser } from "../../../context/user/UserContext";
 
 type Photo = {
   previewSrc?: string;
   originalSrc: string;
   id: number;
+};
+
+type Point = {
+  point: string[];
+};
+
+type FreeDrawItem = {
+  type: "freedraw";
+  points: Point[];
+  backgroundColor: string;
+  strokeColor: string;
+  strokeWidth: string;
+};
+
+type ElementType = {
+  type: string;
+  children: { text: string }[];
 };
 
 const getCategory = (c: Category) => {
@@ -27,9 +42,7 @@ const getCategory = (c: Category) => {
   }
 };
 
-function transformStringToReactComponents(
-  inputString: string
-): ReactComponents {
+function transformStringToReactComponents(inputString: string) {
   const data: ElementType[] = JSON.parse(inputString);
 
   const generateComponents = (elements: ElementType[]): ReactNode => {
@@ -45,6 +58,13 @@ function transformStringToReactComponents(
           return null;
       }
     });
+  };
+
+  type FormattedText = {
+    text: string;
+    bold?: boolean;
+    italic?: boolean;
+    underline?: boolean;
   };
 
   const generateFormattedTexts = (texts: FormattedText[]): ReactNode => {
@@ -63,7 +83,7 @@ function transformStringToReactComponents(
     });
   };
 
-  const components: ReactComponents = {
+  const components = {
     heading: generateComponents(
       data.filter((element) => element.type === "heading-one")
     ),
@@ -75,20 +95,22 @@ function transformStringToReactComponents(
   return components;
 }
 
-const renderSvg = (rawData, svg) => {
+const renderSvg = (rawData: string, svg: string) => {
   // Parse rawData JSON string
-  const data = JSON.parse(rawData);
+  // const data = JSON.parse(rawData);
 
   // Parse SVG string into a React component
   const SvgComponent = () => <div dangerouslySetInnerHTML={{ __html: svg }} />;
 
   // Render the data as SVG elements
-  const svgElements = data.map((item, index) => {
+  /*  const svgElements = data.map((item: FreeDrawItem, index: number) => {
     if (item.type === "freedraw") {
       return (
         <path
           key={index}
-          d={`M ${item.points.map((point) => point.join(",")).join(" L ")}`}
+          d={`M ${item.points
+            .map((point: Point) => point?.point?.join(","))
+            .join(" L ")}`}
           fill={item.backgroundColor}
           stroke={item.strokeColor}
           strokeWidth={item.strokeWidth}
@@ -98,10 +120,9 @@ const renderSvg = (rawData, svg) => {
     }
     // Add more cases for other types if needed
     return null;
-  });
+  }); */
 
-  // Return the rendered SVG elements wrapped in the SVG component
-  return <SvgComponent>{svgElements}</SvgComponent>;
+  return <SvgComponent />;
 };
 
 // TODO: fix type
@@ -109,14 +130,15 @@ export default function usePostData(post: PostObject) {
   const { user } = useUser();
   const category = getCategory(post.postCategory);
   const components = transformStringToReactComponents(post.content);
-  const gallery: Photo[] = post.photos.map((p, i) => ({
-    previewSrc: p,
-    originalSrc: p,
-    id: `${p}${i}`,
+  const gallery: Photo[] = post.photos.map((p, id) => ({
+    previewSrc: p || "",
+    originalSrc: p || "",
+    id,
   }));
 
+  const [commentsOpen, setCommentsOpen] = useState(false);
   const drawing = post?.drawing?.rawData
-    ? renderSvg(post.drawing.rawData, post.drawing.svg)
+    ? renderSvg(post.drawing.rawData, post.drawing.svg || "")
     : null;
 
   const date = post.dateCreated;
@@ -124,6 +146,10 @@ export default function usePostData(post: PostObject) {
 
   const isLiked = post.liked?.includes(user?.userID);
   const isPinned = post.pinned?.includes(user?.userID);
+
+  const handleOpenComment = (b: boolean) => {
+    setCommentsOpen(b);
+  };
 
   return {
     category,
@@ -134,5 +160,7 @@ export default function usePostData(post: PostObject) {
     updated,
     isLiked,
     isPinned,
+    commentsOpen,
+    handleOpenComment,
   };
 }

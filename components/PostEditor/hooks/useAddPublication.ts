@@ -84,7 +84,8 @@ export default function useAddPublication() {
       updated: moment().format("HH:mm A z"),
       postCategory,
       liked: [],
-      commented: [],
+      pinned: [],
+      comments: [],
     };
 
     if (postCategory === "book") {

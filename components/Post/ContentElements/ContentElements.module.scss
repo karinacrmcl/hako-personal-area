@@ -1,4 +1,10 @@
 .elem {
+  &_drawing {
+    max-width: 100%;
+    & svg {
+      max-width: 100%;
+    }
+  }
   &_title {
     font-style: normal;
     font-weight: 500;
@@ -60,6 +66,7 @@
     &_expanded {
       height: fit-content !important;
     }
+
     &_item {
       width: 100%;
 
@@ -117,5 +124,10 @@
         background-color: rgba(0, 0, 0, 0.3);
       }
     }
+  }
+}
+
+.comment {
+  &_section {
   }
 }
