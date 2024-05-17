@@ -2,7 +2,10 @@
   &_container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
+    & span {
+      margin-left: auto;
+    }
   }
   &_postinfo {
     display: flex;
@@ -45,4 +48,8 @@
       margin-top: 2px;
     }
   }
+}
+
+.dropdown {
+  width: 200px !important;
 }

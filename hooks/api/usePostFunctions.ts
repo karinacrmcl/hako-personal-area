@@ -1,7 +1,9 @@
 import React from "react";
 import { CommentObject } from "../../@types/common/PostContent";
-import { getPostById, updatePost } from "../../api/user";
+import { addUserComment } from "../../api/user";
 import { useUser } from "../../context/user/UserContext";
+import { toast } from "react-toastify";
+import { getPostById } from "../../api/publications";
 
 export default function usePostFunctions() {
   const { user } = useUser();
@@ -44,7 +46,18 @@ export default function usePostFunctions() {
     }
   };
 
-  const handleCommentPost = (postId: string, comment: CommentObject) => {};
+  const handleCommentPost = async (comment: CommentObject) => {
+    try {
+      await addUserComment(comment);
+    } catch (e) {
+      toast.error(
+        "An error ocurred while posting your comment. Please try again."
+      );
+      console.log(e);
+      return;
+    }
+    toast.success("Your comment was successfully added.");
+  };
 
   return { handleLikePost, handlePinPost, handleCommentPost };
 }

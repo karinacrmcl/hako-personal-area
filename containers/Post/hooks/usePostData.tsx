@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Category, PostObject } from "../../../@types/common/PostContent";
 import { useUser } from "../../../context/user/UserContext";
+import usePublication from "../../../hooks/api/usePublication";
 
 type Photo = {
   previewSrc?: string;
@@ -128,6 +129,7 @@ const renderSvg = (rawData: string, svg: string) => {
 // TODO: fix type
 export default function usePostData(post: PostObject) {
   const { user } = useUser();
+  const { comments } = usePublication(post.id);
   const category = getCategory(post.postCategory);
   const components = transformStringToReactComponents(post.content);
   const gallery: Photo[] = post.photos.map((p, id) => ({
@@ -147,8 +149,11 @@ export default function usePostData(post: PostObject) {
   const isLiked = post.liked?.includes(user?.userID);
   const isPinned = post.pinned?.includes(user?.userID);
 
-  const handleOpenComment = (b: boolean) => {
-    setCommentsOpen(b);
+  const commentsCount = comments?.length;
+
+  const handleOpenComment = () => {
+    // if (!commentsCount) return;
+    setCommentsOpen((p) => !p);
   };
 
   return {
@@ -162,5 +167,7 @@ export default function usePostData(post: PostObject) {
     isPinned,
     commentsOpen,
     handleOpenComment,
+    commentsCount,
+    comments,
   };
 }

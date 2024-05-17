@@ -15,6 +15,7 @@ export function PublicLayout({ children }: Props): JSX.Element {
     onAuthStateChanged(auth, (res) => {
       // @ts-ignore
       if (res?.accessToken) {
+        console.log(res?.accessToken);
         goToHome();
       } else {
         null;

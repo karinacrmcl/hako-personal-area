@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getPublications } from "../../api/feed";
+import { getCommentsByPostId, getPublications } from "../../api/publications";
 
 export default function usePublications() {
   const [publications, setPublications] = useState([]);

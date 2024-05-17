@@ -14,14 +14,22 @@ type Props = {
   open: boolean;
   onOpen: (b: boolean) => void;
   dropdownRef: any;
+  className?: string;
 };
 
-export default function Dropdown({ items, open, dropdownRef }: Props) {
+export default function Dropdown({
+  items,
+  open,
+  dropdownRef,
+  className,
+}: Props) {
   return (
     <div className={s.attach}>
       <div
         ref={dropdownRef}
-        className={classNames(s.container, { [s.container_open]: open })}
+        className={classNames(s.container, className, {
+          [s.container_open]: open,
+        })}
       >
         {items.map((item) => {
           return (

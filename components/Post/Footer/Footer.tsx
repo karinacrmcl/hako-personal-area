@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "../../UI/Button/Button";
-import { PostSvgSelector } from "../PostSvgSelector";
 import s from "./Footer.module.scss";
 import { CommentButton, LikeButton, PinButton } from "./FooterButtons";
-import { CommentObject } from "../../../@types/common/PostContent";
 
 type Props = {
   likesCount: number;
   commentsCount: number;
   onLikePost: (postId: string) => void;
-  onCommentPost: (postId: string, comment: CommentObject) => void;
+  onComments: () => void;
+  commentsOpen: boolean;
   onPinPost: (postId: string) => void;
   isLiked: boolean;
   isPinned: boolean;
@@ -51,12 +50,12 @@ export function PostFooter({
   likesCount,
   commentsCount,
   onLikePost,
-  onCommentPost,
+  onComments,
   onPinPost,
   isLiked,
   isPinned,
+  commentsOpen,
 }: Props) {
-  console.log(isLiked);
   return (
     <div className={s.footer_container}>
       <div className={s.footer_stats}>
@@ -68,9 +67,9 @@ export function PostFooter({
         />
         <StatsItem
           count={commentsCount}
-          func={() => null}
+          func={onComments}
           name="comment"
-          state={true}
+          state={commentsOpen}
         />
       </div>
       <div className={s.footer_pin}>

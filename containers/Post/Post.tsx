@@ -25,6 +25,10 @@ export default function Post(post: PostObject) {
     updated,
     isLiked,
     isPinned,
+    commentsOpen,
+    handleOpenComment,
+    commentsCount,
+    comments,
   } = usePostData(post);
   const { handleCommentPost, handleLikePost, handlePinPost } =
     usePostFunctions();
@@ -62,21 +66,28 @@ export default function Post(post: PostObject) {
 
   return (
     <div className={s.post_container}>
-      <PostHeader user={user} postedAt={date} type={category} />
-      {content}
-      {!!gallery.length && <Gallery items={gallery} />}
-      {drawing && <Drawing element={drawing} />}
-      <PostFooter
-        id={post.id}
-        likesCount={post.liked.length}
-        commentsCount={0}
-        onLikePost={handleLikePost}
-        onCommentPost={handleCommentPost}
-        onPinPost={handlePinPost}
-        isLiked={isLiked}
-        isPinned={isPinned}
+      <div className={s.content}>
+        <PostHeader user={user} postedAt={date} type={category} />
+        {content}
+        {!!gallery.length && <Gallery items={gallery} />}
+        {drawing && <Drawing element={drawing} />}
+        <PostFooter
+          id={post.id}
+          likesCount={post.liked.length}
+          commentsCount={commentsCount}
+          onLikePost={handleLikePost}
+          onComments={handleOpenComment}
+          onPinPost={handlePinPost}
+          isLiked={isLiked}
+          isPinned={isPinned}
+          commentsOpen={commentsOpen}
+        />
+      </div>
+      <CommentSection
+        open={commentsOpen}
+        comments={comments}
+        postId={post.id}
       />
-      <CommentSection comments={[]} />
     </div>
   );
 }

@@ -2,13 +2,13 @@ import React from "react";
 import { useUser } from "../../../context/user/UserContext";
 import s from "./Avatar.module.scss";
 
-export default function Avatar() {
+export default function Avatar({ src }: { src?: string }) {
   const { user } = useUser();
 
-  if (user?.avatar) {
+  if (src || user?.avatar) {
     return (
       <span className={s.avatar}>
-        <img src={user?.avatar} alt="user-avatar" />
+        <img src={src || user?.avatar} alt="user-avatar" />
       </span>
     );
   }
