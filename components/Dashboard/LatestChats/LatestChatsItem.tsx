@@ -12,7 +12,7 @@ type Props = {
 
 export function LatestChatsItem({
   item: {
-    author: { avatar, fullName },
+    author: { avatar, lastName, firstName },
     message: { content, sentAt },
     messageIsRead,
   },
@@ -24,11 +24,13 @@ export function LatestChatsItem({
   return (
     <button onClick={onOpenChat} className={s.chats_item}>
       <div className={s.chats_avatar}>
-        <img src={avatar} alt={`${fullName} avatar`} />
+        <img src={avatar} alt={`${firstName || ""} avatar`} />
       </div>
       <div className={s.chats_content}>
         <div className={s.chats_top}>
-          <h5>{fullName}</h5>
+          <h5>
+            {firstName} {lastName}
+          </h5>
           <p>{timeSince}</p>
         </div>
 
