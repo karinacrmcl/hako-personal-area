@@ -1,20 +1,27 @@
 import React from "react";
 import { useUser } from "../../../context/user/UserContext";
 import s from "./Avatar.module.scss";
+import classNames from "classnames";
 
-export default function Avatar({ src }: { src?: string }) {
+export default function Avatar({
+  src,
+  className,
+}: {
+  src?: string;
+  className?: string;
+}) {
   const { user } = useUser();
 
   if (src || user?.avatar) {
     return (
-      <span className={s.avatar}>
+      <span className={classNames(s.avatar, className)}>
         <img src={src || user?.avatar} alt="user-avatar" />
       </span>
     );
   }
 
   return (
-    <span className={s.fallback}>
+    <span className={classNames(s.fallback, className)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="29"

@@ -19,6 +19,7 @@ import { User } from "../../../../@types/entities/User";
 import { useOutsideCheck } from "../../../../hooks/useOutsideClick";
 import Dropdown from "../../../UI/Dropdown/Dropdown";
 import { deleteComment } from "../../../../api/publications";
+import useUserByID from "../../../../hooks/api/useUserByID";
 
 type Props = {
   open: boolean;
@@ -41,7 +42,7 @@ const CommentComponent = ({
   const isAuthor = user?.userID === userId;
   const handleOpenMenu = () => {};
 
-  const [author, setAuthor] = useState<null | User>();
+  const author = useUserByID(userId);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -66,22 +67,9 @@ const CommentComponent = ({
     },
   ];
 
-  useEffect(() => {
-    const fetchAuthor = async () => {
-      try {
-        const user = await getUserById(userId);
-        console.log(user, "user");
-        // @ts-expect-error dont care
-        setAuthor(user[0]);
-      } catch (error) {
-        console.error("Error fetching publications: ", error);
-      }
-    };
-
-    fetchAuthor();
-  }, []);
-
   // console.log("author", author);
+
+  if (!author) return null;
 
   return (
     <div className={s.item}>

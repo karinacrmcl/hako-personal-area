@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { User } from "../../../@types/entities/User";
 import { Button } from "../../UI/Button/Button";
 import { HeaderSvgSelector } from "../HeaderSvgSelector";
 import Notifications from "../Notifications/Notifications";
@@ -60,13 +59,13 @@ export default function UserPreview() {
   return (
     <div className={s.user_container}>
       <Notifications />
-      <Link href="d">
-        <>
+      <Link href={`/profile/${user?.userID}`}>
+        <div style={{ display: "flex", gap: "8px" }}>
           <Avatar />
           <div className={s.user_name}>
             {user?.firstName} {user?.lastName}
           </div>
-        </>
+        </div>
       </Link>
       <span ref={dropdownRef}>
         <Button

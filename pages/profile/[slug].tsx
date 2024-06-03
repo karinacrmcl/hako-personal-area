@@ -3,15 +3,22 @@ import s from "./Profile.module.scss";
 import Sorting from "../../components/Dashboard/Sorting/Sorting";
 import ProfileCard from "../../components/Profile/ProfileCard/ProfileCard";
 import { Feed } from "../../containers/Feed/Feed";
-import { user } from "../../mocks/user";
 import Header from "../../containers/Header/Header";
+import { NextPage } from "next";
+import { useUser } from "../../context/user/UserContext";
+import { useRouter } from "next/router";
+import useUserByID from "../../hooks/api/useUserByID";
 
-type Props = {};
+const Profile: NextPage = () => {
+  const router = useRouter();
 
-export function Profile({}: Props) {
+  const user = useUserByID(router?.query?.slug?.[0] || "");
+
+  if (!user) return null;
+
   return (
     <div className={s.profile_container}>
-      <Header user={user} />
+      <Header />
       <div className={s.profile_content}>
         <div className={s.profile_column}>
           <Sorting expanded={false} />
@@ -34,4 +41,6 @@ export function Profile({}: Props) {
       </div>
     </div>
   );
-}
+};
+
+export default Profile;

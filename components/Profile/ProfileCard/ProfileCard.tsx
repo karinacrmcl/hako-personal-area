@@ -3,6 +3,7 @@ import { User } from "../../../@types/entities/User";
 import { Button } from "../../UI/Button/Button";
 import ProfileSvgSelector from "../ProfileSvgSelector";
 import s from "./ProfileCard.module.scss";
+import Avatar from "../Avatar/Avatar";
 
 type Props = {
   user: User;
@@ -36,9 +37,7 @@ export default function ProfileCard({
       </div>
 
       <div className={s.profilecard_userinfo}>
-        <div className={s.profilecard_avatar}>
-          <img src={avatar} alt="user-avatar" />
-        </div>
+        <Avatar src={avatar} className={s.avatar} />
         <div className={s.profilecard_name}>{fullName}</div>
         <div className={s.profilecard_location}>
           <ProfileSvgSelector id="location" />
