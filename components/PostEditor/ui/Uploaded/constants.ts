@@ -1,4 +1,4 @@
-import { Category } from "../../../../context/post-editor/PostEditorContext";
+import { Category } from "../../../../@types/common/PostContent";
 
 export const mediaUploadLimits: Record<Category, number> = {
   article: 5,

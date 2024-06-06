@@ -21,7 +21,7 @@ export function Suggestions({ suggestions }: Props) {
         {suggestions.map((item: User) => {
           return (
             <SuggestionsItem
-              key={item.id}
+              key={item.userID}
               user={item}
               onAddUser={() => console.log()}
             />

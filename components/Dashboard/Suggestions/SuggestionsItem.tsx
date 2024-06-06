@@ -11,16 +11,18 @@ type Props = {
 };
 
 export default function SuggestionsItem({
-  user: { avatar, fullName, location },
+  user: { avatar, firstName, lastName, location },
   onAddUser,
 }: Props) {
   return (
     <div className={s.suggestions_item}>
       <div className={s.suggestions_avatar}>
-        <img src={avatar} alt={`${fullName} avatar`} />
+        <img src={avatar} alt={`${firstName} avatar`} />
       </div>
       <div className={s.suggestions_content}>
-        <h5>{fullName}</h5>
+        <h5>
+          {firstName} {lastName}
+        </h5>
         <p>{location}</p>
       </div>
       <Button onClick={onAddUser} type="unfilled" styles={btnStyles}>

@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { Category, PostObject } from "../../../@types/common/PostContent";
 import { useUser } from "../../../context/user/UserContext";
 import usePublication from "../../../hooks/api/usePublication";
+import { getUserById } from "../../../api/user";
 
 type Photo = {
   previewSrc?: string;
@@ -152,9 +153,10 @@ export default function usePostData(post: PostObject) {
   const commentsCount = comments?.length;
 
   const handleOpenComment = () => {
-    // if (!commentsCount) return;
     setCommentsOpen((p) => !p);
   };
+
+  const author = getUserById(post.userID);
 
   return {
     category,
@@ -169,5 +171,6 @@ export default function usePostData(post: PostObject) {
     handleOpenComment,
     commentsCount,
     comments,
+    author,
   };
 }

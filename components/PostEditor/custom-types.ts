@@ -63,10 +63,12 @@ export type ParagraphElement = {
   children: Descendant[];
 };
 
+// @ts-expect-error meow
 export type TableElement = { type: "table"; children: TableRow[] };
 
 export type TableCellElement = { type: "table-cell"; children: CustomText[] };
 
+// @ts-expect-error meow
 export type TableRowElement = { type: "table-row"; children: TableCell[] };
 
 export type TitleElement = { type: "title"; children: Descendant[] };

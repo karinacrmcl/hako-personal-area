@@ -3,7 +3,7 @@ import { getUserById } from "../../api/user";
 import { User } from "../../@types/entities/User";
 
 export default function useUserByID(userId: string) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User[] | null>(null);
 
   useEffect(() => {
     const fetchAuthor = async () => {
@@ -19,6 +19,5 @@ export default function useUserByID(userId: string) {
     fetchAuthor();
   }, []);
 
-  // @ts-expect-error api types
-  return user as User;
+  return user?.[0];
 }

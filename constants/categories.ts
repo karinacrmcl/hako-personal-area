@@ -1,32 +1,34 @@
-export const postCategories = [
+import { CategoryObj } from "../components/Dashboard/Categories/types";
+
+export const postCategories: CategoryObj[] = [
   {
     id: 1,
-    name: "Post & Article",
-    value: "post",
+    name: "article",
+    value: "Post & Article",
     icon: "post",
   },
   {
     id: 2,
-    name: "Book recomendation",
-    value: "book",
+    name: "book",
+    value: "Book recomendation",
     icon: "book",
   },
   {
     id: 3,
-    name: "Latest news",
-    value: "news",
+    name: "news",
+    value: "Latest news",
     icon: "news",
   },
   {
     id: 4,
-    name: "Discussion",
-    value: "discussion",
+    name: "discussion",
+    value: "Discussion",
     icon: "discussion",
   },
   {
     id: 5,
-    name: "Photo & Video",
-    value: "photo",
+    name: "photo",
+    value: "Photo & Video",
     icon: "photo",
   },
 ];

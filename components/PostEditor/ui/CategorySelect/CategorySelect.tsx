@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Editor } from "slate";
 import { useSlate } from "slate-react";
-import {
-  Category,
-  usePostContext,
-} from "../../../../context/post-editor/PostEditorContext";
+import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import Select from "../../../UI/Select/Select";
+import { Category } from "../../../../@types/common/PostContent";
 
 type Props = {};
 

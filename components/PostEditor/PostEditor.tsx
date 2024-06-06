@@ -70,7 +70,6 @@ export const PostEditor = () => {
           editor={editor}
           initialValue={slateValue}
           onChange={(value) => {
-            console.log(value, "value");
             setPostEditorValue(value);
           }}
         >

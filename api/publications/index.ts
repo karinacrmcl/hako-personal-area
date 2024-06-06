@@ -12,10 +12,7 @@ import {
 import { getStorage } from "firebase/storage";
 import { app, firestore } from "../../firebase/config";
 import { CommentObject, PostObject } from "../../@types/common/PostContent";
-
-//Now import this
 import "firebase/firestore";
-import { toast } from "react-toastify";
 
 const storage = getStorage();
 const publicationsRef = collection(firestore, "publications");
@@ -27,14 +24,13 @@ export const getPublications = async () => {
     const data: any = [];
     await getDocs(collectionRef).then((d) => {
       d.forEach((doc) => {
-        // Push each document data to the array
         data.push({ id: doc.id, ...doc.data() });
       });
     });
-    return data;
+    return data as PostObject[];
   } catch (error) {
     console.error("Error getting documents: ", error);
-    throw error; // Re-throw the error to handle it outside of this function if needed
+    throw error;
   }
 };
 
@@ -50,7 +46,7 @@ export const getPostById = async (postId: string) => {
   const snap = await getDoc(doc(firestore, "publications", postId));
 
   if (snap.exists()) {
-    return snap.data();
+    return snap.data() as PostObject;
   } else {
     console.log("No such document");
   }
@@ -68,18 +64,20 @@ export const getCommentsByPostId = async (postId: string) => {
   return data;
 };
 
-export const deleteComment = async (id: string) => {
-  try {
-    await deleteDoc(doc(firestore, "comments", id));
-  } catch (e) {
-    console.log(e);
-    toast.error(
-      "An error ocurred while removing the comment. Please try again."
-    );
+export const getCommentById = async (id: string) => {
+  const snap = await getDoc(doc(firestore, "comments", id));
+
+  if (snap.exists()) {
+    return snap.data() as CommentObject;
+  } else {
+    console.log("No such document");
   }
-  toast.success("The comment was removed.");
+};
+
+export const deleteComment = async (id: string) => {
+  await deleteDoc(doc(firestore, "comments", id));
 };
 
 export const updateComment = async (comment: CommentObject) => {
-  await updateDoc(doc(publicationsRef, comment.id), comment);
+  await updateDoc(doc(commentsRef, comment.id), comment);
 };

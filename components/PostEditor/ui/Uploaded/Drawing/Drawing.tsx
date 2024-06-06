@@ -22,6 +22,7 @@ export default function Drawing() {
 
   return (
     <div className={s.container}>
+      {/* @ts-expect-error meow */}
       <div className={s.drawing} ref={svg} />
       <Button
         className={s.button}

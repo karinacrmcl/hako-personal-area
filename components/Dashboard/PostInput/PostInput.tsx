@@ -6,6 +6,7 @@ import s from "./PostInput.module.scss";
 import classNames from "classnames";
 import { useAnimation } from "../../../context/animation/AnimationContext";
 import { usePostContext } from "../../../context/post-editor/PostEditorContext";
+import Avatar from "../../Profile/Avatar/Avatar";
 
 type Props = {
   user: User;
@@ -32,7 +33,7 @@ export function PostInput({ user: { avatar } }: Props) {
       onClick={expandInputField}
     >
       <div className={s.postinput_avatar}>
-        <img src={avatar} alt="avatar" />
+        <Avatar />
       </div>
       <div
         className={classNames(s.postinput_field, {

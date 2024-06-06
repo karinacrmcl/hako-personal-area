@@ -15,6 +15,7 @@ export default function MarkButton({ format }: Props) {
   function isEditorEmpty() {
     return (
       editor.children.length === 0 ||
+      // @ts-expect-error meow
       (editor.children.length === 1 && Node.string(editor.children[0]) === "")
     );
   }

@@ -1,7 +1,5 @@
 import type { NextPage } from "next";
-import { AuthPage } from "../layouts/Auth/ui/AuthPage";
 import Dashboard from "./main/Dashboard";
-import { Profile } from "./profile/[slug]";
 import { PrivateLayout } from "../layouts/Auth/PrivateLayout";
 
 const Home: NextPage = () => {

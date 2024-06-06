@@ -1,24 +1,26 @@
 import classNames from "classnames";
-import React, { useState } from "react";
-import { Categories, useCategories } from "../../../context/postCategories";
+import React, { useMemo } from "react";
 import s from "./Categories.module.scss";
 import { CategoriesSvgSelector } from "./CategoriesSvgSelector";
-import { Category } from "./types";
+import { handleSorting, selectFeed } from "../../../store/slices/feedSlice";
+import { CategoryObj } from "./types";
+import { useAppSelector } from "../../../store/hooks";
+import { useDispatch } from "react-redux";
 
 type Props = {
-  item: Category;
+  item: CategoryObj;
   expanded: boolean;
 };
 
 export function CategoryItem({ item: { name, icon, value }, expanded }: Props) {
-  const { activeCategories, setActiveCategories } = useCategories();
-  const [active, setActive] = useState(
-    activeCategories[value as keyof typeof activeCategories]
-  );
+  const { sorting } = useAppSelector(selectFeed);
+  const dispatch = useDispatch();
 
   const handleSetActive = () => {
-    setActive(!active);
+    dispatch(handleSorting({ category: name }));
   };
+
+  const active = useMemo(() => sorting?.includes(name), [name, sorting]);
 
   return (
     <button
@@ -39,7 +41,7 @@ export function CategoryItem({ item: { name, icon, value }, expanded }: Props) {
       >
         <CategoriesSvgSelector id={icon} />
       </div>
-      {expanded && <div className={s.categories_name}>{name}</div>}
+      {expanded && <div className={s.categories_name}>{value}</div>}
     </button>
   );
 }

@@ -37,16 +37,6 @@ export const googlesignin = async () => {
   }
 };
 
-// export const GoogleSignUpAPI = () => {
-//   try {
-//     let googleProvider = new GoogleAuthProvider();
-//     let res = signUpWithPopu(auth, googleProvider);
-//     return res;
-//   } catch (err) {
-//     return err;
-//   }
-// };
-
 export const signout = () => {
   try {
     signOut(auth);

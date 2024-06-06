@@ -16,7 +16,7 @@ type Props = {
 };
 
 export default function PostHeader({
-  user: { fullName, username, avatar },
+  user: { firstName, lastName, username, avatar },
   postedAt,
   type,
 }: Props) {
@@ -53,7 +53,9 @@ export default function PostHeader({
         </div>
 
         <div className={s.header_content}>
-          <h5>{fullName}</h5>
+          <h5>
+            {firstName} {lastName}
+          </h5>
           <p>
             {type} • {datePosted}
           </p>

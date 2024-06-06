@@ -40,8 +40,7 @@ const CommentComponent = ({
   const { user } = useUser();
 
   const isAuthor = user?.userID === userId;
-  const handleOpenMenu = () => {};
-
+  const { handleDeleteComment } = usePostFunctions();
   const author = useUserByID(userId);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -52,7 +51,6 @@ const CommentComponent = ({
   });
 
   const handleEditComment = () => setIsEditing({ id, content });
-  const handleDeleteComment = () => deleteComment(id);
 
   const dropdownItems = [
     {
@@ -62,12 +60,10 @@ const CommentComponent = ({
     },
     {
       name: "Delete",
-      func: handleDeleteComment,
+      func: () => handleDeleteComment(id),
       icon: <UISvgSelector id="remove" />,
     },
   ];
-
-  // console.log("author", author);
 
   if (!author) return null;
 
@@ -107,7 +103,7 @@ const CommentComponent = ({
 
 export default function CommentSection({ postId, open, comments }: Props) {
   const { user } = useUser();
-  const { handleCommentPost } = usePostFunctions();
+  const { handleCommentPost, handleUpdateComment } = usePostFunctions();
   const [value, setValue] = useState("");
   const [isEditing, setIsEditing] = useState<{
     id: string;
@@ -134,8 +130,11 @@ export default function CommentSection({ postId, open, comments }: Props) {
     if (!isEditing) {
       handleCommentPost(comment);
     } else {
+      handleUpdateComment(isEditing?.id, value);
     }
   };
+
+  console.log(isEditing);
 
   return (
     <div className={classNames(s.container, { [s.open]: open })}>

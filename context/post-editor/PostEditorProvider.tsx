@@ -100,11 +100,13 @@ export const PostEditorProvider = ({ children }: PropsProvider) => {
   const initialData = getInitialContent(category);
 
   const [postEditorValue, setPostEditorValueF] =
+    // @ts-expect-error meow
     useState<Descendant[]>(initialData);
   const [openF, setOpenF] = useState(false);
 
   useEffect(() => {
     if (category) {
+      // @ts-expect-error meow
       setPostEditorValueF(initialData);
     }
   }, [category]);

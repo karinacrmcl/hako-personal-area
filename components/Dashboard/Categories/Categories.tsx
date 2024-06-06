@@ -1,12 +1,12 @@
 import React from "react";
 import { CategoryItem } from "./CategoryItem";
-import { Category } from "./types";
+import { CategoryObj } from "./types";
 import s from "./Categories.module.scss";
 import classNames from "classnames";
 // import CategoriesProvider from "../../../providers/postCategories";
 
 type Props = {
-  categories: Category[];
+  categories: CategoryObj[];
   expanded: boolean;
 };
 
@@ -16,7 +16,7 @@ export default function Categories({ categories, expanded }: Props) {
     <div
       className={classNames(s.categories_container, { [s.expanded]: expanded })}
     >
-      {categories.map((item: Category) => {
+      {categories.map((item: CategoryObj) => {
         return <CategoryItem key={item.id} item={item} expanded={expanded} />;
       })}
     </div>

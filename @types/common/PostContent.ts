@@ -55,5 +55,4 @@ export type PostObject = {
   book?: BookData;
   liked: string[];
   pinned: string[];
-  comments: string[];
 };

@@ -15,7 +15,16 @@ type Props = {
 };
 
 export default function ProfileCard({
-  user: { avatar, fullName, location, followers, following, posts, pinned },
+  user: {
+    avatar,
+    firstName,
+    lastName,
+    location,
+    followers,
+    following,
+    posts,
+    pinned,
+  },
   onShowPosts,
   onShowPinned,
   onMessageUser,
@@ -38,7 +47,9 @@ export default function ProfileCard({
 
       <div className={s.profilecard_userinfo}>
         <Avatar src={avatar} className={s.avatar} />
-        <div className={s.profilecard_name}>{fullName}</div>
+        <div className={s.profilecard_name}>
+          {firstName} {lastName}
+        </div>
         <div className={s.profilecard_location}>
           <ProfileSvgSelector id="location" />
           {location}

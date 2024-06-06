@@ -3,7 +3,13 @@ import { CommentObject } from "../../@types/common/PostContent";
 import { addUserComment } from "../../api/user";
 import { useUser } from "../../context/user/UserContext";
 import { toast } from "react-toastify";
-import { getPostById } from "../../api/publications";
+import {
+  deleteComment,
+  getCommentById,
+  getPostById,
+  updateComment,
+  updatePost,
+} from "../../api/publications";
 
 export default function usePostFunctions() {
   const { user } = useUser();
@@ -11,16 +17,14 @@ export default function usePostFunctions() {
 
   const handleLikePost = async (postId: string) => {
     const post = await getPostById(postId);
-    const liked: string = post?.liked;
+    const liked = post?.liked;
 
     if (!post) return;
 
-    if (!liked.includes(userId)) {
+    if (!liked?.includes(userId)) {
       console.log("meow");
-      // @ts-ignore
       updatePost({ ...post, liked: [...post.liked, userId] });
     } else {
-      // @ts-ignore
       updatePost({
         ...post,
         liked: post.liked?.filter((id: string) => id !== userId),
@@ -59,5 +63,40 @@ export default function usePostFunctions() {
     toast.success("Your comment was successfully added.");
   };
 
-  return { handleLikePost, handlePinPost, handleCommentPost };
+  const handleUpdateComment = async (id: string, content: string) => {
+    const comment = await getCommentById(id);
+
+    if (!comment) return;
+
+    try {
+      await updateComment({ ...comment, content });
+    } catch (e) {
+      toast.error(
+        "An error ocurred while updating your comment. Please try again."
+      );
+      console.log(e);
+      return;
+    }
+    toast.success("Your comment was successfully updated.");
+  };
+
+  const handleDeleteComment = async (id: string) => {
+    try {
+      await deleteComment(id);
+    } catch (e) {
+      console.log(e);
+      toast.error(
+        "An error ocurred while removing the comment. Please try again."
+      );
+    }
+    toast.success("The comment was deleted.");
+  };
+
+  return {
+    handleLikePost,
+    handlePinPost,
+    handleCommentPost,
+    handleUpdateComment,
+    handleDeleteComment,
+  };
 }

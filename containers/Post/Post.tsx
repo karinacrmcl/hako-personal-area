@@ -1,7 +1,6 @@
 import React from "react";
 import PostHeader from "../../components/Post/Header/Header";
 import s from "./Post.module.scss";
-import { user } from "../../mocks/user";
 import { PostFooter } from "../../components/Post/Footer/Footer";
 import Heading from "../../components/Post/ContentElements/Heading";
 import Text from "../../components/Post/ContentElements/Text";
@@ -29,7 +28,9 @@ export default function Post(post: PostObject) {
     handleOpenComment,
     commentsCount,
     comments,
+    author,
   } = usePostData(post);
+
   const { handleCommentPost, handleLikePost, handlePinPost } =
     usePostFunctions();
 
@@ -64,10 +65,12 @@ export default function Post(post: PostObject) {
 
   const content = getContentByCategory();
 
+  console.log("author", author);
+
   return (
     <div className={s.post_container}>
       <div className={s.content}>
-        <PostHeader user={user} postedAt={date} type={category} />
+        <PostHeader user={author} postedAt={date} type={category} />
         {content}
         {!!gallery.length && <Gallery items={gallery} />}
         {drawing && <Drawing element={drawing} />}
