@@ -1,13 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { postSlice } from "./slices/postSlice";
 import { createWrapper } from "next-redux-wrapper";
-import feedSlice from "./slices/feedSlice";
 import { rootReducer } from "./rootReducer";
+import { baseApi } from "./api/baseApi";
 
 const makeStore = () =>
   configureStore({
     reducer: rootReducer,
     devTools: true,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(baseApi.middleware),
   });
 
 export type AppStore = ReturnType<typeof makeStore>;
@@ -20,3 +21,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 export const wrapper = createWrapper<AppStore>(makeStore);
+
+

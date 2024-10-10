@@ -77,7 +77,7 @@ export default function useAddPublication() {
             rawData: JSON.stringify(drawing?.data),
             svg: drawing?.svg?.outerHTML,
           }
-        : undefined,
+        : null,
       photos: photosArr,
       files: filesArr,
       dateCreated: moment().format("DD MMM, HH:mm A"),
@@ -85,7 +85,6 @@ export default function useAddPublication() {
       postCategory,
       liked: [],
       pinned: [],
-      comments: [],
     };
 
     if (postCategory === "book") {
@@ -96,6 +95,7 @@ export default function useAddPublication() {
     try {
       await addUserPost(postObject);
     } catch (e) {
+      console.log(e)
       toast.error(
         "An error occured while trying to post your publication. Please try again."
       );

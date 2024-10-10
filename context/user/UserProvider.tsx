@@ -22,6 +22,8 @@ export const UserProvider = ({ children }: PropsProvider) => {
     null
   );
 
+  console.log('currentUser',currentUser)
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {

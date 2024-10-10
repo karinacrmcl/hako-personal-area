@@ -1,32 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { getCommentsByPostId, getPublications } from "../../api/publications";
+import React from "react";
 import { useAppSelector } from "../../store/hooks";
 import { selectFeed } from "../../store/slices/feedSlice";
+import { useGetPublicationsQuery } from "../../store/api/publicationsApi";
 import { PostObject } from "../../@types/common/PostContent";
 
 export default function usePublications() {
-  const [publications, setPublications] = useState<PostObject[]>([]);
   const { sorting, searchTerm } = useAppSelector(selectFeed);
+  const {data: publications} = useGetPublicationsQuery()
 
-  useEffect(() => {
-    const fetchPublications = async () => {
-      try {
-        const publicationsData = await getPublications();
-        setPublications(publicationsData);
-      } catch (error) {
-        console.error("Error fetching publications: ", error);
-      }
-    };
 
-    fetchPublications();
-  }, []);
-
-  const filteredPublications = publications.filter((p) => {
+  const filteredPublications = publications?.filter((p: PostObject) => {
     return !!sorting.includes(p.postCategory);
   });
 
   const searchedPublications = searchTerm
-    ? filteredPublications.filter((p) => {
+    ? filteredPublications.filter((p: PostObject) => {
         const combinedString = [
           p.content,
           p.files.filter((file) => file).join(" "),

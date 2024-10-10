@@ -1,19 +1,20 @@
 import React from "react";
 import { CommentObject } from "../../@types/common/PostContent";
-import { addUserComment } from "../../api/user";
 import { useUser } from "../../context/user/UserContext";
 import { toast } from "react-toastify";
 import {
   deleteComment,
   getCommentById,
-  getPostById,
   updateComment,
-  updatePost,
 } from "../../api/publications";
+import { useUpdatePostMutation } from "../../store/api/publicationsApi";
 
 export default function usePostFunctions() {
   const { user } = useUser();
   const userId = user?.userID;
+
+
+  const [updatePost] = useUpdatePostMutation()
 
   const handleLikePost = async (postId: string) => {
     const post = await getPostById(postId);

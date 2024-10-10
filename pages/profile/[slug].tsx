@@ -7,12 +7,12 @@ import Header from "../../containers/Header/Header";
 import { NextPage } from "next";
 import { useUser } from "../../context/user/UserContext";
 import { useRouter } from "next/router";
-import useUserByID from "../../hooks/api/useUserByID";
+import { useGetUserByIdQuery } from "../../store/api/userApi";
 
 const Profile: NextPage = () => {
   const router = useRouter();
 
-  const user = useUserByID(router?.query?.slug?.[0] || "");
+  const {data: user} = useGetUserByIdQuery(router?.query?.slug?.[0] || "")
 
   if (!user) return null;
 

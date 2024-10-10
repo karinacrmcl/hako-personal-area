@@ -1,8 +1,8 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Category, PostObject } from "../../../@types/common/PostContent";
 import { useUser } from "../../../context/user/UserContext";
 import usePublication from "../../../hooks/api/usePublication";
-import { getUserById } from "../../../api/user";
+import { useGetUserByIdQuery } from "../../../store/api/userApi";
 
 type Photo = {
   previewSrc?: string;
@@ -155,8 +155,18 @@ export default function usePostData(post: PostObject) {
   const handleOpenComment = () => {
     setCommentsOpen((p) => !p);
   };
+  
+  // useEffect(() => {
+  //   const user = getUserById(post.userID);
 
-  const author = getUserById(post.userID);
+  //   setAuthor(user)
+  
+  // }, [post.userID])
+
+  const {data} = useGetUserByIdQuery(post.userID || "")
+
+  console.log("data", data)
+  
 
   return {
     category,
@@ -171,6 +181,6 @@ export default function usePostData(post: PostObject) {
     handleOpenComment,
     commentsCount,
     comments,
-    author,
+    author: data,
   };
 }

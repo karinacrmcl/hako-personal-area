@@ -14,12 +14,9 @@ import { useUser } from "../../../../context/user/UserContext";
 import classNames from "classnames";
 import Avatar from "../../../Profile/Avatar/Avatar";
 import usePostFunctions from "../../../../hooks/api/usePostFunctions";
-import { getUserById } from "../../../../api/user";
-import { User } from "../../../../@types/entities/User";
 import { useOutsideCheck } from "../../../../hooks/useOutsideClick";
 import Dropdown from "../../../UI/Dropdown/Dropdown";
-import { deleteComment } from "../../../../api/publications";
-import useUserByID from "../../../../hooks/api/useUserByID";
+import { useGetUserByIdQuery } from "../../../../store/api/userApi";
 
 type Props = {
   open: boolean;
@@ -41,7 +38,7 @@ const CommentComponent = ({
 
   const isAuthor = user?.userID === userId;
   const { handleDeleteComment } = usePostFunctions();
-  const author = useUserByID(userId);
+  const {data: author} = useGetUserByIdQuery(userId)
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -138,7 +135,7 @@ export default function CommentSection({ postId, open, comments }: Props) {
 
   return (
     <div className={classNames(s.container, { [s.open]: open })}>
-      {comments.map((c) => {
+      {comments?.map((c) => {
         return (
           <CommentComponent {...c} key={c.id} setIsEditing={setIsEditing} />
         );

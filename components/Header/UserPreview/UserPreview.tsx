@@ -34,6 +34,11 @@ export default function UserPreview() {
     setIsDropdownOpen(false);
   }
 
+  function onSignout() {
+   signout()
+  }
+
+
   const dropdownItems = [
     {
       name: "Chats",
@@ -49,6 +54,11 @@ export default function UserPreview() {
       name: "Settings",
       func: onSettings,
       icon: <UISvgSelector id="settings" />,
+    },
+    {
+      name: "Sign Out",
+      func: onSignout,
+      icon: <UISvgSelector id="signout" />,
     },
   ];
 

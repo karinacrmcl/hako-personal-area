@@ -43,10 +43,10 @@ export type PostObject = {
   id: string;
   userID: string;
   content: string;
-  drawing?: {
+  drawing: {
     rawData: string;
     svg: string | undefined;
-  };
+  } | null;
   photos: (string | null)[];
   files: (string | null)[];
   dateCreated: string;

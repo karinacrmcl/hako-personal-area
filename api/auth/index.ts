@@ -22,6 +22,7 @@ export const login = (email: string, password: string) => {
 export const register = (email: string, password: string) => {
   try {
     let response = createUserWithEmailAndPassword(auth, email, password);
+    console.log("response", response)
     return response;
   } catch (err) {
     return err;

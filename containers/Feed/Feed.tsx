@@ -12,7 +12,7 @@ export function Feed() {
   return (
     <div className={s.feed_container}>
       <PostInput user={user} />
-      {publications.map((pb: PostObject) => (
+      {publications?.map((pb: PostObject) => (
         <Post key={pb?.id} {...pb} />
       ))}
     </div>

@@ -8,15 +8,16 @@ import moment from "moment";
 import { UISvgSelector } from "../../UI/UISvgSelector";
 import Dropdown from "../../UI/Dropdown/Dropdown";
 import { useOutsideCheck } from "../../../hooks/useOutsideClick";
+import Avatar from "../../Profile/Avatar/Avatar";
 
 type Props = {
-  user: User;
+  user: User | undefined;
   postedAt: string;
   type: string;
 };
 
 export default function PostHeader({
-  user: { firstName, lastName, username, avatar },
+  user,
   postedAt,
   type,
 }: Props) {
@@ -31,6 +32,8 @@ export default function PostHeader({
 
   const handleEditPost = () => {};
   const handleDeletePost = () => {};
+
+  const [avatarError, setAvatarError] = useState(false)
 
   const dropdownItems = [
     {
@@ -49,12 +52,12 @@ export default function PostHeader({
     <div className={s.header_container}>
       <div className={s.header_postinfo}>
         <div className={s.header_avatar}>
-          <img src={avatar} alt={`${username}-avatar`} />
+      {avatarError || !user?.avatar ? <Avatar /> : <img src={user?.avatar} alt={`${user?.username}-avatar`} onError={()=>setAvatarError(true)} />}
         </div>
 
         <div className={s.header_content}>
           <h5>
-            {firstName} {lastName}
+            {user?.firstName} {user?.lastName}
           </h5>
           <p>
             {type} • {datePosted}
