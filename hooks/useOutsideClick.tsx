@@ -12,9 +12,9 @@ export function useOutsideCheck<T extends HTMLElement = HTMLElement>(
       }
       handler(e);
     };
-    document.addEventListener("mousedown", clickHandler);
+    document?.addEventListener("mousedown", clickHandler);
     return () => {
-      document.removeEventListener("mousedown", clickHandler);
+      document?.removeEventListener("mousedown", clickHandler);
     };
   }, [ref, handler]);
 }

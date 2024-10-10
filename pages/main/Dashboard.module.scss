@@ -99,13 +99,14 @@
   }
 }
 
-// .post_editor {
-//   transform: translateY(-5000px);
-// }
-
 .post_section {
   width: 100%;
+  margin: 0 auto;
   padding: 20px 20px;
+
+  @media screen and (min-width: 1400px) {
+    width: fit-content;
+  }
 }
 
 .post_anim_show {
