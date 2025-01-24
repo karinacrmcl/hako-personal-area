@@ -7,11 +7,12 @@
     overflow-y: auto;
     max-height: 100vh;
 
-    /*     max-height: 100vh;
-    overflow-y: auto; */
-
     @media screen and (min-width: 1500px) {
       padding: 0;
+    }
+
+    @media screen and (max-width: 700px) {
+      width: 100%;
     }
   }
   &_content {
@@ -30,6 +31,11 @@
     flex-direction: column;
 
     grid-gap: 25px;
+
+    @media screen and (max-width: 700px) {
+      width: 100%;
+      align-items: center;
+    }
   }
 }
 
@@ -107,6 +113,10 @@
   @media screen and (min-width: 1400px) {
     width: fit-content;
   }
+
+  @media screen and (max-width: 700px) {
+    margin-top: 20px;
+  }
 }
 
 .post_anim_show {
@@ -131,4 +141,11 @@
 
 .post_hide {
   transform: translateY(4000px) translateX(-50%);
+}
+
+.feed_wrapper {
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    margin-top: 20px;
+  }
 }

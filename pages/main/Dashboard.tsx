@@ -35,7 +35,7 @@ export default function Dashboard() {
           <Sorting expanded={!isLaptop} />
         </div>
         <div
-          className={classNames({
+          className={classNames(s.feed_wrapper, {
             [s.hide]: activeAnimation === "postinput",
           })}
         >

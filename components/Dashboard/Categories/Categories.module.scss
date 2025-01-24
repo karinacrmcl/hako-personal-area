@@ -23,6 +23,7 @@
     user-select: none;
     background: none;
     transition: all 0.2s;
+
     &_open {
       background: #f9f9f9;
       transition: all 0.2s;
@@ -30,6 +31,10 @@
 
     @media screen and (min-width: 1150px) {
       padding: 6px;
+    }
+
+    @media screen and (max-width: 700px) {
+      padding: 3px;
     }
   }
   &_name {
@@ -52,12 +57,22 @@
     justify-content: center;
     transition: all 0.2s;
 
+    @media screen and (max-width: 700px) {
+      width: 35px;
+      height: 35px;
+    }
+
     &_open {
       background: #192a51;
     }
     & svg {
       width: 25px;
       height: 25px;
+
+      @media screen and (max-width: 700px) {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

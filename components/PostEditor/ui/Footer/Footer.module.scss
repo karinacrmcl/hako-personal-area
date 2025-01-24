@@ -29,6 +29,16 @@
 .button_secondary {
   border-radius: 100px;
   padding: 10px 30px;
+
+  @media screen and (max-width: 700px) {
+    padding: 10px 10px;
+  }
+
+  & svg {
+    & path {
+      fill: #7c6fa9;
+    }
+  }
 }
 
 .limit_reached {

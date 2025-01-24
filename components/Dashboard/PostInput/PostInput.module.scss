@@ -51,6 +51,10 @@
     position: absolute;
     right: 15px;
     top: 10px;
+
+    @media screen and (max-width: 700px) {
+      display: none;
+    }
   }
   &_expanded {
   }

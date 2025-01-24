@@ -6,6 +6,7 @@ import { handleSorting, selectFeed } from "../../../store/slices/feedSlice";
 import { CategoryObj } from "./types";
 import { useAppSelector } from "../../../store/hooks";
 import { useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 type Props = {
   item: CategoryObj;
@@ -22,6 +23,8 @@ export function CategoryItem({ item: { name, icon, value }, expanded }: Props) {
 
   const active = useMemo(() => sorting?.includes(name), [name, sorting]);
 
+  const isMobile = useMediaQuery({ maxWidth: "700px" });
+
   return (
     <button
       className={classNames(s.categories_item, {
@@ -29,7 +32,7 @@ export function CategoryItem({ item: { name, icon, value }, expanded }: Props) {
       })}
       onClick={handleSetActive}
       style={{
-        width: expanded ? "315px" : "55px",
+        width: expanded ? "315px" : isMobile ? "45px" : "55px",
         padding: expanded ? "6px" : "none",
         marginLeft: expanded ? "0" : "-5px",
       }}

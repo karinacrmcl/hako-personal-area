@@ -16,6 +16,10 @@
       background: rgba(0, 0, 0, 0.13);
       cursor: pointer;
     }
+
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
   }
   &_text {
     font-style: normal;

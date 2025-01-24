@@ -4,8 +4,7 @@ import { useSlate } from "slate-react";
 import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import Select from "../../../UI/Select/Select";
 import { Category } from "../../../../@types/common/PostContent";
-
-type Props = {};
+import s from "./CategorySelect.module.scss";
 
 const dropdownCategories: { label: string; name: Category }[] = [
   {
@@ -32,7 +31,7 @@ const dropdownCategories: { label: string; name: Category }[] = [
 
 const formats = ["bold", "underline", "italic"];
 
-export default function CategorySelect({}: Props) {
+export default function CategorySelect() {
   const { setPostCategory, postCategory, setPhotos } = usePostContext();
   const editor = useSlate();
 
@@ -53,7 +52,7 @@ export default function CategorySelect({}: Props) {
         setPostCategory(category as Category);
         setPhotos([]);
       }}
-      className=""
+      className={s.category_select}
     />
   );
 }

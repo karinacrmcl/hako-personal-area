@@ -9,6 +9,8 @@ import { Button } from "../../../UI/Button/Button";
 import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import { useAnimation } from "../../../../context/animation/AnimationContext";
 import { Descendant } from "slate";
+import { useMediaQuery } from "react-responsive";
+import { UISvgSelector } from "../../../UI/UISvgSelector";
 
 type Props = {
   value: Descendant[];
@@ -25,6 +27,8 @@ export default function Footer({ value, maxLength, characters }: Props) {
     setOpen(false);
     setInactiveAnimation("postinput");
   };
+
+  const isMobile = useMediaQuery({ maxWidth: "700px" });
 
   return (
     <div className={s.footer}>
@@ -43,7 +47,7 @@ export default function Footer({ value, maxLength, characters }: Props) {
             type="unfilled"
             className={s.button_secondary}
           >
-            Cancel
+            {isMobile ? <UISvgSelector id="remove" /> : "Cancel"}
           </Button>
           <Button onClick={handlePost} type="filled" className={s.button}>
             Post

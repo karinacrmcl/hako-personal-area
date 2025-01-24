@@ -17,6 +17,10 @@
   @media screen and (min-width: 1400px) {
     width: 1020px;
   }
+
+  @media screen and (max-width: 700px) {
+    padding: 35px 35px 35px 15px;
+  }
 }
 
 .area {

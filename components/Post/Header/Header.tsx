@@ -9,6 +9,7 @@ import { UISvgSelector } from "../../UI/UISvgSelector";
 import Dropdown from "../../UI/Dropdown/Dropdown";
 import { useOutsideCheck } from "../../../hooks/useOutsideClick";
 import Avatar from "../../Profile/Avatar/Avatar";
+import { useUser } from "../../../context/user/UserContext";
 
 type Props = {
   user: User | undefined;
@@ -16,11 +17,11 @@ type Props = {
   type: string;
 };
 
-export default function PostHeader({
-  user,
-  postedAt,
-  type,
-}: Props) {
+export default function PostHeader({ user, postedAt, type }: Props) {
+  const { user: currentUser } = useUser();
+
+  const isAuthor = currentUser?.userID === user?.userID;
+
   const datePosted = postedAt || moment().format("MMMM Do, h:MMA");
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -33,14 +34,14 @@ export default function PostHeader({
   const handleEditPost = () => {};
   const handleDeletePost = () => {};
 
-  const [avatarError, setAvatarError] = useState(false)
+  const [avatarError, setAvatarError] = useState(false);
 
   const dropdownItems = [
-    {
-      name: "Edit the post",
-      func: handleEditPost,
-      icon: <UISvgSelector id="edit" />,
-    },
+    // {
+    //   name: "Edit the post",
+    //   func: handleEditPost,
+    //   icon: <UISvgSelector id="edit" />,
+    // },
     {
       name: "Delete the post",
       func: handleDeletePost,
@@ -52,7 +53,15 @@ export default function PostHeader({
     <div className={s.header_container}>
       <div className={s.header_postinfo}>
         <div className={s.header_avatar}>
-      {avatarError || !user?.avatar ? <Avatar /> : <img src={user?.avatar} alt={`${user?.username}-avatar`} onError={()=>setAvatarError(true)} />}
+          {avatarError || !user?.avatar ? (
+            <Avatar />
+          ) : (
+            <img
+              src={user?.avatar}
+              alt={`${user?.username}-avatar`}
+              onError={() => setAvatarError(true)}
+            />
+          )}
         </div>
 
         <div className={s.header_content}>
@@ -64,16 +73,18 @@ export default function PostHeader({
           </p>
         </div>
       </div>
-      <span ref={dropdownRef}>
-        <Button
-          type="small"
-          onClick={() => {
-            setIsDropdownOpen(!isDropdownOpen);
-          }}
-        >
-          <UISvgSelector id="expand" />
-        </Button>
-      </span>
+      {isAuthor && (
+        <span ref={dropdownRef}>
+          <Button
+            type="small"
+            onClick={() => {
+              setIsDropdownOpen(!isDropdownOpen);
+            }}
+          >
+            <UISvgSelector id="expand" />
+          </Button>
+        </span>
+      )}
       <Dropdown
         dropdownRef={dropdownRef}
         onOpen={(b: boolean) => setIsDropdownOpen(b)}
