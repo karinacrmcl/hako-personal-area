@@ -80,7 +80,7 @@ export const PostEditor = () => {
           </Toolbar>
 
           <Editable
-            style={{ outline: "none", zIndex: 10 }}
+            style={{ outline: "none", zIndex: 10, userSelect: "none" }}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             className={s.area}
