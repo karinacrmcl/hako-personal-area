@@ -4,10 +4,9 @@ import { selectFeed } from "../../store/slices/feedSlice";
 import { useGetPublicationsQuery } from "../../store/api/publicationsApi";
 import { PostObject } from "../../@types/common/PostContent";
 
-export default function usePublications() {
+export default function usePublications(userId?: string) {
   const { sorting, searchTerm } = useAppSelector(selectFeed);
-  const {data: publications} = useGetPublicationsQuery()
-
+  const { data: publications } = useGetPublicationsQuery();
 
   const filteredPublications = publications?.filter((p: PostObject) => {
     return !!sorting.includes(p.postCategory);
@@ -26,5 +25,12 @@ export default function usePublications() {
       })
     : filteredPublications;
 
-  return { publications: searchedPublications };
+  const userSpecificPublications = !!userId
+    ? searchedPublications?.filter((p: PostObject) => {
+        return p.userID === userId;
+        console.log(p.userID === userId, "ff");
+      })
+    : searchedPublications;
+
+  return { publications: userSpecificPublications };
 }

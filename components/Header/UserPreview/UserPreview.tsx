@@ -26,18 +26,19 @@ export default function UserPreview() {
   }
 
   function onMyProfile() {
-    router.push(Path.PROFILE);
+    router.push(`${Path.PROFILE}/${user?.userID}`);
     setIsDropdownOpen(false);
   }
 
   function onSettings() {
+    router.push(`${Path.SETTINGS}`);
     setIsDropdownOpen(false);
   }
 
   function onSignout() {
-   signout()
+    signout();
+    router.push("/signup");
   }
-
 
   const dropdownItems = [
     {

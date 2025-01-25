@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <UserProvider>
         <AnimationProvider>
           <PostEditorProvider>
-            <Component {...pageProps} />;
+            <Component {...pageProps} />
             <ToastContainer />
           </PostEditorProvider>
         </AnimationProvider>

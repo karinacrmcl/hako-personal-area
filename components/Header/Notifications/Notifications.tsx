@@ -8,7 +8,11 @@ export default function Notifications({}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={s.notifications_container}>
-      <Button type="small" onClick={() => setIsOpen(!isOpen)}>
+      <Button
+        type="small"
+        onClick={() => setIsOpen(!isOpen)}
+        className={s.button}
+      >
         <HeaderSvgSelector id="bell" />
       </Button>
 

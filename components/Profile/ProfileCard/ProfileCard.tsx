@@ -4,6 +4,7 @@ import { Button } from "../../UI/Button/Button";
 import ProfileSvgSelector from "../ProfileSvgSelector";
 import s from "./ProfileCard.module.scss";
 import Avatar from "../Avatar/Avatar";
+import { useUser } from "../../../context/user/UserContext";
 
 type Props = {
   user: User;
@@ -24,6 +25,7 @@ export default function ProfileCard({
     following,
     posts,
     pinned,
+    userID,
   },
   onShowPosts,
   onShowPinned,
@@ -31,11 +33,14 @@ export default function ProfileCard({
   onAddUser,
   onExpandBtn,
 }: Props) {
+  const { user: currentUser } = useUser();
   const followingCount = following?.length;
   const followersCount = followers?.length;
 
   const publicationsCount = posts?.length || "0";
   const pinnedCount = pinned?.length || "0";
+
+  console.log(firstName, lastName, "meow");
 
   return (
     <div className={s.profilecard_container}>
@@ -86,14 +91,16 @@ export default function ProfileCard({
         </button>
       </div>
 
-      <div className={s.profilecard_actionbuttons}>
-        <Button type="small" onClick={onMessageUser}>
-          <ProfileSvgSelector id="chat" />
-        </Button>
-        <Button type="small" onClick={onAddUser}>
-          <ProfileSvgSelector id="add-person" />
-        </Button>
-      </div>
+      {currentUser?.userID !== userID && (
+        <div className={s.profilecard_actionbuttons}>
+          <Button type="small" onClick={onMessageUser}>
+            <ProfileSvgSelector id="chat" />
+          </Button>
+          <Button type="small" onClick={onAddUser}>
+            <ProfileSvgSelector id="add-person" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

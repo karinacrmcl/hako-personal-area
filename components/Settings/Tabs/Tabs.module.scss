@@ -1,0 +1,34 @@
+.tabs {
+  background: #ffffff;
+  width: fit-content;
+  min-width: 300px;
+
+  padding: 16px 10px;
+  border-radius: 20px;
+}
+
+.tab {
+  &_item {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s;
+
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+
+    &:hover {
+      background: rgb(124, 111, 169, 0.1);
+    }
+
+    & h5 {
+      padding: 0;
+      margin: 0;
+
+      font-size: 16px;
+      font-weight: 500;
+      color: #3e3e3e;
+    }
+  }
+}

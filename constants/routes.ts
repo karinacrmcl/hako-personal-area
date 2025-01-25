@@ -6,7 +6,7 @@ export enum Path {
   SIGN_IN = "/signin",
   SIGN_OUT = "/signout",
 
-  PROFILE = "/user",
+  PROFILE = "/profile",
   SETTINGS = "/settings",
   HELP = "/help",
 

@@ -10,6 +10,8 @@ type Props = {
 };
 
 export function Suggestions({ suggestions }: Props) {
+  const [] = use;
+
   return (
     <Block
       title="Suggested for you"
@@ -18,12 +20,12 @@ export function Suggestions({ suggestions }: Props) {
       className={s.wrapper}
     >
       <div className={s.suggestions_container}>
-        {suggestions.map((item: User) => {
+        {suggestions?.map((item: User) => {
           return (
             <SuggestionsItem
               key={item.userID}
               user={item}
-              onAddUser={() => console.log()}
+              onAddUser={() => null}
             />
           );
         })}

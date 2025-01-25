@@ -17,6 +17,7 @@
 
       border-radius: 51px;
       object-fit: cover;
+      cursor: pointer;
     }
     display: flex;
     align-items: center;
@@ -25,6 +26,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 15px;
+    cursor: pointer;
 
     & h5 {
       font-style: normal;
@@ -45,7 +47,22 @@
       color: rgba(50, 50, 50, 0.7);
       margin: 5px 0 0 0;
       padding: 0;
+
+      display: flex;
+      align-items: center;
+      grid-gap: 4px;
+
+      & svg {
+        width: 18px;
+        height: 18px;
+        & path {
+          fill: rgba(50, 50, 50, 0.5);
+        }
+      }
     }
+  }
+  &_avatar {
+    cursor: pointer;
   }
 }
 

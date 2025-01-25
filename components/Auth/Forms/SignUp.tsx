@@ -20,7 +20,8 @@ export default function SignUp() {
 
   const signUpHandler = async (data: SignUpDto) => {
     try {
-      let res = await register(data.email, data.password);
+      const res = await register(data.email, data.password);
+
       postUserData({
         // @ts-ignore
         userID: res.user.uid,
@@ -28,14 +29,17 @@ export default function SignUp() {
         username: data.username,
         firstName: data.firstName,
         lastName: data.lastName,
+        location: "Unknown",
       });
+
       goToHome();
       // @ts-ignore
-    } catch (err: FirebaseError) {
-      console.log(err);
-      toast.error(getAuthError(err.message));
+    } catch (err: any) {
+      console.error(err);
+      toast.error(getAuthError(err.message || "An error occurred."));
     }
   };
+
   const values = useForm<SignUpDto>({
     resolver: yupResolver(schema),
   });

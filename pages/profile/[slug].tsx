@@ -12,9 +12,13 @@ import { useGetUserByIdQuery } from "../../store/api/userApi";
 const Profile: NextPage = () => {
   const router = useRouter();
 
-  const {data: user} = useGetUserByIdQuery(router?.query?.slug?.[0] || "")
+  const { data: user } = useGetUserByIdQuery(
+    router?.query?.slug?.toString() || ""
+  );
 
   if (!user) return null;
+
+  console.log(user, "meow");
 
   return (
     <div className={s.profile_container}>
@@ -25,7 +29,7 @@ const Profile: NextPage = () => {
         </div>
 
         <div className={s.profile_column}>
-          <Feed />
+          <Feed userId={router?.query?.slug?.toString()} />
         </div>
 
         <div className={s.profile_column}>

@@ -8,19 +8,19 @@ import { Feed } from "../../containers/Feed/Feed";
 import Header from "../../containers/Header/Header";
 import { Section } from "../../layouts/Section/Section";
 import { chats } from "../../mocks/chats";
-import { suggestions } from "../../mocks/suggestions";
+// import { suggestions } from "../../mocks/suggestions";
 import s from "./Dashboard.module.scss";
 import { useAnimation } from "../../context/animation/AnimationContext";
 import { PostEditor } from "../../components/PostEditor/PostEditor";
 import { useMediaQuery } from "react-responsive";
 import { usePostContext } from "../../context/post-editor/PostEditorContext";
+import { useGetFriendSuggestionsQuery } from "../../store/api/userApi";
 
 export default function Dashboard() {
   const { activeAnimation, inactiveAnimation } = useAnimation();
   const { open } = usePostContext();
+  const { data: suggestions } = useGetFriendSuggestionsQuery();
   const isLaptop = useMediaQuery({ maxWidth: "1500px" });
-
-  console.log(activeAnimation, "editorOpen", open);
 
   return (
     <div className={s.dashboard_container}>

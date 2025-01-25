@@ -12,6 +12,8 @@ import Avatar from "../../Profile/Avatar/Avatar";
 import { useUser } from "../../../context/user/UserContext";
 import { useDeletePostMutation } from "../../../store/api/publicationsApi";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { Path } from "../../../constants/routes";
 
 type Props = {
   user: User | undefined;
@@ -22,6 +24,7 @@ type Props = {
 
 export default function PostHeader({ user, postedAt, type, id }: Props) {
   const { user: currentUser } = useUser();
+  const router = useRouter();
 
   const isAuthor = currentUser?.userID === user?.userID;
 
@@ -64,7 +67,12 @@ export default function PostHeader({ user, postedAt, type, id }: Props) {
 
   return (
     <div className={s.header_container}>
-      <div className={s.header_postinfo}>
+      <div
+        className={s.header_postinfo}
+        onClick={() => {
+          router.push(`${Path.PROFILE}/${user?.userID}`);
+        }}
+      >
         <div className={s.header_avatar}>
           {avatarError || !user?.avatar ? (
             <Avatar />

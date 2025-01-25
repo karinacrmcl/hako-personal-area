@@ -6,8 +6,8 @@ import Post from "../Post/Post";
 import s from "./Feed.module.scss";
 import { PostObject } from "../../@types/common/PostContent";
 
-export function Feed() {
-  const { publications } = usePublications();
+export function Feed({ userId }: { userId?: string }) {
+  const { publications } = usePublications(userId);
 
   return (
     <div className={s.feed_container}>
@@ -15,6 +15,8 @@ export function Feed() {
       {publications?.map((pb: PostObject) => (
         <Post key={pb?.id} {...pb} />
       ))}
+      {!!userId && !publications?.length && <p>nothing</p>}
+      {/* // TODO: change ui for nothing later */}
     </div>
   );
 }
