@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { Button } from "../../UI/Button/Button";
 import s from "./Footer.module.scss";
 import { CommentButton, LikeButton, PinButton } from "./FooterButtons";
+import { PostObject } from "../../../@types/common/PostContent";
 
 type Props = {
   likesCount: number;
   commentsCount: number;
-  onLikePost: (postId: string) => void;
+  onLikePost: (post: PostObject) => void;
   onComments: () => void;
   commentsOpen: boolean;
   onPinPost: (postId: string) => void;
   isLiked: boolean;
   isPinned: boolean;
   id: string;
+  post: PostObject;
 };
 
 type ItemProps = {
@@ -47,6 +49,7 @@ const StatsItem = ({ count, func, state, name }: ItemProps) => {
 
 export function PostFooter({
   id,
+  post,
   likesCount,
   commentsCount,
   onLikePost,
@@ -61,7 +64,7 @@ export function PostFooter({
       <div className={s.footer_stats}>
         <StatsItem
           count={likesCount}
-          func={() => onLikePost(id)}
+          func={() => onLikePost(post)}
           name="like"
           state={isLiked}
         />

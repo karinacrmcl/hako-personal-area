@@ -29,10 +29,10 @@ export default function Post(post: PostObject) {
     commentsCount,
     comments,
     author,
+    id,
   } = usePostData(post);
 
-  const { handleCommentPost, handleLikePost, handlePinPost } =
-    usePostFunctions();
+  const { handleLikePost, handlePinPost } = usePostFunctions();
 
   const getContentByCategory = () => {
     switch (post.postCategory) {
@@ -70,11 +70,12 @@ export default function Post(post: PostObject) {
   return (
     <div className={s.post_container}>
       <div className={s.content}>
-        <PostHeader user={author} postedAt={date} type={category} />
+        <PostHeader user={author} postedAt={date} type={category} id={id} />
         {content}
         {!!gallery.length && <Gallery items={gallery} />}
         {drawing && <Drawing element={drawing} />}
         <PostFooter
+          post={post}
           id={post.id}
           likesCount={post.liked.length}
           commentsCount={commentsCount}

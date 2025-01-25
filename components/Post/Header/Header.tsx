@@ -10,14 +10,17 @@ import Dropdown from "../../UI/Dropdown/Dropdown";
 import { useOutsideCheck } from "../../../hooks/useOutsideClick";
 import Avatar from "../../Profile/Avatar/Avatar";
 import { useUser } from "../../../context/user/UserContext";
+import { useDeletePostMutation } from "../../../store/api/publicationsApi";
+import { toast } from "react-toastify";
 
 type Props = {
   user: User | undefined;
   postedAt: string;
   type: string;
+  id: string;
 };
 
-export default function PostHeader({ user, postedAt, type }: Props) {
+export default function PostHeader({ user, postedAt, type, id }: Props) {
   const { user: currentUser } = useUser();
 
   const isAuthor = currentUser?.userID === user?.userID;
@@ -26,13 +29,23 @@ export default function PostHeader({ user, postedAt, type }: Props) {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [deletePost] = useDeletePostMutation();
 
   useOutsideCheck(dropdownRef, () => {
     setIsDropdownOpen(false);
   });
 
   const handleEditPost = () => {};
-  const handleDeletePost = () => {};
+
+  const handleDeletePost = () => {
+    try {
+      deletePost(id);
+    } catch {
+      toast.error("An error occurred while deleting the post.");
+      return;
+    }
+    toast.success("Post deleted successfully.");
+  };
 
   const [avatarError, setAvatarError] = useState(false);
 

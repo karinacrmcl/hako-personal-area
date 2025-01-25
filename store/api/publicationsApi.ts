@@ -9,7 +9,6 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { User } from "../../@types/entities/User";
 import { baseApi } from "./baseApi";
 import { firestore } from "../../firebase/config";
 import { CommentObject, PostObject } from "../../@types/common/PostContent";
@@ -65,7 +64,7 @@ export const publicationsApi = baseApi.injectEndpoints({
           return { error: error?.message || "error" };
         }
       },
-      providesTags: [{ type: "Comments", id: "LIST" as const }],
+      providesTags: ["Comments"], //TODO: change to invalidation by id
     }),
     postComment: builder.mutation({
       async queryFn(comment: CommentObject) {
@@ -90,9 +89,7 @@ export const publicationsApi = baseApi.injectEndpoints({
           return { error: error.message };
         }
       },
-      invalidatesTags: ["Comments"],
-      // (result) =>
-      //       result ? [{ type: "Publications", id: result.id || "" }] : [],
+      invalidatesTags: ["Publications", "Comments"],
     }),
     updatePost: builder.mutation({
       async queryFn(post: PostObject) {
@@ -107,6 +104,31 @@ export const publicationsApi = baseApi.injectEndpoints({
       invalidatesTags: ["Publications"],
       // (result) =>
       //       result ? [{ type: "Publications", id: result.id || "" }] : [],
+    }),
+    postPost: builder.mutation({
+      async queryFn(post: PostObject) {
+        try {
+          const docRef = await addDoc(publicationsRef, post);
+
+          const referenceNumber = docRef.id;
+
+          const postWithReferenceNumber = {
+            ...post,
+            id: referenceNumber,
+          };
+
+          await updateDoc(
+            doc(firestore, "publications", referenceNumber),
+            postWithReferenceNumber
+          );
+
+          return { data: postWithReferenceNumber };
+        } catch (error: any) {
+          console.error(error.message);
+          return { error: error.message };
+        }
+      },
+      invalidatesTags: ["Publications"],
     }),
     deletePost: builder.mutation({
       async queryFn(id: string) {
@@ -132,4 +154,5 @@ export const {
   useUpdatePostMutation,
   useDeletePostMutation,
   usePostCommentMutation,
+  usePostPostMutation,
 } = publicationsApi;

@@ -38,7 +38,7 @@ const CommentComponent = ({
 
   const isAuthor = user?.userID === userId;
   const { handleDeleteComment } = usePostFunctions();
-  const {data: author} = useGetUserByIdQuery(userId)
+  const { data: author } = useGetUserByIdQuery(userId);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -107,7 +107,7 @@ export default function CommentSection({ postId, open, comments }: Props) {
     content: string;
   } | null>(null);
 
-  //TODO:move the object creation to a function, only pass the content and the id
+  // TODO: move the object creation to a function, only pass the content and the id
   const comment = useMemo(() => {
     return {
       id: "",
@@ -128,10 +128,10 @@ export default function CommentSection({ postId, open, comments }: Props) {
       handleCommentPost(comment);
     } else {
       handleUpdateComment(isEditing?.id, value);
+      // setIsEditing(null);
     }
+    setValue("");
   };
-
-  console.log(isEditing);
 
   return (
     <div className={classNames(s.container, { [s.open]: open })}>

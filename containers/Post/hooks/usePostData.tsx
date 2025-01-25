@@ -155,18 +155,17 @@ export default function usePostData(post: PostObject) {
   const handleOpenComment = () => {
     setCommentsOpen((p) => !p);
   };
-  
+
   // useEffect(() => {
   //   const user = getUserById(post.userID);
 
   //   setAuthor(user)
-  
+
   // }, [post.userID])
 
-  const {data} = useGetUserByIdQuery(post.userID || "")
+  const { data } = useGetUserByIdQuery(post.userID || "");
 
-  console.log("data", data)
-  
+  console.log("data", data);
 
   return {
     category,
@@ -182,5 +181,6 @@ export default function usePostData(post: PostObject) {
     commentsCount,
     comments,
     author: data,
+    id: post.id,
   };
 }

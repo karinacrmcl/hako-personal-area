@@ -7,12 +7,14 @@ import { addUserPost } from "../../../api/user";
 import { useAnimation } from "../../../context/animation/AnimationContext";
 import { usePostContext } from "../../../context/post-editor/PostEditorContext";
 import { useUser } from "../../../context/user/UserContext";
+import { usePostPostMutation } from "../../../store/api/publicationsApi";
 
 export default function useAddPublication() {
   const { setInactiveAnimation } = useAnimation();
   const { postCategory, photos, files, drawing, postEditorValue, setOpen } =
     usePostContext();
   const { user } = useUser();
+  const [addPost] = usePostPostMutation();
 
   const handleClose = () => {
     setOpen(false);
@@ -93,9 +95,9 @@ export default function useAddPublication() {
 
     // Add the postObject to Firestore
     try {
-      await addUserPost(postObject);
+      await addPost(postObject);
     } catch (e) {
-      console.log(e)
+      console.log(e);
       toast.error(
         "An error occured while trying to post your publication. Please try again."
       );

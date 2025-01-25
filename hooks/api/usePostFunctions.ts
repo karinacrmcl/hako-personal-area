@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentObject } from "../../@types/common/PostContent";
+import { CommentObject, PostObject } from "../../@types/common/PostContent";
 import { useUser } from "../../context/user/UserContext";
 import { toast } from "react-toastify";
 import {
@@ -7,17 +7,19 @@ import {
   getCommentById,
   updateComment,
 } from "../../api/publications";
-import { useUpdatePostMutation } from "../../store/api/publicationsApi";
+import {
+  usePostCommentMutation,
+  useUpdatePostMutation,
+} from "../../store/api/publicationsApi";
 
 export default function usePostFunctions() {
   const { user } = useUser();
   const userId = user?.userID;
 
+  const [updatePost] = useUpdatePostMutation();
+  const [commentPost] = usePostCommentMutation();
 
-  const [updatePost] = useUpdatePostMutation()
-
-  const handleLikePost = async (postId: string) => {
-    const post = await getPostById(postId);
+  const handleLikePost = async (post: PostObject) => {
     const liked = post?.liked;
 
     if (!post) return;
@@ -53,7 +55,7 @@ export default function usePostFunctions() {
 
   const handleCommentPost = async (comment: CommentObject) => {
     try {
-      await addUserComment(comment);
+      await commentPost(comment);
     } catch (e) {
       toast.error(
         "An error ocurred while posting your comment. Please try again."
