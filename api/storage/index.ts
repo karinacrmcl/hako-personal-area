@@ -1,12 +1,11 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-const storage = getStorage();
-
 export async function uploadFileToFirestoreStorage(
   imageFile: File,
   storagePath: string
 ): Promise<string> {
   try {
+    const storage = getStorage();
     // Create a reference to the storage path
     const storageRef = ref(storage, storagePath);
 

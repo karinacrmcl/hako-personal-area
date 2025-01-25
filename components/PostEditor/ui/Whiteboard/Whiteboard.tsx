@@ -5,6 +5,7 @@ import { Button } from "../../../UI/Button/Button";
 import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
 import { usePostContext } from "../../../../context/post-editor/PostEditorContext";
 import { ImportedDataState } from "@excalidraw/excalidraw/types/data/types";
+
 const Excalidraw = dynamic(
   async () => (await import("@excalidraw/excalidraw")).Excalidraw,
   {
@@ -13,11 +14,16 @@ const Excalidraw = dynamic(
 );
 
 let exportToSvg: any;
+if (typeof window !== "undefined") {
+  (async () => {
+    exportToSvg = (await import("@excalidraw/excalidraw")).exportToSvg;
+  })();
+}
 
-(async () => {
-  const excalidrawModule = await import("@excalidraw/excalidraw");
-  exportToSvg = excalidrawModule.exportToSvg;
-})();
+// (async () => {
+//   const excalidrawModule = await import("@excalidraw/excalidraw");
+//   exportToSvg = excalidrawModule.exportToSvg;
+// })();
 
 const options = {
   welcomeScreen: false,

@@ -32,7 +32,7 @@ export default function Post(post: PostObject) {
     id,
   } = usePostData(post);
 
-  const { handleLikePost, handlePinPost } = usePostFunctions();
+  const { handleLikePost } = usePostFunctions();
 
   const getContentByCategory = () => {
     switch (post.postCategory) {
@@ -81,7 +81,7 @@ export default function Post(post: PostObject) {
           commentsCount={commentsCount}
           onLikePost={handleLikePost}
           onComments={handleOpenComment}
-          onPinPost={handlePinPost}
+          // onPinPost={handlePinPost}
           isLiked={isLiked}
           isPinned={isPinned}
           commentsOpen={commentsOpen}

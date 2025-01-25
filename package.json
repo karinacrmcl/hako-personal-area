@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next dev",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.17.6",
