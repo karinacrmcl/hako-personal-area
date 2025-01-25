@@ -10,7 +10,7 @@ type Props = {
   onLikePost: (post: PostObject) => void;
   onComments: () => void;
   commentsOpen: boolean;
-  onPinPost: (postId: string) => void;
+  // onPinPost: (postId: string) => void;
   isLiked: boolean;
   isPinned: boolean;
   id: string;
@@ -54,7 +54,7 @@ export function PostFooter({
   commentsCount,
   onLikePost,
   onComments,
-  onPinPost,
+  // onPinPost,
   isLiked,
   isPinned,
   commentsOpen,
@@ -76,7 +76,7 @@ export function PostFooter({
         />
       </div>
       <div className={s.footer_pin}>
-        <StatsItem func={() => onPinPost(id)} name="pin" state={isPinned} />
+        {/* <StatsItem func={() => onPinPost(id)} name="pin" state={isPinned} /> */}
       </div>
     </div>
   );

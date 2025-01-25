@@ -10,8 +10,6 @@ type Props = {
 };
 
 export function Suggestions({ suggestions }: Props) {
-  const [] = use;
-
   return (
     <Block
       title="Suggested for you"

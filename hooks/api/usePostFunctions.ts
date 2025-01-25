@@ -35,8 +35,8 @@ export default function usePostFunctions() {
     }
   };
 
-  const handlePinPost = async (postId: string) => {
-    const post = await getPostById(postId);
+  const handlePinPost = async (post: PostObject) => {
+    // const post = await getPostById(postId);
     const pinned = post?.pinned;
 
     if (!post) return;
